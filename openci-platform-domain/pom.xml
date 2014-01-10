@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.xiaokaceng.openci</groupId>
+		<artifactId>openci-platform</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>openci-platform-domain</artifactId>
+	<name>openci-platform-domain</name>
+	<packaging>jar</packaging>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.type>bizModel</project.type>
+		<base.package>com.xiaokaceng.openci.domain</base.package>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.koalacommons</groupId>
+			<artifactId>koala-commons-test-support</artifactId>
+			<version>${koala.framework.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.dayatang.commons</groupId>
+			<artifactId>dayatang-commons-spring</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.dayatang.commons</groupId>
+			<artifactId>dayatang-commons-hibernate</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- 加入对DOMAIN层的依赖 -->
+		<dependency>
+			<groupId>com.dayatang.commons</groupId>
+			<artifactId>dayatang-commons-domain</artifactId>
+		</dependency>
+		<!-- 加入CONF依赖 -->
+		<dependency>
+			<groupId>com.xiaokaceng.openci</groupId>
+			<artifactId>openci-platform-conf</artifactId>
+			<version>${project.parent.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- TEST -->
+			<dependency>
+			    <groupId>junit</groupId>
+			    <artifactId>junit</artifactId>
+			    <scope>test</scope>
+			</dependency>
+			<dependency>
+			    <groupId>org.unitils</groupId>
+			    <artifactId>unitils-core</artifactId>
+			    <scope>test</scope>
+			</dependency>
+			<dependency>
+			    <groupId>org.unitils</groupId>
+			    <artifactId>unitils-dbunit</artifactId>
+			    <scope>test</scope>
+			</dependency>
+			<dependency>
+			    <groupId>org.unitils</groupId>
+			    <artifactId>unitils-spring</artifactId>
+			    <scope>test</scope>
+			</dependency>
+			<dependency>
+			    <groupId>org.unitils</groupId>
+			    <artifactId>unitils-orm</artifactId>
+			    <scope>test</scope>
+			</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-orm</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>${jdbc.groupId}</groupId>
+			<artifactId>${jdbc.artifactId}</artifactId>
+			<version>${jdbc.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>commons-dbcp</groupId>
+		    <artifactId>commons-dbcp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+</project>

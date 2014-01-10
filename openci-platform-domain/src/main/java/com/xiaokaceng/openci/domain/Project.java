@@ -1,0 +1,83 @@
+package com.xiaokaceng.openci.domain;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.dayatang.domain.AbstractEntity;
+
+@Entity
+@Table(name = "projects")
+public class Project extends AbstractEntity {
+
+	private static final long serialVersionUID = -1381157577442931544L;
+
+	private String name;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+	private Set<ProjectDeveloper> developers = new HashSet<ProjectDeveloper>();
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+	private Set<Tool> tools = new HashSet<Tool>();
+
+	@Temporal(TemporalType.TIME)
+	@Column(name = "create_date")
+	private Date createDate;
+
+	public Project(String name, Set<ProjectDeveloper> developers, Set<Tool> tools) {
+		this.name = name;
+		this.developers = developers;
+		this.tools = tools;
+		this.createDate = new Date();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Set<ProjectDeveloper> getDevelopers() {
+		return developers;
+	}
+
+	public Set<Tool> getTools() {
+		return tools;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (this == other) {
+			return true;
+		}
+		if (!(other instanceof Project)) {
+			return false;
+		}
+		Project that = (Project) other;
+		return new EqualsBuilder().append(getName(), that.getName()).append(getCreateDate(), that.getCreateDate()).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(getName()).append(getCreateDate()).hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
+
+}

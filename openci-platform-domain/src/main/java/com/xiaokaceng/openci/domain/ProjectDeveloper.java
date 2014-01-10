@@ -1,0 +1,84 @@
+package com.xiaokaceng.openci.domain;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.dayatang.domain.AbstractEntity;
+
+@Entity
+@Table(name = "project_developers")
+public class ProjectDeveloper extends AbstractEntity {
+
+	private static final long serialVersionUID = -5833807367997029745L;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "project_developer_role_relations", joinColumns = { @JoinColumn(name = "project_developer_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
+	private Set<Role> roles = new HashSet<Role>();
+	
+	@OneToOne
+	@JoinColumn(name = "developer_id")
+	private Developer developer;
+	
+	@ManyToOne
+	@JoinColumn(name = "project_id")
+	private Project project;
+	
+	public ProjectDeveloper(Set<Role> roles, Developer developer, Project project) {
+		this.roles = roles;
+		this.developer = developer;
+		this.project = project;
+	}
+	
+	public void assignRole(Role role) {
+		roles.add(role);
+		save();
+	}
+
+	public Developer getDeveloper() {
+		return developer;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+	
+	public Project getProject() {
+		return project;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (this == other) {
+			return true;
+		}
+		if (!(other instanceof ProjectDeveloper)) {
+			return false;
+		}
+		ProjectDeveloper that = (ProjectDeveloper) other;
+		return new EqualsBuilder().append(getDeveloper(), that.getDeveloper()).append(getProject(), that.getProject()).isEquals();
+
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder().append(getDeveloper()).append(getProject()).hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return getDeveloper().toString();
+	}
+
+}
