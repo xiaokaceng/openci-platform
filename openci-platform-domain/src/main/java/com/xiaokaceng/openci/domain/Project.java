@@ -16,6 +16,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dayatang.domain.AbstractEntity;
+import com.xiaokaceng.openci.EntityNullException;
 
 @Entity
 @Table(name = "projects")
@@ -35,15 +36,29 @@ public class Project extends AbstractEntity {
 	@Column(name = "create_date")
 	private Date createDate;
 
-	public Project(String name, Set<ProjectDeveloper> developers, Set<Tool> tools) {
+	public Project(String name) {
 		this.name = name;
-		this.developers = developers;
-		this.tools = tools;
 		this.createDate = new Date();
 	}
 
+	public void addTool(Tool tool) {
+		if (tool == null) {
+			throw new EntityNullException();
+		}
+		tools.add(tool);
+		save();
+	}
+	
 	public String getName() {
 		return name;
+	}
+
+	public void setDevelopers(Set<ProjectDeveloper> developers) {
+		this.developers = developers;
+	}
+
+	public void setTools(Set<Tool> tools) {
+		this.tools = tools;
 	}
 
 	public Set<ProjectDeveloper> getDevelopers() {

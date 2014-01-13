@@ -21,20 +21,6 @@
 	<dependencies>
 	
 		
-		<dependency>
-		    <groupId>org.openkoala.koalacommons</groupId>
-	        <artifactId>koala-commons-support</artifactId>
-	    </dependency>
-	    
-	    <dependency> 
-            <groupId>proxool</groupId>  
-            <artifactId>proxool</artifactId> 
-        </dependency> 
-        
-        <dependency>
-			<groupId>proxool</groupId>
-			<artifactId>proxool-cglib</artifactId>
-		</dependency>
 		
 	</dependencies>
 
