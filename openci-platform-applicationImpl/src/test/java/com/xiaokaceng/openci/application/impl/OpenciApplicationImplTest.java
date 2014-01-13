@@ -3,6 +3,8 @@ package com.xiaokaceng.openci.application.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,7 +50,12 @@ public class OpenciApplicationImplTest extends AbstractIntegrationTest {
 	
 	@After
 	public void destory() {
-		developer = null;
+		List<Developer> developers = Developer.findAll(Developer.class);
+		if (developers.size() > 0) {
+			for (Developer each : developers) {
+				each.remove();
+			}
+		}
 	}
 	
 }

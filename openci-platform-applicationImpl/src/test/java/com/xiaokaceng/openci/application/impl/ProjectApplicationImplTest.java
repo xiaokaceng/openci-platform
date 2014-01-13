@@ -1,6 +1,7 @@
 package com.xiaokaceng.openci.application.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.After;
@@ -51,7 +52,6 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	@Test(expected = EntityNullException.class)
 	public void testAddIntegrationToolIfNull() {
 		Project project = getProjectInstance();
-		projectApplication.createProject(project);
 		projectApplication.addIntegrationTool(project, null);
 	}
 	
@@ -91,6 +91,12 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	
 	@After
 	public void destory() {
+		List<Developer> developers = Developer.findAll(Developer.class);
+		if (developers.size() > 0) {
+			for (Developer each : developers) {
+				each.remove();
+			}
+		}
 	}
 	
 }

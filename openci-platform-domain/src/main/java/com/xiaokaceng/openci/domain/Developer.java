@@ -29,6 +29,9 @@ public class Developer extends AbstractEntity {
 		this.email = email;
 	}
 
+	public Developer() {
+	}
+
 	public String getDeveloperId() {
 		return developerId;
 	}

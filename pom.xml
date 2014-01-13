@@ -38,7 +38,6 @@
 		<unitils.version>3.3</unitils.version>
 		<hibernate.version>4.2.0.Final</hibernate.version>
 
-
 		<!-- DB config -->
 		<db.type>h2</db.type>
 		<db.host>localhost</db.host>
@@ -107,7 +106,7 @@
 	        <dependency>
 	            <groupId>org.hibernate</groupId>
 	            <artifactId>hibernate-validator</artifactId>
-	            <version>5.0.0.Final</version>
+	            <version>4.3.1.Final</version>
 	        </dependency>
 	        <dependency>
 	            <groupId>org.hibernate</groupId>
@@ -196,6 +195,11 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
 
