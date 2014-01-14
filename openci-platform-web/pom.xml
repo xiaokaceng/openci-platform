@@ -34,6 +34,10 @@
 			<artifactId>dayatang-commons-spring</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.dayatang.commons</groupId>
+			<artifactId>dayatang-commons-hibernate</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 		</dependency>
