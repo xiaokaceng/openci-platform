@@ -1,5 +1,7 @@
 package com.xiaokaceng.openci.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -7,11 +9,9 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.dayatang.domain.AbstractEntity;
-
 @Entity
 @Table(name = "developers")
-public class Developer extends AbstractEntity {
+public class Developer extends TimeIntervalEntity {
 
 	private static final long serialVersionUID = -3733063134487603001L;
 
@@ -24,6 +24,7 @@ public class Developer extends AbstractEntity {
 	private String email;
 
 	public Developer(String developerId, String name, String email) {
+		super(new Date());
 		this.developerId = developerId;
 		this.name = name;
 		this.email = email;
@@ -40,10 +41,18 @@ public class Developer extends AbstractEntity {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) {

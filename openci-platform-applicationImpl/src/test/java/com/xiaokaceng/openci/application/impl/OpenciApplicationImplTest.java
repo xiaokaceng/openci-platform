@@ -5,15 +5,22 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.unitils.spring.annotation.SpringBeanByType;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
 import com.xiaokaceng.openci.EntityNullException;
+import com.xiaokaceng.openci.application.OpenciApplication;
 import com.xiaokaceng.openci.domain.Developer;
 
 public class OpenciApplicationImplTest extends AbstractIntegrationTest {
+	
+	@Inject
+	private OpenciApplication openciApplication;
 
 	private static final String NAME = "test";
 	private Developer developer;

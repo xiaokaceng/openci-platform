@@ -1,16 +1,16 @@
 package com.xiaokaceng.openci.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.dayatang.domain.AbstractEntity;
-
 @Entity
 @Table(name = "roles")
-public class Role extends AbstractEntity {
+public class Role extends TimeIntervalEntity {
 
 	private static final long serialVersionUID = 3030679767001723029L;
 
@@ -19,11 +19,13 @@ public class Role extends AbstractEntity {
 	private String description;
 
 	public Role(String name, String description) {
+		super(new Date());
 		this.name = name;
 		this.description = description;
 	}
 
 	public Role(String name) {
+		super(new Date());
 		this.name = name;
 	}
 

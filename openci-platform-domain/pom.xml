@@ -18,8 +18,18 @@
 			<groupId>com.dayatang.commons</groupId>
 			<artifactId>dayatang-commons-domain</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.dayatang.commons</groupId>
+			<artifactId>dayatang-commons-utils</artifactId>
+		</dependency>
 
 		<!-- TEST -->
+		<dependency>
+			<groupId>com.xiaokaceng.openci</groupId>
+			<artifactId>openci-platform-conf</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.dayatang.commons</groupId>
 			<artifactId>dayatang-commons-hibernate</artifactId>
@@ -60,6 +70,10 @@
 			<artifactId>aspectjweaver</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
 	</dependencies>
 
 </project>

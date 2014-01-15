@@ -4,14 +4,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.unitils.spring.annotation.SpringBeanByType;
 
 import static org.junit.Assert.*;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
 import com.xiaokaceng.openci.EntityNullException;
+import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.domain.Developer;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
@@ -20,6 +24,9 @@ import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.domain.ToolType;
 
 public class ProjectApplicationImplTest extends AbstractIntegrationTest {
+	
+	@Inject
+	private ProjectApplication projectApplication;
 
 	private static final String NAME = "test";
 	

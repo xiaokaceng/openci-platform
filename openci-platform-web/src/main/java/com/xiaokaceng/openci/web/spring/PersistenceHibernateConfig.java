@@ -15,7 +15,6 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import com.dayatang.domain.EntityRepository;
-import com.dayatang.hibernate.EntityRepositoryHibernate;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
@@ -102,8 +101,8 @@ public class PersistenceHibernateConfig {
 		return results;
 	}
 
-	@Bean
-	public EntityRepository repository() {
-		return new EntityRepositoryHibernate();
-	}
+//	@Bean
+//	public EntityRepository repository() {
+//		return new EntityRepositoryHibernate();
+//	}
 }

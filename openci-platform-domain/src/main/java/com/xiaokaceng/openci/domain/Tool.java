@@ -44,6 +44,8 @@ public class Tool extends AbstractEntity {
 	@Column(name = "integration_date")
 	private Date integrationDate;
 
+	public Tool() {}
+	
 	public Tool(ToolType toolType, Project project) {
 		this.toolType = toolType;
 		this.project = project;

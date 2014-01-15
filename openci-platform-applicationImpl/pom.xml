@@ -17,6 +17,11 @@
 			<artifactId>openci-platform-application</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.xiaokaceng.openci</groupId>
+			<artifactId>openci-platform-conf</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
 		
 		<!-- 加入对dayatang的spring的实现 -->
 		<dependency>
@@ -29,12 +34,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.dayatang.commons</groupId>
-			<artifactId>dayatang-commons-hibernate</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
