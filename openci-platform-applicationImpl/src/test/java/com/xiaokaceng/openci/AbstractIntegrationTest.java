@@ -11,6 +11,7 @@ import com.dayatang.domain.InstanceFactory;
 import com.dayatang.spring.factory.SpringInstanceProvider;
 import com.xiaokaceng.openci.application.OpenciApplication;
 import com.xiaokaceng.openci.application.ProjectApplication;
+import com.xiaokaceng.openci.application.ToolConfigurationApplication;
 
 @SpringApplicationContext("/applicationContext.xml")
 public abstract class AbstractIntegrationTest extends UnitilsJUnit4 {
@@ -25,6 +26,9 @@ public abstract class AbstractIntegrationTest extends UnitilsJUnit4 {
 	
 	@SpringBeanByType
 	protected ProjectApplication projectApplication;
+	
+	@SpringBeanByType
+	protected ToolConfigurationApplication toolConfigurationApplication;
 	
 	@Before
 	public void setUp() throws Exception {

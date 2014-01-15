@@ -1,5 +1,7 @@
 package com.xiaokaceng.openci.application.impl;
 
+import java.util.List;
+
 import org.openkoala.opencis.api.CISClient;
 
 import com.xiaokaceng.openci.EntityNullException;
@@ -14,6 +16,10 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 			throw new EntityNullException();
 		}
 		toolConfiguration.save();
+	}
+	
+	public void updateConfiguration(ToolConfiguration toolConfiguration) {
+		createConfiguration(toolConfiguration);
 	}
 
 	public void setToolUsabled(ToolConfiguration toolConfiguration) {
@@ -33,6 +39,10 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 	public boolean canConnect(ToolConfiguration toolConfiguration) {
 		CISClient cisClient = CISClientFactory.getInstance(toolConfiguration);
 		return cisClient.canConnect();
+	}
+
+	public List<ToolConfiguration> getAllUsable() {
+		return ToolConfiguration.findByUsable();
 	}
 
 }

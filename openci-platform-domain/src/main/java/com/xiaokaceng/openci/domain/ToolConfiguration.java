@@ -1,6 +1,7 @@
 package com.xiaokaceng.openci.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dayatang.domain.AbstractEntity;
+import com.dayatang.domain.QuerySettings;
 
 @Entity
 @Table(name = "tool_configurations")
@@ -21,6 +23,7 @@ public class ToolConfiguration extends AbstractEntity {
 
 	private static final long serialVersionUID = -7992490907551882249L;
 
+	@Column(nullable = false, unique = true)
 	private String name;
 	
 	@Column(name = "service_url")
@@ -47,6 +50,10 @@ public class ToolConfiguration extends AbstractEntity {
 		this.password = password;
 		this.toolType = toolType;
 		this.createDate = new Date();
+	}
+	
+	public static List<ToolConfiguration> findByUsable() {
+		return getRepository().find(QuerySettings.create(ToolConfiguration.class).eq("usable", true));
 	}
 	
 	public void usabled() {
@@ -87,6 +94,22 @@ public class ToolConfiguration extends AbstractEntity {
 		return usable;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setServiceUrl(String serviceUrl) {
+		this.serviceUrl = serviceUrl;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) {
