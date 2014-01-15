@@ -42,7 +42,8 @@ public class ToolInterfaceImplement extends AbstractEntity {
 	@Lob
 	private String record;
 
-	public ToolInterfaceImplement(ToolInterface toolInterface, boolean isSuccess, String record) {
+	public ToolInterfaceImplement(Tool tool, ToolInterface toolInterface, boolean isSuccess, String record) {
+		this.tool = tool;
 		this.toolInterface = toolInterface;
 		this.isSuccess = isSuccess;
 		this.record = record;
@@ -63,6 +64,14 @@ public class ToolInterfaceImplement extends AbstractEntity {
 
 	public String getRecord() {
 		return record;
+	}
+	
+	public void setSuccess(boolean isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+
+	public void setRecord(String record) {
+		this.record = record;
 	}
 
 	@Override
