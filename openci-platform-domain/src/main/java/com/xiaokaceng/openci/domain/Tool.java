@@ -30,9 +30,9 @@ public class Tool extends AbstractEntity {
 	@JoinColumn(name = "project_id")
 	private Project project;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "tool_type")
-	private ToolType toolType;
+	@ManyToOne
+	@JoinColumn(name = "tool_configuration_id")
+	private ToolConfiguration toolConfiguration;
 
 	@Enumerated(EnumType.STRING)
 	private ToolIntegrationStatus status;
@@ -46,8 +46,8 @@ public class Tool extends AbstractEntity {
 
 	public Tool() {}
 	
-	public Tool(ToolType toolType, Project project) {
-		this.toolType = toolType;
+	public Tool(ToolConfiguration toolConfiguration, Project project) {
+		this.toolConfiguration = toolConfiguration;
 		this.project = project;
 		this.status = ToolIntegrationStatus.ONGOING;
 		this.integrationDate = new Date();
@@ -57,8 +57,8 @@ public class Tool extends AbstractEntity {
 		return project;
 	}
 
-	public ToolType getToolType() {
-		return toolType;
+	public ToolConfiguration getToolConfiguration() {
+		return toolConfiguration;
 	}
 
 	public ToolIntegrationStatus getStatus() {
@@ -82,17 +82,17 @@ public class Tool extends AbstractEntity {
 			return false;
 		}
 		Tool that = (Tool) other;
-		return new EqualsBuilder().append(getToolType(), that.getToolType()).append(getIntegrationDate(), that.getIntegrationDate()).isEquals();
+		return new EqualsBuilder().append(getToolConfiguration(), that.getToolConfiguration()).append(getIntegrationDate(), that.getIntegrationDate()).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(getToolType()).append(getIntegrationDate()).hashCode();
+		return new HashCodeBuilder().append(getToolConfiguration()).append(getIntegrationDate()).hashCode();
 	}
 
 	@Override
 	public String toString() {
-		return getToolType().toString();
+		return getToolConfiguration().getToolType().toString();
 	}
 
 }

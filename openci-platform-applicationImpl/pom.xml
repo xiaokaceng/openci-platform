@@ -24,15 +24,39 @@
 		</dependency>
 		
 		<!-- 加入对dayatang的spring的实现 -->
+		<!-- OPENCIS -->
 		<dependency>
-			<groupId>com.dayatang.commons</groupId>
-			<artifactId>dayatang-commons-spring</artifactId>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-git</artifactId>
+			<version>${koala.opencis.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.dayatang.commons</groupId>
-			<artifactId>dayatang-commons-spring-test</artifactId>
-			<scope>test</scope>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-svn</artifactId>
+			<version>${koala.opencis.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-jenkins</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-sonar</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-jira</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-trac</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+
+		<!-- TEST -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
@@ -66,6 +90,7 @@
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -73,4 +98,9 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<properties>
+		<koala.opencis.version>2.1.0-SNAPSHOT</koala.opencis.version>
+	</properties>
+	
 </project>

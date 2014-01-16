@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.unitils.spring.annotation.SpringBeanByType;
 
@@ -23,6 +24,7 @@ import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.domain.ToolType;
 
+@Ignore
 public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	
 	@Inject
@@ -51,7 +53,7 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	public void testAddIntegrationTool() {
 		Project project = getProjectInstance();
 		projectApplication.createProject(project);
-		projectApplication.addIntegrationTool(project, new Tool(ToolType.JENKINS, project));
+		projectApplication.addIntegrationTool(project, new Tool(null, project));
 		assertEquals(3, project.getTools().size());
 		project.remove();
 	}
@@ -71,8 +73,8 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 
 	private Set<Tool> createTool(Project project) {
 		Set<Tool> tools = new HashSet<Tool>();
-		tools.add(new Tool(ToolType.GIT, project));
-		tools.add(new Tool(ToolType.SVN, project));
+		tools.add(new Tool(null, project));
+		tools.add(new Tool(null, project));
 		return tools;
 	}
 
