@@ -1,6 +1,10 @@
 package com.xiaokaceng.openci.application.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -10,7 +14,6 @@ import org.junit.Test;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
 import com.xiaokaceng.openci.application.ToolConfigurationApplication;
-import com.xiaokaceng.openci.domain.Developer;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 
 public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTest {
@@ -24,6 +27,7 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 	public void testCreateConfiguration() {
 		toolConfigurationApplication.createConfiguration(toolConfiguration);
 		assertEquals(1, ToolConfiguration.findAll(ToolConfiguration.class).size());
+		assertEquals(toolConfiguration, ToolConfiguration.get(ToolConfiguration.class, toolConfiguration.getId()));
 		toolConfiguration.remove();
 	}
 	
@@ -34,12 +38,56 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 		toolConfiguration.setName("abc");
 		toolConfigurationApplication.updateConfiguration(toolConfiguration);
 		assertEquals(1, ToolConfiguration.findAll(ToolConfiguration.class).size());
+		assertEquals("abc", ToolConfiguration.get(ToolConfiguration.class, toolConfiguration.getId()).getName());
 		toolConfiguration.remove();
 	}
 	
 	@Test
 	public void testSetToolUsabled() {
+		toolConfigurationApplication.createConfiguration(toolConfiguration);
+		assertFalse(toolConfiguration.isUsable());
+		toolConfigurationApplication.setToolUsabled(toolConfiguration);
+		assertTrue(toolConfiguration.isUsable());
+		toolConfiguration.remove();
+	}
+	
+	@Test
+	public void testSetToolUnUsabled() {
+		toolConfigurationApplication.createConfiguration(toolConfiguration);
+		assertFalse(toolConfiguration.isUsable());
+		toolConfigurationApplication.setToolUsabled(toolConfiguration);
+		assertTrue(toolConfiguration.isUsable());
+		toolConfigurationApplication.setToolUnusabled(toolConfiguration);
+		assertFalse(toolConfiguration.isUsable());
+		toolConfiguration.remove();
+	}
+	
+	@Test
+	public void testCanConnect() {
 		
+	}
+	
+	@Test
+	public void testGetAllUsable() {
+		toolConfigurationApplication.createConfiguration(toolConfiguration);
+		assertEquals(0, ToolConfiguration.findByUsable().size());
+		toolConfigurationApplication.setToolUsabled(toolConfiguration);
+		assertEquals(1, ToolConfiguration.findByUsable().size());
+		toolConfiguration.remove();
+	}
+	
+	@Test
+	public void testPagingQeuryToolConfigurations() {
+		toolConfiguration.save();
+		ToolConfiguration toolConfiguration2 = new ToolConfiguration("test2", null, null, null, null);
+		toolConfiguration2.save();
+		assertEquals(2, ToolConfiguration.findAll(ToolConfiguration.class).size());
+
+		List<ToolConfiguration> toolConfigurations = toolConfigurationApplication.pagingQeuryToolConfigurations(1, 1).getResult();
+		assertEquals(1, toolConfigurations.size());
+		
+		toolConfiguration.remove();
+		toolConfiguration2.remove();
 	}
 	
 	@Before

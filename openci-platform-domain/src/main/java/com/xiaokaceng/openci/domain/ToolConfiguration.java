@@ -43,6 +43,9 @@ public class ToolConfiguration extends AbstractEntity {
 	@Column(name = "create_date")
 	private Date createDate;
 	
+	// gitlab特有
+	private String token;
+	
 	public ToolConfiguration(String name, String serviceUrl, String username, String password, ToolType toolType) {
 		this.name = name;
 		this.serviceUrl = serviceUrl;
@@ -108,6 +111,14 @@ public class ToolConfiguration extends AbstractEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	@Override
