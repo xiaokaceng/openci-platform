@@ -2,13 +2,18 @@ package com.xiaokaceng.openci.application.impl;
 
 import java.util.List;
 
+import javax.inject.Named;
+
 import org.openkoala.opencis.api.CISClient;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.xiaokaceng.openci.EntityNullException;
 import com.xiaokaceng.openci.application.ToolConfigurationApplication;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 import com.xiaokaceng.openci.factory.CISClientFactory;
 
+@Named
+@Transactional("transactionManager_opencis")
 public class ToolConfigurationApplicationImpl implements ToolConfigurationApplication {
 
 	public void createConfiguration(ToolConfiguration toolConfiguration) {
@@ -38,7 +43,8 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 
 	public boolean canConnect(ToolConfiguration toolConfiguration) {
 		CISClient cisClient = CISClientFactory.getInstance(toolConfiguration);
-		return cisClient.canConnect();
+		// return cisClient.canConnect();
+		return false;
 	}
 
 	public List<ToolConfiguration> getAllUsable() {

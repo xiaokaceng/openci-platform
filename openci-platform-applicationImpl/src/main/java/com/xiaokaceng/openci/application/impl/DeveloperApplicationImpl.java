@@ -17,7 +17,7 @@ import com.dayatang.querychannel.support.Page;
 import com.xiaokaceng.openci.application.DeveloperApplication;
 import com.xiaokaceng.openci.domain.Developer;
 
-@Named
+@Named("developerApplication")
 @Transactional("transactionManager_opencis")
 public class DeveloperApplicationImpl implements DeveloperApplication {
 
