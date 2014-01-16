@@ -65,7 +65,11 @@ Validator = {
             if($tempElement.hasClass('select')){
                 $targetElement = $tempElement;
             }
-            showErrorMessage($element.closest('.modal'), $targetElement, content);
+            var container = $element.closest('.modal');
+            if(container.length == 0){
+            	container = $('body');
+            }
+            showErrorMessage(container, $targetElement, content);
             return false;
         }
         return true;

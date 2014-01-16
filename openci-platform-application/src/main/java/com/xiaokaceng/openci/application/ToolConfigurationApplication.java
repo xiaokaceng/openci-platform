@@ -1,10 +1,14 @@
 package com.xiaokaceng.openci.application;
 
+import java.util.List;
+
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 
 public interface ToolConfigurationApplication {
 
 	void createConfiguration(ToolConfiguration toolConfiguration);
+	
+	void updateConfiguration(ToolConfiguration toolConfiguration);
 	
 	void setToolUsabled(ToolConfiguration toolConfiguration);
 	
@@ -12,4 +16,5 @@ public interface ToolConfigurationApplication {
 	
 	boolean canConnect(ToolConfiguration toolConfiguration);
 	
+	List<ToolConfiguration> getAllUsable();
 }
