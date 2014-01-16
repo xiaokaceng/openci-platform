@@ -1,0 +1,332 @@
+<div class="project-add wizard">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#">
+				基本信息
+			</a>
+		</li>
+		<li>
+			<a href="#" >
+				模块配置
+			</a>
+		</li>
+		<li>
+			<a href="#" >
+				子系统选择
+			</a>
+		</li>
+		<li>
+			<a href="#" >
+				工具选择
+			</a>
+		</li>
+		<li>
+			<a href="#" >
+				开发者选择
+			</a>
+		</li>
+	</ul>
+
+	<div class="items">
+		<div class="page">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="projectName" class="col-lg-4 control-label">项目名称:</label>
+					<input type="text" class="col-lg-8 form-control" id="projectName" name="projectName"  dataType="English" placeholder="输入项目名称" require/>
+					<span class="required">*</span>
+				</div>
+				<div class="form-group">
+					<label for="groupId" class="col-lg-4 control-label">GroupID:</label>
+					<input type="text" class="col-lg-8 form-control" id="groupId" name="groupId"　 dataType="Require" placeholder="输入GroupID" require/>
+					<span class="required">*</span>
+				</div>
+				<div class="form-group">
+					<label for="aritifactId" class="col-lg-4 control-label">AritifactID:</label>
+					<input type="text"  class="col-lg-8 form-control" id="aritifactId" name="aritifactId"　 dataType="Require"  placeholder="输入AritifactID" require/>
+					<span class="required">*</span>
+				</div>
+				<div class="form-group">
+					<label for="projectName" class="col-lg-4 control-label">Version:</label>
+					<input type="text" class="col-lg-8 form-control" id="version" name="version"　 dataType="Require" placeholder="输入Version" />
+					<span class="required">*</span>
+				</div>
+				<div class="form-group">
+					<label for="projectName" class="col-lg-4 control-label">Repository实现方式:</label>
+					<div class="btn-group select" id="repositoryImplate"></div>
+					<input type="hidden"  id="repositoryImplateValue"　name="repositoryImplateValue" dataType="Require"/> 
+					<span class="required">*</span>
+				</div>
+				<div class="form-group">
+					<label for="projectName" class="col-lg-4 control-label">MVC实现方式:</label>
+					<div class="btn-group select" id="mvcImplate"></div>
+					<input type="hidden"  id="mvcImplateValue"　name="mvcImplateValue" dataType="Require"/> 
+					<span class="required">*</span>
+				</div>
+			</form>
+			<div class="btn_nav">
+				<button data-toggle="next" class="btn btn-default">
+					下一步&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
+				</button>
+			</div>
+		</div>
+		<div class="page">
+			<div id="projectGrid" style="margin: auto; margin-right: auto;">
+				<div class="table-responsive" style="width:75%; text-align: center">
+					<table class="table table-responsive table-bordered grid">
+						<thead>
+							<tr>
+								<th>
+								<div class="btn-group buttons">
+									<button type="button" class="btn btn-primary" id="add">
+										<span class="glyphicon glyphicon-plus"><span>新增</span></span>
+									</button>
+									<button type="button" class="btn btn-success" id="modify">
+										<span class="glyphicon glyphicon-edit"></span>&nbsp;修改
+									</button>
+									<button type="button" class="btn btn-danger" id="delete">
+										<span class="glyphicon glyphicon-remove"></span>&nbsp;删除
+									</button>
+								</div></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+								<div class="colResizePointer"></div>
+								<div class="grid-body" style="width: 1100px;">
+									<div class="grid-table-head" style="width: 1100px;">
+										<table class="table table-bordered">
+											<tbody>
+												<tr>
+													<th width="50px;">
+													<div class="checker">
+														<span data-role="selectAll"></span>
+													</div></th><th width="auto" index="0">模块名称
+													<div class="colResize"></div></th>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="grid-table-body" style="width: 1100px;">
+										<table class="table table-responsive table-bordered table-hover table-striped">
+											<tbody>
+												<tr>
+													<td width="50px;">
+													<div class="checker">
+														<span indexvalue="0" data-role="indexCheckbox" data-value="1"></span>
+													</div></td><td width="auto" index="0">xxxx</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="btn_nav" style="margin-top: 2%;">
+				<button data-toggle="prev" class="btn btn-default" >
+					<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步
+				</button>
+				<button data-toggle="next" class="btn btn-default" >
+					下一步&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
+				</button>
+			</div>
+		</div>
+		<div class="page">
+			<form class="form-horizontal select-sub-system">
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-1 control-label" style="width: 12%;">权限系统</label>
+					<div class="col-sm-6">
+						<div class="btn-group select" id="cacheType"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-1 control-label" style="width: 12%;">监控系统</label>
+					<div class="col-sm-6">
+						<div class="btn-group select" id="monitorType"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">通用查询系统</label>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">组织系统</label>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">日志系统</label>
+				</div>
+			</form>
+			<div class="btn_nav" style="margin-top: 10%;">
+				<div class="btn_nav" style="margin-top: 2%;">
+					<button data-toggle="prev" class="btn btn-default" >
+						<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步
+					</button>
+					<button data-toggle="next" class="btn btn-default" >
+						下一步&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="page">
+			<form class="form-horizontal select-sub-system">
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">CAS</label>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">SONAR</label>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">TRAC</label>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">JIRA</label>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">SVN</label>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked">
+								<input type="checkbox" />
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">GIT</label>
+				</div>
+			</form>
+			<div class="btn_nav" style="margin-top: 10%;">
+				<div class="btn_nav" style="margin-top: 2%;">
+					<button data-toggle="prev" class="btn btn-default" >
+						<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步
+					</button>
+					<button data-toggle="next" class="btn btn-default" >
+						下一步&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="page">
+			<div id="projectGrid" style="margin: auto; margin-right: auto;">
+				<div class="table-responsive" style="width:75%; text-align: center">
+					<table class="table table-responsive table-bordered grid">
+						<tbody>
+							<tr>
+								<td>
+								<div class="colResizePointer"></div>
+								<div class="grid-body" style="width: 1100px;">
+									<div class="grid-table-head" style="width: 1100px;">
+										<table class="table table-bordered">
+											<tbody>
+												<tr>
+													<th width="50px;">
+													<div class="checker">
+														<span data-role="selectAll"></span>
+													</div></th><th width="auto" index="0">模块名称
+													<div class="colResize"></div></th>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div class="grid-table-body" style="width: 1100px;">
+										<table class="table table-responsive table-bordered table-hover table-striped">
+											<tbody>
+												<tr>
+													<td width="50px;">
+													<div class="checker">
+														<span indexvalue="0" data-role="indexCheckbox" data-value="1"></span>
+													</div></td><td width="auto" index="0">xxxx</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="btn_nav" style="margin-top: 2%;">
+				<button data-toggle="prev" class="btn btn-default" >
+					<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步
+				</button>
+				<button data-toggle="complate" class="btn btn-success" >
+					<span class="glyphicon glyphicon-ok"></span>&nbsp;完成
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="js/cis/preject-create.js"></script>
