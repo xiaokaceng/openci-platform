@@ -27,12 +27,12 @@ public class DeveloperController extends BaseController {
 	
 	@ResponseBody
     @RequestMapping("/pagingquery")
-	public Map<String, Object> pagingQuery(int currentPage, int pagesize, Developer example) {
+	public Map<String, Object> pagingQuery(int page, int pagesize, Developer example) {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		Page<Developer> developerPage = developerApplication.pagingQeuryDevelopers(example, currentPage, pagesize);
+		Page<Developer> developerPage = developerApplication.pagingQeuryDevelopers(example, page, pagesize);
 		
 		dataMap.put("Rows", developerPage.getResult());
-		dataMap.put("start", currentPage * pagesize - pagesize);
+		dataMap.put("start", page * pagesize - pagesize);
 		dataMap.put("limit", pagesize);
 		dataMap.put("Total", developerPage.getTotalCount());
 		return dataMap;
