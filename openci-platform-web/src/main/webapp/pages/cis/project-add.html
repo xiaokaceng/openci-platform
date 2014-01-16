@@ -144,8 +144,9 @@
 							</span>
 						</div>
 					</div>
-					<label class="col-sm-1 control-label" style="width: 12%;">权限系统</label>
-					<div class="col-sm-6">
+					<label class="col-sm-1 control-label" style="width: 10%;">权限系统</label>
+					<label class="col-sm-1 control-label" style="width: 10%; padding-left: 3%;">缓存类型:</label>
+					<div class="col-sm-5">
 						<div class="btn-group select" id="cacheType"></div>
 					</div>
 				</div>
@@ -157,8 +158,9 @@
 							</span>
 						</div>
 					</div>
-					<label class="col-sm-1 control-label" style="width: 12%;">监控系统</label>
-					<div class="col-sm-6">
+					<label class="col-sm-1 control-label" style="width: 10%;">监控系统</label>
+					<label class="col-sm-1 control-label" style="width: 10%; padding-left: 3%;">系统类型:</label>
+					<div class="col-sm-5">
 						<div class="btn-group select" id="monitorType"></div>
 					</div>
 				</div>
@@ -209,38 +211,37 @@
 				<div class="form-group">
 					<div class="col-sm-4">
 						<div class="checker">
-							<span class="checked">
-								<input type="checkbox" />
+							<span class="checked" id="git">
+								
 							</span>
 						</div>
 					</div>
-					<label class="col-sm-8 control-label">CAS</label>
+					<label class="col-sm-8 control-label">GIT</label>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-4">
 						<div class="checker">
-							<span class="checked">
-								<input type="checkbox" />
+							<span class="checked" id="hudson">
+								
 							</span>
 						</div>
 					</div>
-					<label class="col-sm-8 control-label">SONAR</label>
+					<label class="col-sm-8 control-label">HUDSON</label>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-4">
 						<div class="checker">
-							<span class="checked">
-								<input type="checkbox" />
+							<span class="checked" id="jenkins">
+								
 							</span>
 						</div>
 					</div>
-					<label class="col-sm-8 control-label">TRAC</label>
+					<label class="col-sm-8 control-label">JENKINS</label>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-4">
 						<div class="checker">
-							<span class="checked">
-								<input type="checkbox" />
+							<span class="checked" id="jira">
 							</span>
 						</div>
 					</div>
@@ -249,8 +250,17 @@
 				<div class="form-group">
 					<div class="col-sm-4">
 						<div class="checker">
-							<span class="checked">
-								<input type="checkbox" />
+							<span class="checked" id="sonar">
+							
+							</span>
+						</div>
+					</div>
+					<label class="col-sm-8 control-label">SNAR</label>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-4">
+						<div class="checker">
+							<span class="checked" id="svn">
 							</span>
 						</div>
 					</div>
@@ -259,15 +269,14 @@
 				<div class="form-group">
 					<div class="col-sm-4">
 						<div class="checker">
-							<span class="checked">
-								<input type="checkbox" />
+							<span class="checked" id="trac">
 							</span>
 						</div>
 					</div>
-					<label class="col-sm-8 control-label">GIT</label>
+					<label class="col-sm-8 control-label">TRAC</label>
 				</div>
 			</form>
-			<div class="btn_nav" style="margin-top: 10%;">
+			<div class="btn_nav" style="margin-top: 8%;">
 				<div class="btn_nav" style="margin-top: 2%;">
 					<button data-toggle="prev" class="btn btn-default" >
 						<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步

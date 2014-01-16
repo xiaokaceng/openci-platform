@@ -204,7 +204,7 @@ a, button {
 	position: relative;
     top: 6px;
 }
-.select-sub-system .control-label {
+.select-sub-system .form-group .control-label {
 	text-align: left!important;	
 }
 

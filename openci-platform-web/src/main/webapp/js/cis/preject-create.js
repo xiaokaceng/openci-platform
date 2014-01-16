@@ -107,10 +107,11 @@ $(function() {
 		title : '请选择缓存类型',
 		contents : [{
 			title : 'ehCache',
-			value : 'jpa'
+			value : 'ehCache',
+			selected: true
 		}, {
 			title : 'memCached',
-			value : 'mybatis'
+			value : 'memCached'
 		}]
 	});
 
@@ -118,7 +119,8 @@ $(function() {
 		title : '请选择监控系统类型',
 		contents : [{
 			title : '本地',
-			value : 'jpa'
+			value : 'jpa',
+			selected: true
 		}, {
 			title : '分布式',
 			value : 'mybatis'
