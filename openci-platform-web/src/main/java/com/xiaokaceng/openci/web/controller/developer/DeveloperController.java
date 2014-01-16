@@ -1,6 +1,8 @@
 package com.xiaokaceng.openci.web.controller.developer;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dayatang.querychannel.support.Page;
 import com.xiaokaceng.openci.application.DeveloperApplication;
 import com.xiaokaceng.openci.domain.Developer;
 import com.xiaokaceng.openci.web.controller.BaseController;
@@ -21,6 +24,19 @@ public class DeveloperController extends BaseController {
 
 	@Inject
 	private DeveloperApplication developerApplication;
+	
+	@ResponseBody
+    @RequestMapping("/pagingquery")
+	public Map<String, Object> pagingQuery(int currentPage, int pagesize, Developer example) {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		Page<Developer> developerPage = developerApplication.pagingQeuryDevelopers(example, currentPage, pagesize);
+		
+		dataMap.put("Rows", developerPage.getResult());
+		dataMap.put("start", currentPage * pagesize - pagesize);
+		dataMap.put("limit", pagesize);
+		dataMap.put("Total", developerPage.getTotalCount());
+		return dataMap;
+	}
 	
 	@ResponseBody
     @RequestMapping("/create")
