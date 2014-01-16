@@ -23,7 +23,7 @@ public abstract class TimeIntervalEntity extends AbstractEntity {
 	@Column(name = "create_date", nullable = false)
 	@Temporal(TemporalType.DATE)
 	@NotNull(message = "createDate.is.null")
-	private Date createDate;
+	private Date createDate = new Date();
 
 	@Column(name = "abolish_date", nullable = false)
 	@Temporal(TemporalType.DATE)
