@@ -20,9 +20,6 @@ public class BaseController {
 	@Inject
 	protected OpenciApplication openciApplication;
 	
-	@Inject
-	protected ProjectApplication projectApplication;
-	
 	protected void putDataToSession(HttpServletRequest request, String key, Object value) {
 		request.getSession().setAttribute(key, value);
 	}

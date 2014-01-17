@@ -31,9 +31,9 @@ var developerManager = {
 		        'Accept': 'application/json',
 		        'Content-Type': 'application/json' 
 		    },
-		    'type': "post",
-		    'url': self.baseUrl + 'abolish',
-		    'data': JSON.stringify(items[0]),
+		    'type': "Post",
+		    'url': self.baseUrl + 'abolish_developers',
+		    'data': JSON.stringify(items),
 		    'dataType': 'json'
 		 }).done(function(data){
 			if(data.result){
