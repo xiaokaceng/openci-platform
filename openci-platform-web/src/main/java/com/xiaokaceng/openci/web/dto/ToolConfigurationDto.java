@@ -7,6 +7,8 @@ import com.xiaokaceng.openci.domain.ToolType;
 
 public class ToolConfigurationDto {
 
+	private Long id;
+	
 	private String name;
 
 	private String serviceUrl;
@@ -21,11 +23,25 @@ public class ToolConfigurationDto {
 	
 	private Date createDate;
 
+	private int version;
+	
 	public ToolConfiguration toToolConfiguration() {
 		ToolConfiguration toolConfiguration = new ToolConfiguration(name, serviceUrl, username, password, toolType);
+		toolConfiguration.setId(id);
+		toolConfiguration.setVersion(version);
 		return toolConfiguration;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -80,6 +96,14 @@ public class ToolConfigurationDto {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	
 }
