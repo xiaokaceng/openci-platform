@@ -37,7 +37,11 @@ public class ToolConfigurationController extends BaseController {
 	@ResponseBody
     @RequestMapping("/usable/{toolConfigurationId}")
 	public ResultDto setToolUsable(@PathVariable long toolConfigurationId) {
-		toolConfigurationApplication.updateConfiguration(toolConfiguration);
+		ToolConfiguration toolConfiguration = ToolConfiguration.get(ToolConfiguration.class, toolConfigurationId);
+		if (toolConfiguration == null) {
+			return ResultDto.createFailure();
+		}
+		toolConfigurationApplication.setToolUsabled(toolConfiguration);
 		return ResultDto.createSuccess();
 	}
 	
