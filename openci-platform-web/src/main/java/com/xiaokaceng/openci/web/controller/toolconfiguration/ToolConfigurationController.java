@@ -1,5 +1,6 @@
 package com.xiaokaceng.openci.web.controller.toolconfiguration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dayatang.querychannel.support.Page;
 import com.xiaokaceng.openci.application.ToolConfigurationApplication;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
+import com.xiaokaceng.openci.domain.ToolType;
 import com.xiaokaceng.openci.web.controller.BaseController;
 import com.xiaokaceng.openci.web.dto.ResultDto;
 
@@ -76,6 +78,16 @@ public class ToolConfigurationController extends BaseController {
 		dataMap.put("limit", pagesize);
 		dataMap.put("Total", toolConfigurationPage.getTotalCount());
 		return dataMap;
+	}
+	
+	@ResponseBody
+    @RequestMapping("/get-tool-type")
+	public List<String> getToolType() {
+		List<String> toolTypes = new ArrayList<String>();
+		for (ToolType each : ToolType.values()) {
+			toolTypes.add(each.toString());
+		}
+		return toolTypes;
 	}
 
 }
