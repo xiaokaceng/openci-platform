@@ -1,6 +1,5 @@
 package com.xiaokaceng.openci.web.controller.toolconfiguration;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,11 +70,11 @@ public class ToolConfigurationController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/get-tool-type")
-	public List<String> getToolType() {
-		List<String> toolTypes = new ArrayList<String>();
+    @RequestMapping("/get-tool-type")
+	public Map<String, Object> getToolType() {
+		Map<String, Object> toolTypes = new HashMap<String, Object>();
 		for (ToolType each : ToolType.values()) {
-			toolTypes.add(each.toString());
+			toolTypes.put(each.toString(), each);
 		}
 		return toolTypes;
 	}

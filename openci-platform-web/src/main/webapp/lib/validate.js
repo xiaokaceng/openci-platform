@@ -191,6 +191,14 @@ var Validation = {
             return false;
         }
         return true;
+    },
+    checkByRegExp: function($container, $element, regExp, content, errorMessage){
+    	var reg = new RegExp(regExp);
+    	if (!reg.test(content)) {
+    		showErrorMessage($container, $element, errorMessage);
+    		return false;
+    	}
+    	return true;
     }
 };
 
