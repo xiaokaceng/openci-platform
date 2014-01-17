@@ -18,6 +18,7 @@ import com.xiaokaceng.openci.domain.ToolConfiguration;
 import com.xiaokaceng.openci.domain.ToolType;
 import com.xiaokaceng.openci.web.controller.BaseController;
 import com.xiaokaceng.openci.web.dto.ResultDto;
+import com.xiaokaceng.openci.web.dto.ToolConfigurationDto;
 
 @Controller
 @RequestMapping("/toolconfiguration")
@@ -28,8 +29,8 @@ public class ToolConfigurationController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/create")
-	public ResultDto createToolConfiguration(ToolConfiguration toolConfiguration) {
-		toolConfigurationApplication.createConfiguration(toolConfiguration);
+	public ResultDto createToolConfiguration(ToolConfigurationDto toolConfigurationDto) {
+		toolConfigurationApplication.createConfiguration(toolConfigurationDto.toToolConfiguration());
 		return ResultDto.createSuccess();
 	}
 
