@@ -28,6 +28,10 @@ public class Role extends TimeIntervalEntity {
 		super(new Date());
 		this.name = name;
 	}
+	
+	public Role() {
+		super(new Date());
+	}
 
 	public String getName() {
 		return name;
@@ -35,6 +39,14 @@ public class Role extends TimeIntervalEntity {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

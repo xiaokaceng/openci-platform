@@ -49,7 +49,8 @@ public class ToolIntegrationExecutor {
 		
 		public void run() {
 			System.out.println("=======");
-			//createProject();
+			cisClient.authenticate();
+			createProject();
 //			createRoleIfNecessary();
 //			assignUserToRole();
 		}
@@ -57,8 +58,11 @@ public class ToolIntegrationExecutor {
 		private void createProject() {
 			ToolInterfaceImplement toolInterfaceImplement = new ToolInterfaceImplement(tool, ToolInterface.CREATE_PROJECT, true, null);
 			try {
+				System.out.println("=======");
+				
 				cisClient.createProject(projectIntegration.toCISProject());
 			} catch (Exception e) {
+				System.out.println("=======" + e.toString());
 				e.printStackTrace();
 				toolInterfaceImplement.setSuccess(false);
 				toolInterfaceImplement.setRecord(e.toString());
