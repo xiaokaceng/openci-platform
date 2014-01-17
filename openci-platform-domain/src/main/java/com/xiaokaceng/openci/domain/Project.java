@@ -53,6 +53,10 @@ public class Project extends AbstractEntity {
 		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public void setDevelopers(Set<ProjectDeveloper> developers) {
 		this.developers = developers;
 	}
