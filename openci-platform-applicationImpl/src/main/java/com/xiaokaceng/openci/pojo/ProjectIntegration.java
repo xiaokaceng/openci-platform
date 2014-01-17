@@ -6,6 +6,7 @@ import java.util.Set;
 import org.openkoala.opencis.api.Project;
 
 import com.xiaokaceng.openci.domain.Tool;
+import com.xiaokaceng.openci.domain.ToolConfiguration;
 
 public class ProjectIntegration {
 
@@ -19,6 +20,11 @@ public class ProjectIntegration {
 	private Map<String, Object> pomFileNodeElements;
 	
 	private Set<Tool> tools;
+	
+	// 集成CAS用户管理
+	private ToolConfiguration casUserManageToolConfiguration;
+	
+	
 
 	public Project toCISProject() {
 		Project project = new Project();

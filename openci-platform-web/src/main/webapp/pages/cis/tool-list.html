@@ -20,12 +20,28 @@
 			{
 				title : '用户名',
 				name : 'username',
-				width : 150
+				width : 120
 			},
 			{
 				title : '密码',
 				name : 'password',
-				width : 'auto'
+				width : '120px'
+			},
+			{
+				title : '是否可用',
+				name : 'usable',
+				width : 100,
+				render: function(item, name, index){
+					return item[name] ? '<span id="usable'+index+'" class="glyphicon glyphicon-ok" style="color:#5CB85C;margin-left:15px;"></span>':'<span class="glyphicon glyphicon-remove" style="color:#D9534F;margin-left:15px;"></span>'
+				}
+			},
+			{
+				title : '操作',
+				name : 'usable',
+				width : 'auto',
+				render: function(item, name, index){
+					return '<a><span class="glyphicon glyphicon-transfer"></span>&nbsp;测试连接</a>';
+				}
 			}
 		];
 		var buttons = [

@@ -1,9 +1,11 @@
 package com.xiaokaceng.openci.factory;
 
+import org.openkoala.opencis.api.AuthenticationStrategy;
 import org.openkoala.opencis.api.CISClient;
 import org.openkoala.opencis.git.impl.GitlabCISClient;
 import org.openkoala.opencis.git.impl.GitlabConfiguration;
 import org.openkoala.opencis.jenkins.JenkinsCISClient;
+import org.openkoala.opencis.jenkins.authentication.JenkinsOwnAuthentication;
 import org.openkoala.opencis.pojo.SonarServerConfiguration;
 import org.openkoala.opencis.sonar.SonarCISClient;
 import org.openkoala.opencis.svn.SvnCISClient;
@@ -40,7 +42,8 @@ public class CISClientFactory {
 
 	private static CISClient createTracCISClient(ToolConfiguration toolConfiguration) {
 		// TODO 需要添加tracConfiguration
-		return new TracCISClient(null);
+		//return new TracCISClient(null);
+		return null;
 	}
 
 	private static CISClient createJiraCISClient(ToolConfiguration toolConfiguration) {
@@ -54,14 +57,13 @@ public class CISClientFactory {
 	}
 
 	private static CISClient createJenkinsCISClient(ToolConfiguration toolConfiguration) {
-		// TODO 不应该传driver
-		// CISAuthentication authentication = new JenkinsOwnAuthen(driver, jenkinsURL, username, password)
-		return new JenkinsCISClient(null, null);
+		AuthenticationStrategy authentication = new JenkinsOwnAuthentication(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
+		return new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
 	}
 
 	private static CISClient createSvnCISClient(ToolConfiguration toolConfiguration) {
 		// TODO 需修改configuration
-		return new SvnCISClient(null);
+		return null;
 	}
 
 	private static CISClient createGitCISClient(ToolConfiguration toolConfiguration) {

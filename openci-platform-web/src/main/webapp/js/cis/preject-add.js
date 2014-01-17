@@ -2,11 +2,11 @@ $(function() {
 	var projectAdd = $('.project-add');
 	projectAdd.find('.items').width(5 * $('#content').width());
 	projectAdd.wizard();
-	
-	projectAdd.find('.checker span').on('click', function(){
+
+	projectAdd.find('.checker span').on('click', function() {
 		$(this).toggleClass('checked');
 	});
-	
+
 	projectAdd.find('#repositoryImplate').select({
 		title : '请选择',
 		contents : [{
@@ -17,10 +17,10 @@ $(function() {
 			title : 'Mybatis',
 			value : 'mybatis'
 		}]
-	}).on('change', function(){
+	}).on('change', function() {
 		$('#repositoryImplateValue').val($(this).getValue());
 	}).trigger('change');
-	
+
 	projectAdd.find('#mvcImplate').select({
 		title : '请选择',
 		contents : [{
@@ -31,7 +31,7 @@ $(function() {
 			value : 'mybatis',
 			selected : true
 		}]
-	}).on('change', function(){
+	}).on('change', function() {
 		$('#mvcImplateValue').val($(this).getValue());
 	}).trigger('change');
 
@@ -106,7 +106,7 @@ $(function() {
 			}
 		});
 	});
-	
+
 	projectAdd.find('#cacheType').select({
 		title : '请选择',
 		contents : [{
@@ -117,10 +117,10 @@ $(function() {
 			title : 'Memcached',
 			value : 'memcached'
 		}]
-	}).on('change', function(){
+	}).on('change', function() {
 		$('#cacheTypeValue').val($(this).getValue());
 	}).trigger('change');
-	
+
 	projectAdd.find('#monitorType').select({
 		title : '请选择',
 		contents : [{
@@ -131,7 +131,37 @@ $(function() {
 			value : 'distributed',
 			selected : true
 		}]
-	}).on('change', function(){
+	}).on('change', function() {
 		$('#monitorTypeValue').val($(this).getValue());
 	}).trigger('change');
+
+	var columns = [{
+		title : '开发者ID',
+		name : 'developerId',
+		width : 150
+	}, {
+		title : '用户名称',
+		name : 'name',
+		width : 150
+	}, {
+		title : '邮箱',
+		name : 'email',
+		width : 'auto'
+	}];
+	console.info(projectAdd.find('#developerGrid'))
+	projectAdd.find('#developerGrid').grid({
+		identity : 'id',
+		columns : columns,
+		querys : [{
+			title : '开发者ID',
+			value : 'developerId'
+		}, {
+			title : '姓名',
+			value : 'name'
+		}, {
+			title : '邮箱',
+			value : 'email'
+		}],
+		url : 'developer/pagingquery'
+	})
 });
