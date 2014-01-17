@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xiaokaceng.openci.EntityNullException;
 import com.xiaokaceng.openci.application.ProjectApplication;
+import com.xiaokaceng.openci.application.dto.ProjectDto;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.Tool;
 
@@ -13,11 +14,12 @@ import com.xiaokaceng.openci.domain.Tool;
 @Transactional("transactionManager_opencis")
 public class ProjectApplicationImpl implements ProjectApplication {
 
-	public void createProject(Project project) {
-		if (project == null) {
+	public void createProject(ProjectDto projectDto) {
+		Project projectForCis = projectDto.getProjectForCis();
+		if (projectForCis == null) {
 			throw new EntityNullException();
 		}
-		project.save();
+		projectForCis.save();
 	}
 
 	public void addIntegrationTool(Project project, Tool tool) {
