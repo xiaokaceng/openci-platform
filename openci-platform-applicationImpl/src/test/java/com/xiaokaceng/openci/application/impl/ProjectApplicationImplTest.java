@@ -16,6 +16,7 @@ import static org.junit.Assert.*;
 import com.xiaokaceng.openci.AbstractIntegrationTest;
 import com.xiaokaceng.openci.EntityNullException;
 import com.xiaokaceng.openci.application.ProjectApplication;
+import com.xiaokaceng.openci.application.dto.ProjectDto;
 import com.xiaokaceng.openci.domain.Developer;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
@@ -36,11 +37,10 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	
 	@Test
 	public void testCreateProject() {
-		Project project = getProjectInstance();
-		projectApplication.createProject(project);
-		assertEquals(1, project.getDevelopers().size());
-		assertEquals(2, project.getTools().size());
-		project.remove();
+		ProjectDto projectDto = getProjectDtoInstance();
+		projectApplication.createProject(projectDto);
+		assertEquals(1, projectDto.getProjectForCis().getDevelopers().size());
+		assertEquals(2, projectDto.getProjectForCis().getTools().size());
 	}
 	
 	@Test(expected = EntityNullException.class)
@@ -50,17 +50,24 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	
 	@Test
 	public void testAddIntegrationTool() {
-		Project project = getProjectInstance();
-		projectApplication.createProject(project);
-		projectApplication.addIntegrationTool(project, new Tool(null, project));
-		assertEquals(3, project.getTools().size());
-		project.remove();
+		ProjectDto projectDto = getProjectDtoInstance();
+		projectApplication.createProject(projectDto);
+		projectApplication.addIntegrationTool(projectDto.getProjectForCis(), new Tool(null, projectDto.getProjectForCis()));
+		assertEquals(3, projectDto.getProjectForCis().getTools().size());
 	}
 	
 	@Test(expected = EntityNullException.class)
 	public void testAddIntegrationToolIfNull() {
 		Project project = getProjectInstance();
 		projectApplication.addIntegrationTool(project, null);
+	}
+
+	
+	private ProjectDto getProjectDtoInstance() {
+		ProjectDto projectDto = new ProjectDto(NAME);
+		projectDto.getProjectForCis().setDevelopers(createProjectDeveloper(projectDto.getProjectForCis()));
+		projectDto.getProjectForCis().setTools(createTool(projectDto.getProjectForCis()));
+		return projectDto;
 	}
 	
 	private Project getProjectInstance() {
