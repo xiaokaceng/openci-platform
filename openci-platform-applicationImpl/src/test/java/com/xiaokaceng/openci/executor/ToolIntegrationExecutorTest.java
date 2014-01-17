@@ -5,12 +5,14 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.pojo.ProjectIntegration;
 
+@Ignore
 public class ToolIntegrationExecutorTest extends AbstractIntegrationTest {
 
 	@Inject
