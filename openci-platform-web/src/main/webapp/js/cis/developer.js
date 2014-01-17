@@ -5,6 +5,7 @@ var developerManager = {
 	name: null,
 	email: null,
 	dialog: null,
+	developerId: null,
 	
 	add: function(grid){
 		var self = this;
@@ -14,18 +15,55 @@ var developerManager = {
 		});
 	},
 	
+	update: function(grid, item){
+		var self = this;
+		self.dataGrid = grid;
+		$.get('pages/cis/developer-template.html').done(function(data){
+			self.init(data, item);
+			self.setData(item)
+		});
+	},
+	
+	del: function(grid, items){
+		var self = this;
+		$.ajax({
+		    headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json' 
+		    },
+		    'type': "post",
+		    'url': self.baseUrl + 'abolish',
+		    'data': JSON.stringify(items[0]),
+		    'dataType': 'json'
+		 }).done(function(data){
+			if(data.result){
+				$('body').message({
+						type: 'success',
+						content: '删除成功'
+					});
+					$(this).modal('hide');
+					grid.grid('refresh');
+			}else{
+				self.dialog.message({
+					type: 'error',
+					content: data.actionError
+				});
+			}
+		});
+	},
 	/**
 	 * 初始化
 	 */
-	init: function(data, id){
+	init: function(data, item){
 		var self = this;
 		var dialog = $(data);
 		self.dialog = dialog;
-		dialog.find('.modal-header').find('.modal-title').html(id ? '修改开发者信息':'添加开发者');
+		dialog.find('.modal-header').find('.modal-title').html(item ? '修改开发者信息':'添加开发者');
 		self.name = dialog.find('#name');
         self.email = dialog.find('#email');
+        self.developerId = dialog.find('#developerId');
 		dialog.find('#save').on('click',function(){
-			self.save(id);
+			self.save(item);
 		}).end().modal({
 			keyboard: false
 		}).on({
@@ -43,20 +81,26 @@ var developerManager = {
 		});
 	},
 	
+	setData: function(item){
+		var self = this;
+		self.developerId.val(item.developerId);
+		self.name.val(item.name);
+		self.email.val(item.email);
+	},
 	/*
 	*   保存数据 id存在则为修改 否则为新增
 	 */
-	save: function(id){
+	save: function(item){
 		var self = this;
-		if(!self.validate(id)){
+		if(!self.validate()){
 			return false;
 		}
 		var url = self.baseUrl + 'create';
-		if(id){
+		if(item){
 			url =  self.baseUrl + 'update';
 		}
-		$.post(url, self.getAllData(id)).done(function(data){
-			if(data.result == 'success'){
+		$.post(url, self.getAllData(item)).done(function(data){
+			if(data.result){
 				self.dialog.trigger('complete');
 			}else{
 				self.dialog.message({
@@ -69,11 +113,15 @@ var developerManager = {
 	/**
 	 * 数据验证
 	 */
-	validate: function(item){
+	validate: function(){
 		var self = this;
 		var dialog = self.dialog;
 		var name = self.name;
 		var email = self.email;
+		var developerId = self.developerId;
+		if(!Validation.notNull(dialog, developerId, developerId.val(), '请输入开发者ID')){
+			return false;
+		}
 		if(!Validation.notNull(dialog, name, name.val(), '请输入用户名称')){
 			return false;
 		}
@@ -88,13 +136,17 @@ var developerManager = {
 	/*
 	*获取表单数据
 	 */
-	getAllData: function(id){
+	getAllData: function(item){
 		var self = this;
 		var data = {};
+		if(item){
+			data = item;
+		}
+		data['developerId'] = self.developerId.val();
 		data['name'] = self.name.val();
 		data['email'] = self.email.val();
-		if(id){
-			data['id'] = id;	
+		if(item){
+			data['id'] = item.id;	
 		}
 		return data;
 	}

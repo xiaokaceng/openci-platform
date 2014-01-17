@@ -3,6 +3,11 @@
 	$(function() {
 		var columns = [
 			{
+				title : '开发者ID',
+				name : 'developerId',
+				width : 150
+			},
+			{
 				title : '用户名称',
 				name : 'name',
 				width : 150
@@ -38,13 +43,46 @@
 		$('#developerGrid').grid({
 			identity : 'id',
 			columns : columns,
-			querys: [{title: '姓名', value: 'name'},{title: '邮箱', value: 'email'}],
+			querys: [{title: '开发者ID', value: 'developerId'},{title: '姓名', value: 'name'},{title: '邮箱', value: 'email'}],
 			buttons : buttons,
 			url : 'developer/pagingquery'
 		}).on({
 			'add': function(){
-				console.info(developerManager)
 				developerManager.add($(this));
+			},
+			'modify': function(e, data){
+				var indexs = data.data;
+                var $this = $(this);
+                if(indexs.length == 0){
+                     $this.message({
+                         type: 'warning',
+                          content: '请选择一条记录进行修改'
+                 	 });
+                     return;
+                 }
+                 if(indexs.length > 1){
+                     $this.message({
+                         type: 'warning',
+                           content: '只能选择一条记录进行修改'
+                     });
+                     return;
+                 }
+                developerManager.update($this, data.item[0]);
+			},
+			'delete': function(e, data){
+				 var indexs = data.data;
+                 var $this = $(this)
+                 if(indexs.length == 0){
+                      $this.message({
+                           type: 'warning',
+                           content: '请选择要操作的记录'
+                   	  });
+                       return;
+                 }
+                 $this.confirm({
+                         content: '确定要删除所选记录吗?',
+                         callBack: function(){ developerManager.del($this, data.item);}
+                 });
 			}
 		});
 	}); 

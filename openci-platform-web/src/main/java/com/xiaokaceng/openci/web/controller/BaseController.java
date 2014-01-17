@@ -1,7 +1,14 @@
 package com.xiaokaceng.openci.web.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.xiaokaceng.openci.application.OpenciApplication;
 import com.xiaokaceng.openci.application.ProjectApplication;
@@ -31,4 +38,14 @@ public class BaseController {
 	protected boolean isNull(Object object) {
 		return !isNotNull(object);
 	}
+	
+	//数据绑定  
+    @InitBinder    
+    public void initBinder(WebDataBinder binder) {  
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");    
+        dateFormat.setLenient(false);    
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));    
+        //CustomDateEditor 可以换成自己定义的编辑器。  
+        //注册一个Date 类型的绑定器 。  
+    }   
 }

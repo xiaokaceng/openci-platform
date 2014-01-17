@@ -37,6 +37,10 @@ public class Developer extends TimeIntervalEntity {
 		return developerId;
 	}
 
+	public void setDeveloperId(String developerId) {
+		this.developerId = developerId;
+	}
+
 	public String getName() {
 		return name;
 	}
