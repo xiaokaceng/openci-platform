@@ -35,8 +35,8 @@ public class ToolConfigurationController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/update")
-	public ResultDto updateToolConfiguration(ToolConfiguration toolConfiguration) {
-		toolConfigurationApplication.updateConfiguration(toolConfiguration);
+	public ResultDto updateToolConfiguration(ToolConfigurationDto toolConfigurationDto) {
+		toolConfigurationApplication.updateConfiguration(toolConfigurationDto.toToolConfiguration());
 		return ResultDto.createSuccess();
 	}
 

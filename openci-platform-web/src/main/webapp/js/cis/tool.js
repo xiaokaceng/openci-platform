@@ -77,7 +77,7 @@ var toolManager = {
         		contents: contents
         	});
         	if(item){
-        		self.toolType.setValue(item.toolType);
+        		self.toolType.setValue(item.toolType).attr('disabled', true);
         	}
         });
 		dialog.find('#save').on('click',function(){
