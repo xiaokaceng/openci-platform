@@ -47,12 +47,19 @@ public class ProjectDto implements Serializable {
 	public ProjectDto() {
 		projectForCis = new com.xiaokaceng.openci.domain.Project(null);
 		projectForCreate = new Project();
+		initProjectInfo();
 	}
 	
 	public ProjectDto(String projectName) {
 		this.projectName = projectName;
 		projectForCis = new com.xiaokaceng.openci.domain.Project(projectName);
 		projectForCreate = new Project();
+		initProjectInfo();
+	}
+	
+	private void initProjectInfo() {
+		projectForCreate = new Project();
+		projectForCreate.initSSJProject();
 	}
 	
 }

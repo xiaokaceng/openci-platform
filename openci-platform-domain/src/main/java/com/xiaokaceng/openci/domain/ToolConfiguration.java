@@ -55,6 +55,10 @@ public class ToolConfiguration extends AbstractEntity {
 		this.createDate = new Date();
 	}
 	
+	public ToolConfiguration() {
+		this.createDate = new Date();
+	}
+
 	public static List<ToolConfiguration> findByUsable() {
 		return getRepository().find(QuerySettings.create(ToolConfiguration.class).eq("usable", true));
 	}
