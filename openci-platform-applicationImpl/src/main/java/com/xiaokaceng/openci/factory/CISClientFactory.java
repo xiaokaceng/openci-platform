@@ -40,7 +40,8 @@ public class CISClientFactory {
 
 	private static CISClient createTracCISClient(ToolConfiguration toolConfiguration) {
 		// TODO 需要添加tracConfiguration
-		return new TracCISClient(null);
+		//return new TracCISClient(null);
+		return null;
 	}
 
 	private static CISClient createJiraCISClient(ToolConfiguration toolConfiguration) {
@@ -61,7 +62,7 @@ public class CISClientFactory {
 
 	private static CISClient createSvnCISClient(ToolConfiguration toolConfiguration) {
 		// TODO 需修改configuration
-		return new SvnCISClient(null);
+		return null;
 	}
 
 	private static CISClient createGitCISClient(ToolConfiguration toolConfiguration) {

@@ -12,7 +12,7 @@ public class ResultDto {
 		return new ResultDto(false);
 	} 
 	
-	protected ResultDto(boolean result) {
+	public ResultDto(boolean result) {
 		this.result = result;
 	}
 	

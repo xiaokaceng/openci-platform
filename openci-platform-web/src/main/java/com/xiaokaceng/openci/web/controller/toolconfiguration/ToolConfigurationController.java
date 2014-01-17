@@ -25,34 +25,23 @@ public class ToolConfigurationController extends BaseController {
 
 	@Inject
 	private ToolConfigurationApplication toolConfigurationApplication;
-	
+
 	@ResponseBody
-    @RequestMapping("/create")
+	@RequestMapping("/create")
 	public ResultDto createToolConfiguration(ToolConfiguration toolConfiguration) {
 		toolConfigurationApplication.createConfiguration(toolConfiguration);
 		return ResultDto.createSuccess();
 	}
 
 	@ResponseBody
-    @RequestMapping("/update")
+	@RequestMapping("/update")
 	public ResultDto updateToolConfiguration(ToolConfiguration toolConfiguration) {
 		toolConfigurationApplication.updateConfiguration(toolConfiguration);
 		return ResultDto.createSuccess();
 	}
 
 	@ResponseBody
-    @RequestMapping("/usable/{toolConfigurationId}")
-	public ResultDto setToolUsable(@PathVariable long toolConfigurationId) {
-		ToolConfiguration toolConfiguration = ToolConfiguration.get(ToolConfiguration.class, toolConfigurationId);
-		if (toolConfiguration == null) {
-			return ResultDto.createFailure();
-		}
-		toolConfigurationApplication.setToolUsabled(toolConfiguration);
-		return ResultDto.createSuccess();
-	}
-	
-	@ResponseBody
-    @RequestMapping("/unusable/{toolConfigurationId}")
+	@RequestMapping("/unusable/{toolConfigurationId}")
 	public ResultDto setToolUnUsable(@PathVariable long toolConfigurationId) {
 		ToolConfiguration toolConfiguration = ToolConfiguration.get(ToolConfiguration.class, toolConfigurationId);
 		if (toolConfiguration == null) {
@@ -61,33 +50,44 @@ public class ToolConfigurationController extends BaseController {
 		toolConfigurationApplication.setToolUnusabled(toolConfiguration);
 		return ResultDto.createSuccess();
 	}
-	
+
 	@ResponseBody
-    @RequestMapping("/get-all-usable")
+	@RequestMapping("/get-all-usable")
 	public List<ToolConfiguration> getAllUsable() {
 		return toolConfigurationApplication.getAllUsable();
 	}
-	
+
 	@ResponseBody
-    @RequestMapping("/pagingquery")
+	@RequestMapping("/pagingquery")
 	public Map<String, Object> pagingQuery(int page, int pagesize) {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		Page<ToolConfiguration> toolConfigurationPage  = toolConfigurationApplication.pagingQeuryToolConfigurations(page, pagesize);
+		Page<ToolConfiguration> toolConfigurationPage = toolConfigurationApplication.pagingQeuryToolConfigurations(page, pagesize);
 		dataMap.put("Rows", toolConfigurationPage.getResult());
 		dataMap.put("start", page * pagesize - pagesize);
 		dataMap.put("limit", pagesize);
 		dataMap.put("Total", toolConfigurationPage.getTotalCount());
 		return dataMap;
 	}
-	
+
 	@ResponseBody
-    @RequestMapping("/get-tool-type")
+	@RequestMapping("/get-tool-type")
 	public List<String> getToolType() {
 		List<String> toolTypes = new ArrayList<String>();
 		for (ToolType each : ToolType.values()) {
 			toolTypes.add(each.toString());
 		}
 		return toolTypes;
+	}
+
+	@ResponseBody
+	@RequestMapping("/can-connect/{toolConfigurationId}")
+	public ResultDto canConnect(@PathVariable long toolConfigurationId) {
+		ToolConfiguration toolConfiguration = ToolConfiguration.get(ToolConfiguration.class, toolConfigurationId);
+		if (toolConfiguration == null) {
+			return ResultDto.createFailure();
+		}
+		boolean result = toolConfigurationApplication.canConnect(toolConfiguration);
+		return new ResultDto(result);
 	}
 
 }

@@ -17,14 +17,11 @@ import com.xiaokaceng.openci.pojo.ProjectIntegration;
 
 public class ToolIntegrationExecutor {
 
+	@Inject
 	private TaskExecutor taskExecutor;
 	
 	@Inject
 	private OpenciApplication openciApplication;
-
-	public ToolIntegrationExecutor(TaskExecutor taskExecutor) {
-		this.taskExecutor = taskExecutor;
-	}
 
 	public void execute(ProjectIntegration projectIntegration) {
 		verify(projectIntegration);
@@ -51,7 +48,8 @@ public class ToolIntegrationExecutor {
 		}
 		
 		public void run() {
-			createProject();
+			System.out.println("=======");
+			//createProject();
 //			createRoleIfNecessary();
 //			assignUserToRole();
 		}

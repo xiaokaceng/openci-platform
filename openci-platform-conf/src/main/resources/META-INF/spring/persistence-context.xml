@@ -71,7 +71,7 @@
 		<property name="alias" value="opencis" />
 	</bean>
 	
-	<bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name="corePoolSize" value="10"/>
         <property name="maxPoolSize" value="50"/>
         <property name="queueCapacity" value="1000"/>
@@ -80,4 +80,7 @@
             <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"/>
         </property>
     </bean>
+    
+    <bean id="toolIntegrationExecutor" class="com.xiaokaceng.openci.executor.ToolIntegrationExecutor" />
+    
 </beans>
