@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.openkoala.koala.queryvo.TypeDef;
 import org.openkoala.koala.util.ModuleDependencyUtils;
 import org.openkoala.koala.widget.Module;
+import org.openkoala.koala.widget.ModuleAdd;
 import org.openkoala.koala.widget.Project;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,12 +35,6 @@ public class ProjectController extends BaseController {
 	}
 	
 	@ResponseBody
-    @RequestMapping("/get-project-instance")
-	public ProjectDto getProjectInstance() {
-		return new ProjectDto();
-	}
-	
-	@ResponseBody
     @RequestMapping("/get-functions")
 	public Map<String, Map<String, String>> getFunctions(String moduleType) {
 		Map<String, Map<String, String>> result = new HashMap<String, Map<String,String>>();
@@ -60,6 +55,22 @@ public class ProjectController extends BaseController {
 	public ProjectDto generateDefaultModules(ProjectDto projectDto) {
 		projectDto.getProjectForCreate().initSSJProject();
 		return projectDto;
+	}
+	
+	@ResponseBody
+    @RequestMapping("/add-module")
+	public ResultDto addModule(ProjectDto projectDto, Module module) {
+		ModuleAdd moduleAdd = new ModuleAdd();
+		moduleAdd.setProjectPath(projectDto.getProjectForCreate().getPath() + "\\" + projectDto.getProjectForCreate().getAppName());
+		moduleAdd.setModule(module);
+		return ResultDto.createSuccess();
+	}
+	
+	@ResponseBody
+    @RequestMapping("/remove-module")
+	public ResultDto removeModule(ProjectDto projectDto, Module module) {
+		projectDto.getProjectForCreate().removeModule(module);
+		return ResultDto.createSuccess();
 	}
 	
 	
