@@ -3,7 +3,13 @@ package com.xiaokaceng.openci.application;
 import java.util.List;
 
 import com.dayatang.querychannel.support.Page;
+import com.xiaokaceng.openci.domain.GitConfiguration;
+import com.xiaokaceng.openci.domain.JenkinsConfiguration;
+import com.xiaokaceng.openci.domain.JiraConfiguration;
+import com.xiaokaceng.openci.domain.SonarConfiguration;
+import com.xiaokaceng.openci.domain.SvnConfiguration;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
+import com.xiaokaceng.openci.domain.TracConfiguration;
 
 public interface ToolConfigurationApplication {
 
@@ -51,11 +57,57 @@ public interface ToolConfigurationApplication {
 	List<ToolConfiguration> getAllUsable();
 
 	/**
-	 * 分页查询工具配置信息
+	 * 分页查询Jenkins工具配置信息
 	 * 
 	 * @param currentPage
 	 * @param pagesize
 	 * @return
 	 */
-	Page<ToolConfiguration> pagingQeuryToolConfigurations(int currentPage, int pagesize);
+	Page<JenkinsConfiguration> pagingQeuryJenkinsConfigurations(int currentPage, int pagesize);
+
+	/**
+	 * 分页查询Svn工具配置信息
+	 * 
+	 * @param currentPage
+	 * @param pagesize
+	 * @return
+	 */
+	Page<SvnConfiguration> pagingQeurySvnConfigurations(int currentPage, int pagesize);
+
+	/**
+	 * 分页查询Git工具配置信息
+	 * 
+	 * @param currentPage
+	 * @param pagesize
+	 * @return
+	 */
+	Page<GitConfiguration> pagingQeuryGitConfigurations(int currentPage, int pagesize);
+
+	/**
+	 * 分页查询Sonar工具配置信息
+	 * 
+	 * @param currentPage
+	 * @param pagesize
+	 * @return
+	 */
+	Page<SonarConfiguration> pagingQeurySonarConfigurations(int currentPage, int pagesize);
+
+	/**
+	 * 分页查询Jira工具配置信息
+	 * 
+	 * @param currentPage
+	 * @param pagesize
+	 * @return
+	 */
+	Page<JiraConfiguration> pagingQeuryJiraConfigurations(int currentPage, int pagesize);
+
+	/**
+	 * 分页查询Trac工具配置信息
+	 * 
+	 * @param currentPage
+	 * @param pagesize
+	 * @return
+	 */
+	Page<TracConfiguration> pagingQeuryTracConfigurations(int currentPage, int pagesize);
+
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import com.xiaokaceng.openci.application.OpenciApplication;
-import com.xiaokaceng.openci.application.ProjectApplication;
 
 public class BaseController {
 

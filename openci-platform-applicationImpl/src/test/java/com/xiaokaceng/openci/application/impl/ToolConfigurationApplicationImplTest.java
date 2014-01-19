@@ -85,8 +85,8 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 		toolConfiguration2.save();
 		assertEquals(2, ToolConfiguration.findAll(ToolConfiguration.class).size());
 
-		List<ToolConfiguration> toolConfigurations = toolConfigurationApplication.pagingQeuryToolConfigurations(1, 2).getResult();
-		assertEquals(2, toolConfigurations.size());
+		List<JenkinsConfiguration> toolConfigurations = toolConfigurationApplication.pagingQeuryJenkinsConfigurations(1, 2).getResult();
+		assertEquals(1, toolConfigurations.size());
 
 		toolConfiguration.remove();
 		toolConfiguration2.remove();
