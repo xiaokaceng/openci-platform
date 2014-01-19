@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.openkoala.koala.queryvo.TypeDef;
 import org.openkoala.koala.util.ModuleDependencyUtils;
 import org.openkoala.koala.widget.Module;
+import org.openkoala.koala.widget.ModuleAdd;
 import org.openkoala.koala.widget.Project;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,12 +32,6 @@ public class ProjectController extends BaseController {
 	public ResultDto createProject(ProjectDto projectDto) {
 		projectApplication.createProject(projectDto);
 		return ResultDto.createSuccess();
-	}
-	
-	@ResponseBody
-    @RequestMapping("/get-project-instance")
-	public ProjectDto getProjectInstance() {
-		return new ProjectDto();
 	}
 	
 	@ResponseBody
