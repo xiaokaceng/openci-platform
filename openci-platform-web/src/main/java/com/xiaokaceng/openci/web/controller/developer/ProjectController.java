@@ -55,6 +55,13 @@ public class ProjectController extends BaseController {
 		return moduleDependencyUtils.getCouldDependencyModules();
 	}
 	
+	@ResponseBody
+    @RequestMapping("/generate-default-modules")
+	public ProjectDto generateDefaultModules(ProjectDto projectDto) {
+		projectDto.getProjectForCreate().initSSJProject();
+		return projectDto;
+	}
+	
 	
 //	@ResponseBody
 //    @RequestMapping(value = "/abolish_developers", method = RequestMethod.POST, consumes = "application/json")
