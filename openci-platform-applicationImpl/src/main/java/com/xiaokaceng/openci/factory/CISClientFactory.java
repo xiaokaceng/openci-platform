@@ -59,7 +59,7 @@ public class CISClientFactory {
 
 	private static CISClient createJenkinsCISClient(ToolConfiguration toolConfiguration) {
 		AuthenticationStrategy authentication = new JenkinsOwnAuthentication(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
-		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
+		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), null);
 		// jenkinsCISClient.setScmConfig(new SvnConfig("http://abc", "test", "test"));
 		return jenkinsCISClient;
 	}

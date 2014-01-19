@@ -30,9 +30,9 @@ public class ToolIntegrationExecutorTest extends AbstractIntegrationTest {
 		// toolIntegrationExecutor.execute(createProjectIntegration());
 		ToolConfiguration toolConfiguration = createToolConfiguration();
 		AuthenticationStrategy authentication = new JenkinsOwnAuthentication(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
-		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
-		jenkinsCISClient.setScmConfig(new GitConfig("ttt"));
-		jenkinsCISClient.authenticate();
+		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), null);
+//		jenkinsCISClient.setScmConfig(new GitConfig("ttt"));
+//		jenkinsCISClient.authenticate();
 		jenkinsCISClient.createProject(createProjectIntegration().toCISProject());
 	}
 	
