@@ -6,6 +6,7 @@ import org.openkoala.opencis.git.impl.GitlabCISClient;
 import org.openkoala.opencis.git.impl.GitlabConfiguration;
 import org.openkoala.opencis.jenkins.JenkinsCISClient;
 import org.openkoala.opencis.jenkins.authentication.JenkinsOwnAuthentication;
+import org.openkoala.opencis.jenkins.configureImpl.scm.SvnConfig;
 import org.openkoala.opencis.pojo.SonarServerConfiguration;
 import org.openkoala.opencis.sonar.SonarCISClient;
 import org.openkoala.opencis.svn.SvnCISClient;
@@ -58,7 +59,9 @@ public class CISClientFactory {
 
 	private static CISClient createJenkinsCISClient(ToolConfiguration toolConfiguration) {
 		AuthenticationStrategy authentication = new JenkinsOwnAuthentication(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
-		return new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
+		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
+		// jenkinsCISClient.setScmConfig(new SvnConfig("http://abc", "test", "test"));
+		return jenkinsCISClient;
 	}
 
 	private static CISClient createSvnCISClient(ToolConfiguration toolConfiguration) {
