@@ -92,7 +92,7 @@ public class Tool extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return getToolConfiguration().getToolType().toString();
+		return getToolConfiguration().toString();
 	}
 
 }

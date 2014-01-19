@@ -4,9 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,7 +19,8 @@ import com.dayatang.domain.QuerySettings;
 
 @Entity
 @Table(name = "tool_configurations")
-public class ToolConfiguration extends AbstractEntity {
+@DiscriminatorColumn(name = "tool_type", discriminatorType = DiscriminatorType.STRING)
+public abstract class ToolConfiguration extends AbstractEntity {
 
 	private static final long serialVersionUID = -7992490907551882249L;
 
@@ -33,25 +34,17 @@ public class ToolConfiguration extends AbstractEntity {
 	
 	private String password;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "tool_type")
-	private ToolType toolType;
-	
 	private boolean usable = false;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_date")
 	private Date createDate;
 	
-	// gitlab特有
-	private String token;
-	
-	public ToolConfiguration(String name, String serviceUrl, String username, String password, ToolType toolType) {
+	public ToolConfiguration(String name, String serviceUrl, String username, String password) {
 		this.name = name;
 		this.serviceUrl = serviceUrl;
 		this.username = username;
 		this.password = password;
-		this.toolType = toolType;
 		this.createDate = new Date();
 	}
 	
@@ -89,10 +82,6 @@ public class ToolConfiguration extends AbstractEntity {
 		return password;
 	}
 
-	public ToolType getToolType() {
-		return toolType;
-	}
-
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -115,14 +104,6 @@ public class ToolConfiguration extends AbstractEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
 	}
 
 	@Override

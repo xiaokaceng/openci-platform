@@ -26,10 +26,11 @@ public class ToolConfigurationDto {
 	private int version;
 	
 	public ToolConfiguration toToolConfiguration() {
-		ToolConfiguration toolConfiguration = new ToolConfiguration(name, serviceUrl, username, password, toolType);
-		toolConfiguration.setId(id);
-		toolConfiguration.setVersion(version);
-		return toolConfiguration;
+//		ToolConfiguration toolConfiguration = new ToolConfiguration(name, serviceUrl, username, password, toolType);
+//		toolConfiguration.setId(id);
+//		toolConfiguration.setVersion(version);
+//		return toolConfiguration;
+		return null;
 	}
 	
 	public Long getId() {

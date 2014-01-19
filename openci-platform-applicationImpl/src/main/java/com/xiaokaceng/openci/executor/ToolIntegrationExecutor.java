@@ -44,6 +44,8 @@ public class ToolIntegrationExecutor {
 		public CISClientTask(Tool tool, ProjectIntegration projectIntegration) {
 			this.tool = tool;
 			this.projectIntegration = projectIntegration;
+			
+			// TODO 是否整合CAS
 			cisClient = CISClientFactory.getInstance(tool.getToolConfiguration());
 		}
 		

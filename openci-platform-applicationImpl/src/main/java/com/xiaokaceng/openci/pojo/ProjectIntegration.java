@@ -1,6 +1,5 @@
 package com.xiaokaceng.openci.pojo;
 
-import java.util.Map;
 import java.util.Set;
 
 import org.openkoala.opencis.api.Project;
@@ -11,31 +10,34 @@ import com.xiaokaceng.openci.domain.ToolConfiguration;
 public class ProjectIntegration {
 
 	private String artifactId;
-	
+
 	private String groupId;
-	
+
 	private String projectName;
-	
-	// 解析pom.xml对应Map
-	private Map<String, Object> pomFileNodeElements;
-	
+
 	private Set<Tool> tools;
-	
+
 	// 集成CAS用户管理
 	private ToolConfiguration casUserManageToolConfiguration;
-	
-	
 
+	// 项目存放路径
+	private String projectSavePath;
+	
 	public Project toCISProject() {
 		Project project = new Project();
 		project.setArtifactId(artifactId);
 		project.setGroupId(groupId);
 		project.setProjectName(projectName);
-		project.setNodeElements(pomFileNodeElements);
 		return project;
 	}
-	
-	
+
+	public boolean isIntegrationCas() {
+		if (casUserManageToolConfiguration == null) {
+			return false;
+		}
+		return true;
+	}
+
 	public String getArtifactId() {
 		return artifactId;
 	}
@@ -60,14 +62,6 @@ public class ProjectIntegration {
 		this.projectName = projectName;
 	}
 
-	public Map<String, Object> getPomFileNodeElements() {
-		return pomFileNodeElements;
-	}
-
-	public void setPomFileNodeElements(Map<String, Object> pomFileNodeElements) {
-		this.pomFileNodeElements = pomFileNodeElements;
-	}
-
 	public Set<Tool> getTools() {
 		return tools;
 	}
@@ -75,5 +69,21 @@ public class ProjectIntegration {
 	public void setTools(Set<Tool> tools) {
 		this.tools = tools;
 	}
-	
+
+	public ToolConfiguration getCasUserManageToolConfiguration() {
+		return casUserManageToolConfiguration;
+	}
+
+	public void setCasUserManageToolConfiguration(ToolConfiguration casUserManageToolConfiguration) {
+		this.casUserManageToolConfiguration = casUserManageToolConfiguration;
+	}
+
+	public String getProjectSavePath() {
+		return projectSavePath;
+	}
+
+	public void setProjectSavePath(String projectSavePath) {
+		this.projectSavePath = projectSavePath;
+	}
+
 }
