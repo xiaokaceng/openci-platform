@@ -22,28 +22,25 @@ public class ToolIntegrationExecutorTest extends AbstractIntegrationTest {
 
 	@Test
 	public void testExecutor() {
-<<<<<<< HEAD
 		toolIntegrationExecutor.execute(createProjectIntegration());
-//		System.setProperty("webdriver.firefox.bin", "D:\\Program Files\\Mozilla Firefox\\firefox.exe");
-//		WebDriver driver = new FirefoxDriver();
-//		
-//		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-//		ToolConfiguration toolConfiguration = createToolConfiguration();
-//		AuthenticationStrategy authentication = new JenkinsOwnAuthentication( toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
-//
-//		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
-//		jenkinsCISClient.setScmConfig(new SvnConfig("http://git.oschina.net/xiaokaceng/openci-platform.git", "test", "test"));
-//		jenkinsCISClient.authenticate();
-//		jenkinsCISClient.createProject(createProjectIntegration().toCISProject());
-=======
+		// System.setProperty("webdriver.firefox.bin",
+		// "D:\\Program Files\\Mozilla Firefox\\firefox.exe");
+		// WebDriver driver = new FirefoxDriver();
+		//
+		// driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+		// ToolConfiguration toolConfiguration = createToolConfiguration();
+		// AuthenticationStrategy authentication = new JenkinsOwnAuthentication(
+		// toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(),
+		// toolConfiguration.getPassword());
+		//
+		// JenkinsCISClient jenkinsCISClient = new
+		// JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
+		// jenkinsCISClient.setScmConfig(new
+		// SvnConfig("http://git.oschina.net/xiaokaceng/openci-platform.git",
+		// "test", "test"));
+		// jenkinsCISClient.authenticate();
+		// jenkinsCISClient.createProject(createProjectIntegration().toCISProject());
 		// toolIntegrationExecutor.execute(createProjectIntegration());
-		ToolConfiguration toolConfiguration = createToolConfiguration();
-		AuthenticationStrategy authentication = new JenkinsOwnAuthentication(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
-		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), null);
-//		jenkinsCISClient.setScmConfig(new GitConfig("ttt"));
-//		jenkinsCISClient.authenticate();
-		jenkinsCISClient.createProject(createProjectIntegration().toCISProject());
->>>>>>> b900b1bda5e4fe68db10b8cb2d6f9f000ba5d830
 	}
 
 	private ProjectIntegration createProjectIntegration() {

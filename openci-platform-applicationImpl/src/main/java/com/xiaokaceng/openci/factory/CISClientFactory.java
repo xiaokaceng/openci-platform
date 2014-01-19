@@ -29,7 +29,6 @@ public class CISClientFactory {
 		}
 		throw new CISClientInstantiationException();
 	}
-<<<<<<< HEAD
 	
 	public static CISClient getInstanceByCAS(ToolConfiguration toolConfiguration) {
 		for (ToolConfigurationPojo each : toolConfigurationPojos) {
@@ -39,19 +38,6 @@ public class CISClientFactory {
 			}
 		}
 		throw new CISClientInstantiationException();
-=======
-
-	private static CISClient createJenkinsCISClient(ToolConfiguration toolConfiguration) {
-		AuthenticationStrategy authentication = new JenkinsOwnAuthentication(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
-		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), null);
-		// jenkinsCISClient.setScmConfig(new SvnConfig("http://abc", "test", "test"));
-		return jenkinsCISClient;
-	}
-
-	private static CISClient createSvnCISClient(ToolConfiguration toolConfiguration) {
-		// TODO 需修改configuration
-		return null;
->>>>>>> b900b1bda5e4fe68db10b8cb2d6f9f000ba5d830
 	}
 
 }
