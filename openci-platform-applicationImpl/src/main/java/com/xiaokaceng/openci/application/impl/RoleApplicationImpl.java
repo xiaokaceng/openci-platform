@@ -52,4 +52,10 @@ public class RoleApplicationImpl implements RoleApplication {
 		return queryChannel.queryPagedResultByPageNo(jpql.toString(), conditionVals.toArray(), currentPage, pagesize);
 	}
 
+	public void abolishRole(Role[] roles) {
+		for (Role role : roles) {
+			role.abolish(new Date());
+		}
+	}
+
 }

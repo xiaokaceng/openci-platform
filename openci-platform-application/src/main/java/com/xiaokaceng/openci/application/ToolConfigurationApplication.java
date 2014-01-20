@@ -3,6 +3,7 @@ package com.xiaokaceng.openci.application;
 import java.util.List;
 
 import com.dayatang.querychannel.support.Page;
+import com.xiaokaceng.openci.domain.CasUserConfiguration;
 import com.xiaokaceng.openci.domain.GitConfiguration;
 import com.xiaokaceng.openci.domain.JenkinsConfiguration;
 import com.xiaokaceng.openci.domain.JiraConfiguration;
@@ -110,4 +111,10 @@ public interface ToolConfigurationApplication {
 	 */
 	Page<TracConfiguration> pagingQeuryTracConfigurations(int currentPage, int pagesize);
 
+	/**
+	 * 获取CAS用户管理的配置
+	 * 
+	 * @return
+	 */
+	CasUserConfiguration getUniqueInstance();
 }

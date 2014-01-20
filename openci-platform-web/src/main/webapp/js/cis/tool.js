@@ -1,55 +1,63 @@
 var toolManager = {
-	
-	baseUrl: 'toolconfiguration/',
-	dataGrid: null,
-	name: null,
-	toolType: null,
-	serviceUrl: null,
-	username: null,
-	password: null,
-	dialog: null,
-	developerId: null,
-	
-	add: function(grid){
+
+	baseUrl : 'tracconfiguration/',
+	dataGrid : null,
+	name : null,
+	serviceUrl : null,
+	username : null,
+	password : null,
+	savePath : null,
+	token : null,
+	toolType : null,
+	dialog : null,
+	developerId : null,
+
+	add : function(toolType, grid) {
 		var self = this;
 		self.dataGrid = grid;
-		$.get('pages/cis/tool-template.html').done(function(data){
+		self.toolType = toolType;
+		self.baseUrl = self.getBaseUrl(toolType);
+		$.get('pages/cis/tool-template.html').done(function(data) {
 			self.init(data);
 		});
 	},
-	
-	update: function(grid, item){
+
+	update : function(toolType, grid, item) {
 		var self = this;
 		self.dataGrid = grid;
-		$.get('pages/cis/tool-template.html').done(function(data){
+		self.toolType = toolType;
+		self.baseUrl = self.getBaseUrl(toolType);
+		$.get('pages/cis/tool-template.html').done(function(data) {
 			self.init(data, item);
 			self.setData(item)
 		});
 	},
-	
-	del: function(grid, items){
+
+	del : function(toolType, grid, items) {
 		var self = this;
+		self.toolType = toolType;
+		self.baseUrl = self.getBaseUrl(toolType);
 		$.ajax({
-		    headers: { 
-		        'Accept': 'application/json',
-		        'Content-Type': 'application/json' 
-		    },
-		    'type': "post",
-		    'url': self.baseUrl + 'abolish',
-		    'data': JSON.stringify(items[0]),
-		    'dataType': 'json'
-		 }).done(function(data){
-			if(data.result){
+			headers : {
+				'Accept' : 'application/json',
+				'Content-Type' : 'application/json'
+			},
+			'type' : "post",
+			'url' : self.baseUrl + 'abolish',
+			'data' : JSON.stringify(items[0]),
+			'dataType' : 'json'
+		}).done(function(data) {
+			if (data.result) {
 				$('body').message({
-						type: 'success',
-						content: '删除成功'
-					});
-					$(this).modal('hide');
-					grid.grid('refresh');
-			}else{
+					type : 'success',
+					content : '删除成功'
+				});
+				$(this).modal('hide');
+				grid.grid('refresh');
+			} else {
 				self.dialog.message({
-					type: 'error',
-					content: data.actionError
+					type : 'error',
+					content : data.actionError
 				});
 			}
 		});
@@ -57,74 +65,74 @@ var toolManager = {
 	/**
 	 * 初始化
 	 */
-	init: function(data, item){
+	init : function(data, item) {
 		var self = this;
 		var dialog = $(data);
 		self.dialog = dialog;
-		dialog.find('.modal-header').find('.modal-title').html(item ? '修改工具配置':'添加工具');
+		dialog.find('.modal-header').find('.modal-title').html( item ? '修改工具配置' : '添加工具');
 		self.name = dialog.find('#name');
-		self.toolType = dialog.find('#toolType');
-        self.serviceUrl = dialog.find('#serviceUrl');
-        self.username = dialog.find('#username');
-        self.password = dialog.find('#password');
-        $.get(self.baseUrl + 'get-tool-type').done(function(data){
-        	var contents = [];
-        	for(type in data){
-        		contents.push({title:type, value:type});
-        	}
-        	self.toolType.select({
-        		title: '请选择',
-        		contents: contents
-        	});
-        	if(item){
-        		self.toolType.setValue(item.toolType).attr('disabled', true);
-        	}
-        });
-		dialog.find('#save').on('click',function(){
+		self.serviceUrl = dialog.find('#serviceUrl');
+		self.username = dialog.find('#username');
+		self.password = dialog.find('#password');
+		self.savePath = dialog.find('#savePath');
+		self.token = dialog.find('#token');
+		if (self.toolType != 'TRAC' && self.toolType != 'SVN') {
+			self.savePath.closest('.form-group').hide();
+		}
+		if (self.toolType != 'GIT') {
+			self.token.closest('.form-group').hide();
+		}
+		dialog.find('#save').on('click', function() {
 			self.save(item);
 		}).end().modal({
-			keyboard: false
+			keyboard : false
 		}).on({
-				'hidden.bs.modal': function(){
-					$(this).remove();
-				},
-				'complete': function(){
-					$('body').message({
-						type: 'success',
-						content: '保存成功'
-					});
-					$(this).modal('hide');
-					self.dataGrid.grid('refresh');
-				}
+			'hidden.bs.modal' : function() {
+				$(this).remove();
+			},
+			'complete' : function() {
+				$('body').message({
+					type : 'success',
+					content : '保存成功'
+				});
+				$(this).modal('hide');
+				self.dataGrid.grid('refresh');
+			}
 		});
 	},
-	
-	setData: function(item){
+
+	setData : function(item) {
 		var self = this;
 		self.name.val(item.name);
 		self.serviceUrl.val(item.serviceUrl);
 		self.username.val(item.username);
 		self.password.val(item.password);
+		if (item.savePath) {
+			self.savePath.val(item.savePath);
+		}
+		if (item.token) {
+			self.token.val(item.savePath);
+		}
 	},
 	/*
-	*   保存数据 id存在则为修改 否则为新增
+	 *   保存数据 id存在则为修改 否则为新增
 	 */
-	save: function(item){
+	save : function(item) {
 		var self = this;
-		if(!self.validate()){
+		if (!self.validate()) {
 			return false;
 		}
 		var url = self.baseUrl + 'create';
-		if(item){
-			url =  self.baseUrl + 'update';
+		if (item) {
+			url = self.baseUrl + 'update';
 		}
-		$.post(url, self.getAllData(item)).done(function(data){
-			if(data.result){
+		$.post(url, self.getAllData(item)).done(function(data) {
+			if (data.result) {
 				self.dialog.trigger('complete');
-			}else{
+			} else {
 				self.dialog.message({
-					type: 'error',
-					content: data.actionError
+					type : 'error',
+					content : data.actionError
 				});
 			}
 		});
@@ -132,7 +140,7 @@ var toolManager = {
 	/**
 	 * 数据验证
 	 */
-	validate: function(){
+	validate : function() {
 		var self = this;
 		var dialog = self.dialog;
 		var name = self.name;
@@ -140,40 +148,70 @@ var toolManager = {
 		var serviceUrl = self.serviceUrl;
 		var username = self.username;
 		var password = self.password;
-		if(!Validation.notNull(dialog, name, name.val(), '请输入工具名')){
+		var savePath = self.savePath;
+		var token = self.token;
+		if (!Validation.notNull(dialog, name, name.val(), '请输入工具名')) {
 			return false;
 		}
-		if(!Validation.notNull(dialog, toolType, toolType.getValue(), '请选择工具')){
+		if (!Validation.notNull(dialog, serviceUrl, serviceUrl.val(), '请输入工具地址')) {
 			return false;
 		}
-		if(!Validation.notNull(dialog, serviceUrl, serviceUrl.val(), '请输入工具地址')){
+		if (self.toolType == 'TRAC' || self.toolType == 'SVN') {
+			if (!Validation.notNull(dialog, savePath, savePath.val(), '请输入保存地址')) {
+				return false;
+			}
+		}
+		if (self.toolType == 'GIT') {
+			if (!Validation.notNull(dialog, token, token.val(), '请输入Token')) {
+				return false;
+			}
+		}
+		if (!Validation.notNull(dialog, username, username.val(), '请输入用户名')) {
 			return false;
 		}
-		if(!Validation.notNull(dialog, username, username.val(), '请输入用户名')){
-			return false;
-		}
-		if(!Validation.notNull(dialog, password, password.val(), '请输入密码')){
+		if (!Validation.notNull(dialog, password, password.val(), '请输入密码')) {
 			return false;
 		}
 		return true;
 	},
 	/*
-	*获取表单数据
+	 *获取表单数据
 	 */
-	getAllData: function(item){
+	getAllData : function(item) {
 		var self = this;
 		var data = {};
-		if(item){
+		if (item) {
 			data = item;
 		}
 		data['name'] = self.name.val();
-		data['toolType'] = self.toolType.getValue();
 		data['serviceUrl'] = self.serviceUrl.val();
 		data['username'] = self.username.val();
 		data['password'] = self.password.val();
-		if(item){
-			data['id'] = item.id;	
+		if (self.toolType == 'TRAC' || self.toolType == 'SVN') {
+			data['savePath'] = self.savePath.val();
+		}
+		if (self.toolType == 'GIT') {
+			data['token'] = self.token.val();
 		}
 		return data;
+	},
+
+	getBaseUrl : function(toolType) {
+		switch(toolType) {
+			case 'TRAC':
+				return 'tracconfiguration/';
+			case 'JIRA':
+				return 'jirasconfiguration/';
+			case 'SONAR':
+				return 'sonarconfiguration/';
+			case 'JENKINS':
+				return 'jenkinsconfiguration/';
+			case 'GIT':
+				return 'gitconfiguration/';
+			case 'SVN':
+				return 'svnconfiguration/';
+			default:
+				return 'tracconfiguration/';
+		}
 	}
 }

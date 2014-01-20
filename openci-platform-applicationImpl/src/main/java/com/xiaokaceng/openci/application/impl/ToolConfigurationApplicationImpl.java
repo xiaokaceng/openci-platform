@@ -12,6 +12,7 @@ import com.dayatang.querychannel.service.QueryChannelService;
 import com.dayatang.querychannel.support.Page;
 import com.xiaokaceng.openci.EntityNullException;
 import com.xiaokaceng.openci.application.ToolConfigurationApplication;
+import com.xiaokaceng.openci.domain.CasUserConfiguration;
 import com.xiaokaceng.openci.domain.GitConfiguration;
 import com.xiaokaceng.openci.domain.JenkinsConfiguration;
 import com.xiaokaceng.openci.domain.JiraConfiguration;
@@ -94,6 +95,10 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 	public Page<TracConfiguration> pagingQeuryTracConfigurations(int currentPage, int pagesize) {
 		StringBuilder jpql = new StringBuilder("select _toolconfiguration from TracConfiguration _toolconfiguration");
 		return queryChannel.queryPagedResultByPageNo(jpql.toString(), null, currentPage, pagesize);
+	}
+
+	public CasUserConfiguration getUniqueInstance() {
+		return CasUserConfiguration.getUniqueInstance();
 	}
 
 }

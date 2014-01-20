@@ -1,12 +1,15 @@
 package com.xiaokaceng.openci.web.controller.role;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dayatang.querychannel.support.Page;
@@ -42,7 +45,12 @@ public class RoleController extends BaseController {
 		roleApplication.abolishRole(role);
 		return ResultDto.createSuccess();
 	}
-
+	@ResponseBody
+    @RequestMapping(value="/abolishs", method = RequestMethod.POST, consumes = "application/json")
+	public ResultDto abolishRole(@RequestBody Role[] roles) {
+		roleApplication.abolishRole(roles);
+		return ResultDto.createSuccess();
+	}
 	@ResponseBody
     @RequestMapping("/pagingquery")
 	public Map<String, Object> pagingQuery(int page, int pagesize) {
