@@ -199,13 +199,38 @@ a, button {
 	width: 94%;	
 }
 
+.select-sub-system {
+	margin-top: 25px;
+}
+
 .select-sub-system .checker {
 	float: right;	
 	position: relative;
     top: 6px;
 }
+
 .select-sub-system .form-group .control-label {
 	text-align: left!important;	
+}
+
+.select-developer {
+	padding-top: 10px;
+}
+
+.select-developer .grid-table-body {
+	height: 210px!important;
+}
+
+.select-tools .grid-table-body {
+	height: 310px!important;
+}
+
+.select-tools .checker {
+	margin-right: 15px;
+}
+
+.select-tools .form-control {
+	max-width: 320px;
 }
 
 .message-preview .form-group {

@@ -17,100 +17,23 @@
 						</div>
 						<label class="col-lg-1 control-label">包路径:</label>
 						<div class="col-lg-4">
-							<input type="text" class="form-control" id="packagePath">
+							<input type="text" class="form-control" id="basePackage">
 							<span class="required">*</span>
 						</div>
 						<label class="col-lg-2 control-label" style="width: 10%;">模块类型:</label>
 						<div class="col-lg-2">
-							<div class="btn-group select" id="modualType"></div>
+							<div class="btn-group select" id="moduleType"></div>
 							<span class="required">*</span>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-lg-6">
 							<h4>功能依赖</h4>
-							<div class="table-responsive">
-								<table class="table table-responsive table-bordered grid">
-									<tbody>
-										<tr>
-											<td>
-											<div class="colResizePointer"></div>
-											<div class="grid-body" style="width: 480px;">
-												<div class="grid-table-head" style="width: 480px;">
-													<table class="table table-bordered">
-														<tbody>
-															<tr>
-																<th width="50px;">
-																<div class="checker">
-																	<span data-role="selectAll"></span>
-																</div></th><th width="180px" index="0">功能名称
-																<div class="colResize"></div></th>
-																<th width="auto" index="0">功能描述
-																<div class="colResize"></div></th>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<div class="grid-table-body" style="width: 480px;">
-													<table class="table table-responsive table-bordered table-hover table-striped">
-														<tbody>
-															<tr>
-																<td width="50px;">
-																<div class="checker">
-																	<span indexvalue="0" data-role="indexCheckbox" data-value="1"></span>
-																</div></td><td width="180px" index="0">xxxx</td><td width="auto" index="0">xxxx</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+							<div id="functionsGrid"></div>
 						</div>
 						<div class="col-lg-6">
-							<div class="table-responsive">
-								<h4>模块依赖</h4>
-								<table class="table table-responsive table-bordered grid">
-									<tbody>
-										<tr>
-											<td>
-											<div class="colResizePointer"></div>
-											<div class="grid-body" style="width: 480px;">
-												<div class="grid-table-head" style="width: 480px;">
-													<table class="table table-bordered">
-														<tbody>
-															<tr>
-																<th width="50px;">
-																<div class="checker">
-																	<span data-role="selectAll"></span>
-																</div></th><th width="180px" index="0">模块名称
-																<div class="colResize"></div></th>
-																<th width="auto" index="0">模块类型
-																<div class="colResize"></div></th>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<div class="grid-table-body" style="width: 480px;">
-													<table class="table table-responsive table-bordered table-hover table-striped">
-														<tbody>
-															<tr>
-																<td width="50px;">
-																<div class="checker">
-																	<span indexvalue="0" data-role="indexCheckbox" data-value="1"></span>
-																</div></td><td width="180px" index="0">xxxx</td>
-																<td width="auto" index="0">xxxx</td></td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+							<h4>模块依赖</h4>
+							 <div id="dependenciesGrid"></div>
 						</div>
 					</div>
 				</form>

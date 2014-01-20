@@ -25,18 +25,20 @@
 	  };
 	
 	  Wizard.prototype.init = function (element, options) {
+	  	  var self = this;
 		  this.$element = $(element);
 		  this.options  = $.extend({}, Wizard.DEFAULTS, options);
 		  this.ul = this.$element.find(this.options.ul);
 		  this.items = this.$element.find(this.options.items);
-		  this.items.find(this.options.next).on('click.bs.wizard',$.proxy(function (e) {
+		  this.items.find(this.options.next).on('click.bs.wizard',function (e) {
 			  e.preventDefault();
 			  var form = $(e.currentTarget).closest('.page').find('form');
 			  if(form.length > 0 && !Validator.Validate(form[0], 3)){
 			  		return;
 			  }
-			  this.next(e);
-	      }, this));
+			  self.next(e);
+			  self.$element.trigger($(this).data('action'));
+	      });
 	      this.items.find(this.options.prev).on('click.bs.wizard',$.proxy(function (e) {
 			  e.preventDefault();
 			  this.prev(e);
