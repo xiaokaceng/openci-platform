@@ -53,7 +53,9 @@ public class ProjectController extends BaseController {
 	@ResponseBody
     @RequestMapping("/generate-default-modules")
 	public ProjectDto generateDefaultModules(ProjectDto projectDto) {
-		projectDto.getProjectForCreate().initSSJProject();
+		Project project = projectDto.getProjectForCreate();
+		project.initSSJProject();
+		project.initModulePrefix(project.getAppName());
 		return projectDto;
 	}
 	
