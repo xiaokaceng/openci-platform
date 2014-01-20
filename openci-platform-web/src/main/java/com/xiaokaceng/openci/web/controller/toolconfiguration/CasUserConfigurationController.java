@@ -34,9 +34,9 @@ public class CasUserConfigurationController extends ToolConfigurationBaseControl
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		CasUserConfiguration casUserConfiguration = toolConfigurationApplication.getUniqueInstance();
 		if (casUserConfiguration == null) {
-			dataMap.put("result", "false");
+			dataMap.put("result", false);
 		} else {
-			dataMap.put("result", "true");
+			dataMap.put("result", true);
 			dataMap.put("data", casUserConfiguration);
 		}
 		return dataMap;

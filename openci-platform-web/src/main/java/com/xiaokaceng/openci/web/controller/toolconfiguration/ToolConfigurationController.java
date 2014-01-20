@@ -1,6 +1,8 @@
 package com.xiaokaceng.openci.web.controller.toolconfiguration;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaokaceng.openci.domain.ToolConfiguration;
+import com.xiaokaceng.openci.domain.ToolType;
 import com.xiaokaceng.openci.web.dto.ResultDto;
 
 @Controller
@@ -42,4 +45,14 @@ public class ToolConfigurationController extends ToolConfigurationBaseController
 		return new ResultDto(result);
 	}
 
+	@ResponseBody
+    @RequestMapping("/get-tool-type")
+	public Map<String, Object> getToolType() {
+		Map<String, Object> toolTypes = new HashMap<String, Object>();
+		for (ToolType each : ToolType.values()) {
+			toolTypes.put(each.toString(), each);
+		}
+		return toolTypes;
+	}
+	
 }

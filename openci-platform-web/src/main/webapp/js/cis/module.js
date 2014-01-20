@@ -124,13 +124,14 @@ var moduleManager = {
 		});
 		var param = {};
 		var project = self.project;
-		console.info(project);
 		delete project.scanPackages;
 		delete project.packageName;
 		delete project.groupPackage;
-		for(var i=0,j=project.module.length; i<j; i++){
-			delete project.module[i].security;
-			delete project.module[i].basePackagePath;
+		if(project.module){
+			for(var i=0,j=project.module.length; i<j; i++){
+				delete project.module[i].security;
+				delete project.module[i].basePackagePath;
+			}
 		}
 		$.ajax({
 		    headers: { 
@@ -141,8 +142,31 @@ var moduleManager = {
 		    'url': self.baseUrl + 'get-dependables?moduleType=' + moduleType,
 		    'data': JSON.stringify(project),
 		    'dataType': 'json'
-		})
-		
+		}).done(function(data){
+			var functions = [];
+			for (dependencieName in data.dependencies) {
+				functions.push({
+					dependencieName : dependencieName,
+					dependencieDesc : data.dependencies[dependencieName]
+				});
+			}
+			var columns = [{
+				title : '模块名称',
+				name : 'functionName',
+				width : 150
+			}, {
+				title : '模块类型',
+				name : 'functionDesc',
+				width : 150
+			}];
+			self.functionsGrid.empty().data('koala.grid', null).grid({
+				identity : 'functionName',
+				columns : columns,
+				isShowPages : false,
+				isUserLocalData : true,
+				localData : functions
+			});
+		});
 	},
 
 	setData : function(item) {
