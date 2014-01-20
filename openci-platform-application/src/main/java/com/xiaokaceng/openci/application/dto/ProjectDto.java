@@ -14,6 +14,10 @@ public class ProjectDto implements Serializable {
 	
 	private com.xiaokaceng.openci.domain.Project projectForCis;
 
+	private ScmConfig scmConfig;
+	
+	private boolean userCas;
+	
 	public String getProjectName() {
 		return projectName;
 	}
@@ -44,6 +48,22 @@ public class ProjectDto implements Serializable {
 		this.projectForCis = projectForCis;
 	}
 	
+	public ScmConfig getScmConfig() {
+		return scmConfig;
+	}
+
+	public void setScmConfig(ScmConfig scmConfig) {
+		this.scmConfig = scmConfig;
+	}
+
+	public boolean isUserCas() {
+		return userCas;
+	}
+
+	public void setUserCas(boolean userCas) {
+		this.userCas = userCas;
+	}
+
 	public ProjectDto() {
 		projectForCis = new com.xiaokaceng.openci.domain.Project(null);
 		initProjectInfo();
