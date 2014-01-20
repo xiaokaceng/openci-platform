@@ -10,6 +10,7 @@ import com.xiaokaceng.openci.domain.ToolConfiguration;
 import com.xiaokaceng.openci.pojo.GitConfigurationPojo;
 import com.xiaokaceng.openci.pojo.JenkinsConfigurationPojo;
 import com.xiaokaceng.openci.pojo.ToolConfigurationPojo;
+import com.xiaokaceng.openci.pojo.TracConfigurationPojo;
 
 public class CISClientFactory {
 
@@ -18,6 +19,7 @@ public class CISClientFactory {
 	static {
 		toolConfigurationPojos.add(new GitConfigurationPojo());
 		toolConfigurationPojos.add(new JenkinsConfigurationPojo());
+		toolConfigurationPojos.add(new TracConfigurationPojo());
 	}
 	
 	public static CISClient getInstance(ToolConfiguration toolConfiguration) {

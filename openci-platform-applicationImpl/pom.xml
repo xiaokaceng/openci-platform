@@ -61,6 +61,11 @@
 			<version>${koala.opencis.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-support</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 		</dependency>

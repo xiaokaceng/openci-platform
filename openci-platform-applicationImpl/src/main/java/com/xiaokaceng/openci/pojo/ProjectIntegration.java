@@ -23,6 +23,9 @@ public class ProjectIntegration {
 	// 项目存放路径
 	private String projectSavePath;
 	
+	// 项目版本控制
+	private ScmConfig scmConfig;
+	
 	public Project toCISProject() {
 		Project project = new Project();
 		project.setArtifactId(artifactId);
@@ -86,4 +89,12 @@ public class ProjectIntegration {
 		this.projectSavePath = projectSavePath;
 	}
 
+	public ScmConfig getScmConfig() {
+		return scmConfig;
+	}
+
+	public void setScmConfig(ScmConfig scmConfig) {
+		this.scmConfig = scmConfig;
+	}
+	
 }
