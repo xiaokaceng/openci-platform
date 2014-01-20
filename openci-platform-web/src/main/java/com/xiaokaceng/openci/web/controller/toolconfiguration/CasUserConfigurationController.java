@@ -25,4 +25,9 @@ public class CasUserConfigurationController extends ToolConfigurationBaseControl
 		return ResultDto.createSuccess();
 	}
 
+	@ResponseBody
+	@RequestMapping("/get")
+	public CasUserConfiguration getInstance() {
+		return toolConfigurationApplication.getUniqueInstance();
+	}
 }
