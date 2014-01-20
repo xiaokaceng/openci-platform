@@ -124,16 +124,21 @@ var moduleManager = {
 		});
 		var param = {};
 		var project = self.project;
-		console.info(project)
+		console.info(project);
 		delete project.scanPackages;
 		delete project.packageName;
+		delete project.groupPackage;
+		for(var i=0,j=project.module.length; i<j; i++){
+			delete project.module[i].security;
+			delete project.module[i].basePackagePath;
+		}
 		$.ajax({
 		    headers: { 
 		        'Accept': 'application/json',
 		        'Content-Type': 'application/json' 
 		    },
 		    'type': "Post",
-		    'url': self.baseUrl + 'get-dependables',
+		    'url': self.baseUrl + 'get-dependables?moduleType=' + moduleType,
 		    'data': JSON.stringify(project),
 		    'dataType': 'json'
 		})

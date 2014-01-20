@@ -9,9 +9,9 @@ import javax.inject.Inject;
 import org.openkoala.koala.queryvo.TypeDef;
 import org.openkoala.koala.util.ModuleDependencyUtils;
 import org.openkoala.koala.widget.Module;
-import org.openkoala.koala.widget.ModuleAdd;
 import org.openkoala.koala.widget.Project;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -45,7 +45,7 @@ public class ProjectController extends BaseController {
 	
 	@ResponseBody
     @RequestMapping("/get-dependables")
-	public List<Module> getDependables(Project project, String moduleType) {
+	public List<Module> getDependables(@RequestBody Project project, String moduleType) {
 		ModuleDependencyUtils moduleDependencyUtils = new ModuleDependencyUtils(project, moduleType);
 		return moduleDependencyUtils.getCouldDependencyModules();
 	}
