@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.openkoala.opencis.api.CISClient;
 
-import com.xiaokaceng.openci.CISClientInstantiationException;
+import com.xiaokaceng.openci.CISClientNotInstanceException;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 import com.xiaokaceng.openci.pojo.GitConfigurationPojo;
 import com.xiaokaceng.openci.pojo.JenkinsConfigurationPojo;
@@ -29,7 +29,7 @@ public class CISClientFactory {
 				return each.getCISClient();
 			}
 		}
-		throw new CISClientInstantiationException();
+		throw new CISClientNotInstanceException();
 	}
 	
 	public static CISClient getInstanceByCAS(ToolConfiguration toolConfiguration) {
@@ -39,7 +39,7 @@ public class CISClientFactory {
 				return each.getCISClient();
 			}
 		}
-		throw new CISClientInstantiationException();
+		throw new CISClientNotInstanceException();
 	}
 
 }
