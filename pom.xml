@@ -374,7 +374,7 @@
 		<profile>
 			<id>mysql</id>
 			<properties>
-				<db.type>mysql</db.type>
+				<db.type>MYSQL</db.type>
 				<db.port>3306</db.port>
 				<dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>
 				<hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
