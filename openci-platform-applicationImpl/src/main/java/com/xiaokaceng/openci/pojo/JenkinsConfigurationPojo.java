@@ -7,6 +7,8 @@ import org.openkoala.opencis.jenkins.configureApi.ScmConfigStrategy;
 import org.openkoala.opencis.jenkins.configureImpl.scm.GitConfig;
 import org.openkoala.opencis.jenkins.configureImpl.scm.SvnConfig;
 
+import com.xiaokaceng.openci.application.dto.ScmConfig;
+import com.xiaokaceng.openci.application.dto.ScmType;
 import com.xiaokaceng.openci.domain.JenkinsConfiguration;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 
