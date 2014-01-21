@@ -22,14 +22,15 @@ public class CISClientFactory {
 	static {
 		toolConfigurationPojos.add(new SvnConfigurationPojo());
 		toolConfigurationPojos.add(new GitConfigurationPojo());
-		toolConfigurationPojos.add(new JenkinsConfigurationPojo());
+		toolConfigurationPojos.add(new JenkinsConfigurationPojo(null));
 		toolConfigurationPojos.add(new SonarConfigurationPojo());
 		toolConfigurationPojos.add(new JiraConfigurationPojo());
 		toolConfigurationPojos.add(new TracConfigurationPojo());
 	}
 	
-	public static void rewriteConfiguration(ToolConfigurationPojo toolConfigurationPojo) {
-		
+	public static void reloadJenkinsConfiguration(ToolConfigurationPojo jenkinsConfigurationPojo) {
+		toolConfigurationPojos.remove(JenkinsConfigurationPojo.class);
+		toolConfigurationPojos.add(jenkinsConfigurationPojo);
 	}
 	
 	public static CISClient getInstance(ToolConfiguration toolConfiguration) {

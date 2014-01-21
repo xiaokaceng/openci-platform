@@ -14,6 +14,9 @@ import org.openkoala.opencis.jenkins.JenkinsCISClient;
 import org.openkoala.opencis.jenkins.authentication.JenkinsOwnAuthentication;
 import org.openkoala.opencis.jenkins.configureImpl.scm.GitConfig;
 import org.openkoala.opencis.jenkins.configureImpl.scm.SvnConfig;
+import org.openkoala.opencis.support.SSHConnectConfig;
+import org.openkoala.opencis.svn.SvnCISClient;
+import org.openkoala.opencis.trac.TracCISClient;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
 import com.xiaokaceng.openci.domain.JenkinsConfiguration;
@@ -38,30 +41,43 @@ public class ToolIntegrationExecutorTest extends AbstractIntegrationTest {
 		ToolConfiguration toolConfiguration = createToolConfiguration();
 		AuthenticationStrategy authentication = new JenkinsOwnAuthentication(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
 
-		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
-		jenkinsCISClient.setScmConfig(new SvnConfig("http://git.oschina.net/xiaokaceng/openci-platform.git", "test", "test"));
-		jenkinsCISClient.authenticate();
-		Project project = createProjectIntegration().toCISProject();
-		jenkinsCISClient.createProject(project);
-		jenkinsCISClient.createUserIfNecessary(project, createDeveloper());
-		jenkinsCISClient.createRoleIfNecessary(project, project.getArtifactId());
-		jenkinsCISClient.assignUsersToRole(project, project.getArtifactId(), createDeveloper());
+//		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
+//		jenkinsCISClient.setScmConfig(new SvnConfig("http://git.oschina.net/xiaokaceng/openci-platform.git", "test", "test"));
+//		jenkinsCISClient.authenticate();
+//		Project project = createProjectIntegration().toCISProject();
+//		jenkinsCISClient.createProject(project);
+//		jenkinsCISClient.createUserIfNecessary(project, createDeveloper());
+//		jenkinsCISClient.createRoleIfNecessary(project, project.getArtifactId());
+//		jenkinsCISClient.assignUsersToRole(project, project.getArtifactId(), createDeveloper());
 		
-		// toolIntegrationExecutor.execute(createProjectIntegration());
-		// ToolConfiguration toolConfiguration = createToolConfiguration();
-		// SSHConnectConfig sshConnectConfig = new
-		// SSHConnectConfig(toolConfiguration.getServiceUrl(),
-		// toolConfiguration.getUsername(), toolConfiguration.getPassword());
-		// TracCISClient cisClient = new TracCISClient(sshConnectConfig);
-		// cisClient.createProject(createProjectIntegration().toCISProject());
+//		SSHConnectConfig sshConnectConfig = new SSHConnectConfig("10.108.1.138", "apache", "apache", "/usr/share/trac/projects/openci-platform3");
+//		TracCISClient tracCISClient = new TracCISClient(sshConnectConfig);
+//		Project project = createProjectIntegration().toCISProject();
+//		tracCISClient.createProject(project);
+//		tracCISClient.createUserIfNecessary(project, createDeveloper());
+//		tracCISClient.createRoleIfNecessary(project, project.getArtifactId());
+//		tracCISClient.assignUsersToRole(project, project.getArtifactId(), createDeveloper());
+
+		SSHConnectConfig sshConnectConfig = new SSHConnectConfig("10.108.1.138", "apache", "apache", "/home/svn");
+		SvnCISClient tracCISClient = new SvnCISClient(sshConnectConfig);
+		Project project = createProjectIntegration().toCISProject();
+		tracCISClient.createProject(project);
+		tracCISClient.createUserIfNecessary(project, createDeveloper());
+		tracCISClient.createRoleIfNecessary(project, project.getArtifactId());
+		tracCISClient.assignUsersToRole(project, project.getArtifactId(), createDeveloper());
+
+		
 	}
 
 	private ProjectIntegration createProjectIntegration() {
 		ProjectIntegration projectIntegration = new ProjectIntegration();
 		projectIntegration.setGroupId("com.xiaokaceng.openci");
-		projectIntegration.setArtifactId("openci-platform");
-		projectIntegration.setProjectName("openci-platform");
+		projectIntegration.setArtifactId("openci-platform3");
+		projectIntegration.setProjectName("openci-platform3");
 		projectIntegration.setTools(createTools());
+		Set<Developer> developers = new HashSet<Developer>();
+		developers.add(createDeveloper());
+		projectIntegration.setDevelopers(developers);
 		return projectIntegration;
 	}
 

@@ -6,6 +6,10 @@ public class ScmConfig {
 
 	private String repositoryUrl;
 
+	private String username;
+
+	private String password;
+
 	public ScmType getScmType() {
 		return scmType;
 	}
@@ -20,6 +24,22 @@ public class ScmConfig {
 
 	public void setRepositoryUrl(String repositoryUrl) {
 		this.repositoryUrl = repositoryUrl;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
