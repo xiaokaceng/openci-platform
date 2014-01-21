@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 import com.xiaokaceng.openci.domain.ToolType;
 import com.xiaokaceng.openci.web.dto.ResultDto;
+import com.xiaokaceng.openci.web.dto.ToolConfigurationDto;
 
 @Controller
 @RequestMapping("/toolconfiguration")
@@ -30,8 +31,8 @@ public class ToolConfigurationController extends ToolConfigurationBaseController
 
 	@ResponseBody
 	@RequestMapping("/get-all-usable")
-	public List<ToolConfiguration> getAllUsable() {
-		return toolConfigurationApplication.getAllUsable();
+	public List<ToolConfigurationDto> getAllUsable() {
+		return ToolConfigurationDto.transform(toolConfigurationApplication.getAllUsable());
 	}
 
 	@ResponseBody

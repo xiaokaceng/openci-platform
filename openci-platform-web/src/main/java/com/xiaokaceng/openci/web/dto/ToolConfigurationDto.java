@@ -1,9 +1,16 @@
 package com.xiaokaceng.openci.web.dto;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.xiaokaceng.openci.domain.GitConfiguration;
+import com.xiaokaceng.openci.domain.JenkinsConfiguration;
+import com.xiaokaceng.openci.domain.JiraConfiguration;
+import com.xiaokaceng.openci.domain.SonarConfiguration;
+import com.xiaokaceng.openci.domain.SvnConfiguration;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 import com.xiaokaceng.openci.domain.ToolType;
+import com.xiaokaceng.openci.domain.TracConfiguration;
 
 public class ToolConfigurationDto {
 
@@ -18,12 +25,6 @@ public class ToolConfigurationDto {
 	private String password;
 
 	private ToolType toolType;
-	
-	private boolean usable = false;
-	
-	private Date createDate;
-
-	private int version;
 	
 	public ToolConfiguration toToolConfiguration() {
 //		ToolConfiguration toolConfiguration = new ToolConfiguration(name, serviceUrl, username, password, toolType);
@@ -83,28 +84,47 @@ public class ToolConfigurationDto {
 		this.toolType = toolType;
 	}
 
-	public boolean isUsable() {
-		return usable;
-	}
-
-	public void setUsable(boolean usable) {
-		this.usable = usable;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
+	private static ToolConfigurationDto toolConfigurationToDto(ToolConfiguration toolConfiguration) {
+		ToolConfigurationDto toolConfigurationDto = new ToolConfigurationDto();
+		toolConfigurationDto.setId(toolConfiguration.getId());
+		toolConfigurationDto.setName(toolConfiguration.getName());
+		toolConfigurationDto.setServiceUrl(toolConfiguration.getServiceUrl());
+		toolConfigurationDto.setUsername(toolConfiguration.getUsername());
+		toolConfigurationDto.setPassword(toolConfiguration.getPassword());
+		toolConfigurationDto.setToolType(getToolType(toolConfiguration));
+		return toolConfigurationDto;
 	}
 	
+	private static ToolType getToolType(ToolConfiguration toolConfiguration) {
+		if (toolConfiguration instanceof SvnConfiguration) {
+			return ToolType.SVN;
+		}
+		if (toolConfiguration instanceof GitConfiguration) {
+			return ToolType.GIT;
+		}
+		if (toolConfiguration instanceof JenkinsConfiguration) {
+			return ToolType.JENKINS;
+		}
+		if (toolConfiguration instanceof SonarConfiguration) {
+			return ToolType.SONAR;
+		}
+		if (toolConfiguration instanceof JiraConfiguration) {
+			return ToolType.JIRA;
+		}
+		if (toolConfiguration instanceof TracConfiguration) {
+			return ToolType.TRAC;
+		}
+		return null;
+	}
+
+	public static List<ToolConfigurationDto> transform(List<ToolConfiguration> toolConfigurations) {
+		List<ToolConfigurationDto> toolConfigurationDtos = new ArrayList<ToolConfigurationDto>();
+		if (toolConfigurations != null && toolConfigurations.size() > 0) {
+			for (ToolConfiguration each : toolConfigurations) {
+				toolConfigurationDtos.add(toolConfigurationToDto(each));
+			}
+		}
+		return toolConfigurationDtos;
+	}
+
 }
