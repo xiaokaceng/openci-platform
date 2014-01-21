@@ -191,7 +191,7 @@ a, button {
 }
 
 .modual .grid-table-body {
-	height: 280px;
+	height: 240px;
 }
 
 .modual .form-control {
@@ -222,7 +222,7 @@ a, button {
 }
 
 .select-tools .grid-table-body {
-	height: 310px!important;
+	height: 290px!important;
 }
 
 .select-tools .checker {

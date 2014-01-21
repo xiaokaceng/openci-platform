@@ -37,7 +37,8 @@
 			  		return;
 			  }
 			  self.next(e);
-			  self.$element.trigger($(this).data('action'));
+			  var action = $(this).data('action');
+			  action && self.$element.trigger(action);
 	      });
 	      this.items.find(this.options.prev).on('click.bs.wizard',$.proxy(function (e) {
 			  e.preventDefault();

@@ -565,7 +565,6 @@
             var self = this;
             if(!self.items){
                 self.items = new Array();
-                self.gridTableBody.find('[data-role="noData"]').remove();
             }
             if(items.length){
                 $.each(items, function(){
@@ -577,6 +576,7 @@
                 self.itemsMap[items[this.options.identity]] = items;
             }
             self.gridTableBodyTable.empty();
+            self.gridTableBody.find('[data-role="noData"]').remove();
             self.renderDatas();
 			return this.$element;
 		 },

@@ -213,5 +213,34 @@ var toolManager = {
 			default:
 				return 'tracconfiguration/';
 		}
+	},
+	
+	testConnection: function(id, index){
+		var self = this;
+		$('#toolGrid').find('#usable'+index)
+					.removeClass('glyphicon-remove')
+					.addClass('glyphicon-ok')
+					.css('color', '#5CB85C');
+		$.get('toolconfiguration/can-connect/'+id).done(function(data){
+			if(data.result){
+				$('body').message({
+						type: 'success',
+						content: '该工具连接可用'
+				});
+				$('#toolGrid').find('#usable'+index)
+					.removeClass('glyphicon-remove')
+					.addClass('glyphicon-ok')
+					.css('color', '#5CB85C');
+			}else{
+				self.dialog.message({
+					type: 'error',
+					content: data.actionError
+				});
+				$('#toolGrid').find('#usable'+index)
+					.removeClass('glyphicon-ok')
+					.addClass('glyphicon-remove')
+					.css('color', '#D9534F');
+			}
+		});
 	}
 }

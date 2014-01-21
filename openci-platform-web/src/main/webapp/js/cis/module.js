@@ -3,32 +3,41 @@ var moduleManager = {
 	baseUrl : 'project/',
 	dataGrid : null,
 	project : null,
-	modualName : null,
+	moduleName : null,
 	basePackage : null,
 	moduleType : null,
+	projectName : null,
 	functionsGrid : null,
 	dependenciesGrid : null,
 	dialog : null,
 
-	add : function(project, grid) {
+	add : function(dataGrid) {
 		var self = this;
-		self.dataGrid = grid;
-		self.project = project;
-		$.get('pages/cis/modual-template.html').done(function(data) {
+		self.dataGrid = dataGrid;
+		self.projectName = projectDto.projectName;
+		self.project = projectDto.projectForCreate;
+		$.get('pages/cis/module-template.html').done(function(data) {
 			self.init(data);
 		});
 	},
-	update : function(project, grid, item) {
+	update : function(dataGrid, item) {
 		var self = this;
-		self.dataGrid = grid;
-		self.project = project;
+		self.dataGrid = dataGrid;
+		self.projectName = projectDto.projectName;
+		self.project = projectDto.projectForCreate;
 		$.get('pages/cis/module-template.html').done(function(data) {
 			self.init(data, item);
 			self.setData(item)
 		});
 	},
-	del : function(grid, items) {
-
+	del : function(dataGrid, indexs) {
+		var grid = dataGrid.getGrid();
+		grid.removeRows(indexs);
+		projectDto.projectForCreate.module = grid.getAllItems();
+		$('body').message({
+			type : 'success',
+			content : '删除成功'
+		});
 	},
 	/**
 	 * 初始化
@@ -38,7 +47,7 @@ var moduleManager = {
 		var dialog = $(data);
 		self.dialog = dialog;
 		dialog.find('.modal-header').find('.modal-title').html( item ? '添加模块' : '添加模块信息');
-		self.modualName = dialog.find('#modualName');
+		self.moduleName = dialog.find('#moduleName');
 		self.basePackage = dialog.find('#basePackage');
 		self.moduleType = dialog.find('#moduleType');
 		self.functionsGrid = dialog.find('#functionsGrid');
@@ -52,7 +61,7 @@ var moduleManager = {
 				$(this).remove();
 			},
 			'shown.bs.modal' : function() {
-				self.initModualSelect();
+				self.initModualSelect(item);
 			},
 			'complete' : function() {
 				$('body').message({
@@ -70,7 +79,7 @@ var moduleManager = {
 			}
 		}
 	},
-	initModualSelect : function() {
+	initModualSelect : function(item) {
 		var self = this;
 		self.moduleType.select({
 			title : '请选择',
@@ -91,11 +100,11 @@ var moduleManager = {
 				value : 'war'
 			}]
 		}).on('change', function() {
-			self.initGrid($(this).getValue());
-		});
+			self.initGrid($(this).getValue(), item);
+		}).setValue( item ? item.moduleType : 'infra');
 	},
 
-	initGrid : function(moduleType) {
+	initGrid : function(moduleType, item) {
 		var self = this;
 		$.get(self.baseUrl + 'get-functions?moduleType=' + moduleType).done(function(data) {
 			var functions = [];
@@ -120,6 +129,13 @@ var moduleManager = {
 				isShowPages : false,
 				isUserLocalData : true,
 				localData : functions
+			}).on('complate', function() {
+				var self = $(this);
+				if (item && item.functions) {
+					$.each(item.functions, function() {
+						self.find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + this + '"]').addClass('checked');
+					});
+				}
 			});
 		});
 		var param = {};
@@ -127,51 +143,80 @@ var moduleManager = {
 		delete project.scanPackages;
 		delete project.packageName;
 		delete project.groupPackage;
-		if(project.module){
-			for(var i=0,j=project.module.length; i<j; i++){
+		if (project.module) {
+			for (var i = 0, j = project.module.length; i < j; i++) {
 				delete project.module[i].security;
 				delete project.module[i].basePackagePath;
 			}
 		}
 		$.ajax({
-		    headers: { 
-		        'Accept': 'application/json',
-		        'Content-Type': 'application/json' 
-		    },
-		    'type': "Post",
-		    'url': self.baseUrl + 'get-dependables?moduleType=' + moduleType,
-		    'data': JSON.stringify(project),
-		    'dataType': 'json'
-		}).done(function(data){
-			var functions = [];
-			for (dependencieName in data.dependencies) {
-				functions.push({
-					dependencieName : dependencieName,
-					dependencieDesc : data.dependencies[dependencieName]
-				});
-			}
+			headers : {
+				'Accept' : 'application/json',
+				'Content-Type' : 'application/json'
+			},
+			'type' : "Post",
+			'url' : self.baseUrl + 'get-dependables?moduleType=' + moduleType,
+			'data' : JSON.stringify(project),
+			'dataType' : 'json'
+		}).done(function(data) {
+			var dependencies = [];
+			$.each(data, function() {
+				dependencies.push({
+					moduleName : this.moduleName,
+					moduleType : this.moduleType
+				})
+			});
 			var columns = [{
 				title : '模块名称',
-				name : 'functionName',
+				name : 'moduleName',
 				width : 150
 			}, {
 				title : '模块类型',
-				name : 'functionDesc',
-				width : 150
+				name : 'moduleType',
+				width : 150,
+				render : function(item, name, index) {
+					switch(item[name]) {
+						case 'infra':
+							return '基础实施层';
+							break;
+						case 'bizModel':
+							return '领域层';
+							break;
+						case 'applicationInterface':
+							return '应用层接口';
+							break;
+						case 'applicationImpl':
+							return '应用层实现';
+							break;
+						case 'war':
+							return '视图层';
+							break;
+						default:
+							return '';
+					}
+				}
 			}];
-			self.functionsGrid.empty().data('koala.grid', null).grid({
-				identity : 'functionName',
+			self.dependenciesGrid.empty().data('koala.grid', null).grid({
+				identity : 'moduleName',
 				columns : columns,
 				isShowPages : false,
 				isUserLocalData : true,
-				localData : functions
+				localData : dependencies
+			}).on('complate', function() {
+				var self = $(this);
+				if (item && item.dependencies) {
+					$.each(item.dependencies, function() {
+						self.find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + this + '"]').addClass('checked');
+					});
+				}
 			});
 		});
 	},
 
 	setData : function(item) {
 		var self = this;
-
+		self.basePackage.val(item.basePackage);
+		self.moduleName.attr('disabled', true).val(item.moduleName);
 	},
 	/*
 	 *   保存数据 id存在则为修改 否则为新增
@@ -181,20 +226,35 @@ var moduleManager = {
 		if (!self.validate()) {
 			return false;
 		}
-		var url = self.baseUrl + 'create';
+		module = {};
 		if (item) {
-			url = self.baseUrl + 'update';
+			module = item;
 		}
-		$.post(url, self.getAllData(item)).done(function(data) {
-			if (data.result) {
-				self.dialog.trigger('complete');
-			} else {
-				self.dialog.message({
-					type : 'error',
-					content : data.actionError
-				});
-			}
+		module.moduleName = self.moduleName.val();
+		module.basePackage = self.basePackage.val();
+		module.moduleType = self.moduleType.getValue();
+		module.projectName = self.projectName;
+		module.functions = [];
+		module.dependencies = [];
+		$.each(self.functionsGrid.getGrid().selectedRows(), function() {
+			module.functions.push(this.functionName);
 		});
+		$.each(self.dependenciesGrid.getGrid().selectedRows(), function() {
+			module.dependencies.push(this.moduleName);
+		});
+		var grid = self.dataGrid.getGrid();
+		console.info(item)
+		if (item) {
+			grid.updateRows(item.moduleName, item);
+		} else {
+			grid.insertRows(module);
+		}
+		$('body').message({
+			type : 'success',
+			content : '保存成功'
+		});
+		self.dialog.modal('hide');
+		projectDto.projectForCreate.module = grid.getAllItems();
 	},
 	/**
 	 * 数据验证
@@ -202,38 +262,18 @@ var moduleManager = {
 	validate : function() {
 		var self = this;
 		var dialog = self.dialog;
-		var name = self.name;
-		var email = self.email;
-		var developerId = self.developerId;
-		if (!Validation.notNull(dialog, developerId, developerId.val(), '请输入开发者ID')) {
+		var moduleName = self.moduleName;
+		var basePackage = self.basePackage;
+		var moduleType = self.moduleType;
+		if (!Validation.notNull(dialog, moduleName, moduleName.val(), '请输入模块名称')) {
 			return false;
 		}
-		if (!Validation.notNull(dialog, name, name.val(), '请输入用户名称')) {
+		if (!Validation.notNull(dialog, basePackage, basePackage.val(), '请输入包路径')) {
 			return false;
 		}
-		if (!Validation.notNull(dialog, email, email.val(), '请输入邮箱')) {
-			return false;
-		}
-		if (!Validation.email(dialog, email, email.val(), '邮箱格式不正确')) {
+		if (!Validation.notNull(dialog, moduleType, moduleType.getValue(), '请选择模块类型')) {
 			return false;
 		}
 		return true;
-	},
-	/*
-	 *获取表单数据
-	 */
-	getAllData : function(item) {
-		var self = this;
-		var data = {};
-		if (item) {
-			data = item;
-		}
-		data['developerId'] = self.developerId.val();
-		data['name'] = self.name.val();
-		data['email'] = self.email.val();
-		if (item) {
-			data['id'] = item.id;
-		}
-		return data;
 	}
 }

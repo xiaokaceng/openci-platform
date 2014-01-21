@@ -1,5 +1,6 @@
+var projectDto = {};
 $(function() {
-	var projectDto = {};
+	var flag = false;
 	var projectAdd = $('.project-add');
 	projectAdd.find('.items').width(5 * $('#content').width());
 
@@ -20,7 +21,9 @@ $(function() {
 			projectForCreate.dbProtocol = dbProtocol;
 			projectForCreate.mvcProtocol = mvcProtocol;
 			projectDto.projectForCreate = projectForCreate;
-			initModuleGrid([]);
+			if(!flag){
+				initModuleGrid([]);
+			}
 		}
 	});
 
@@ -58,120 +61,6 @@ $(function() {
 	}).on('change', function() {
 		$('#mvcProtocolValue').val($(this).getValue());
 	}).trigger('change');
-
-	var selectSubSystem = projectAdd.find('.select-sub-system');
-	selectSubSystem.find('.checker span').on('click', function() {
-		$(this).toggleClass('checked');
-	});
-	selectSubSystem.find('#cacheType').select({
-		title : '请选择',
-		contents : [{
-			title : 'EhCache',
-			value : 'ehcache',
-			selected : true
-		}, {
-			title : 'Memcached',
-			value : 'memcached'
-		}]
-	}).on('change', function() {
-		$('#cacheTypeValue').val($(this).getValue());
-	}).trigger('change');
-
-	selectSubSystem.find('#monitorType').select({
-		title : '请选择',
-		contents : [{
-			title : '本地',
-			value : 'local'
-		}, {
-			title : '分布式',
-			value : 'distributed',
-			selected : true
-		}]
-	}).on('change', function() {
-		$('#monitorTypeValue').val($(this).getValue());
-	}).trigger('change');
-
-	var toolColumns = [{
-		title : '工具名',
-		name : 'name',
-		width : 250
-	}, {
-		title : '工具地址',
-		name : 'serviceUrl',
-		width : 'auto'
-	}];
-	$.get('toolconfiguration/get-all-usable').done(function(data) {
-		projectAdd.find('#toolsGrid').grid({
-			identity : 'id',
-			columns : toolColumns,
-			isShowPages : false,
-			isUserLocalData : true,
-			localData : data
-		}).on({
-			'complate' : function() {
-				var grid = $(this);
-				grid.find('.isUseCas span').on('click', function(e) {
-					e.preventDefault();
-					e.stopPropagation();
-					var $this = $(this);
-					$this.toggleClass('checked');
-					if ($this.hasClass('checked')) {
-						var $tr = $this.closest('tr');
-						if (!$tr.hasClass('success')) {
-							$tr.click();
-						}
-					}
-				});
-				grid.find('.isUseCas').closest('td').find('input').on('click', function(e) {
-					e.preventDefault();
-					e.stopPropagation();
-				});
-			}
-		})
-	});
-
-	var selectedDevelopers = {};
-	var developerColumns = [{
-		title : '开发者ID',
-		name : 'developerId',
-		width : 150
-	}, {
-		title : '用户名称',
-		name : 'name',
-		width : 150
-	}, {
-		title : '邮箱',
-		name : 'email',
-		width : 'auto'
-	}];
-
-	projectAdd.find('#developerGrid').grid({
-		identity : 'id',
-		columns : developerColumns,
-		querys : [{
-			title : '开发者ID',
-			value : 'developerId'
-		}, {
-			title : '姓名',
-			value : 'name'
-		}, {
-			title : '邮箱',
-			value : 'email'
-		}],
-		url : 'developer/pagingquery'
-	}).on('selectedRow', function(e, result) {
-		var data = result.item;
-		if (result.checked) {
-			selectedDevelopers[data.id] = data;
-		} else {
-			delete selectedDevelopers[data.id];
-		}
-		console.info(selectedDevelopers)
-	});
-
-	var save = function() {
-
-	};
 
 	var initModuleGrid = function(data) {
 		var columns = [{
@@ -244,8 +133,7 @@ $(function() {
 			localData : data
 		}).on({
 			'add' : function() {
-				console.info(projectDto)
-				moduleManager.add(projectDto.projectForCreate, $(this));
+				moduleManager.add($(this));
 			},
 			'modify' : function(e, data) {
 				var indexs = data.data;
@@ -264,7 +152,7 @@ $(function() {
 					});
 					return;
 				}
-				moduleManager.update(projectDto.projectForCreate, $this, data.item[0]);
+				moduleManager.update($this, data.item[0]);
 			},
 			'delete' : function(e, data) {
 				var indexs = data.data;
@@ -279,7 +167,7 @@ $(function() {
 				$this.confirm({
 					content : '确定要删除所选记录吗?',
 					callBack : function() {
-						moduleManager.del($this, data.item);
+						moduleManager.del($this, indexs);
 					}
 				});
 			},
@@ -296,6 +184,136 @@ $(function() {
 					initModuleGrid(projectDto.projectForCreate.module);
 				});
 			}
+		});
+		flag = true;
+	}
+	
+	var selectSubSystem = projectAdd.find('.select-sub-system');
+	selectSubSystem.find('.checker span').on('click', function() {
+		$(this).toggleClass('checked');
+	});
+	selectSubSystem.find('#cacheType').select({
+		title : '请选择',
+		contents : [{
+			title : 'EhCache',
+			value : 'ehcache',
+			selected : true
+		}, {
+			title : 'Memcached',
+			value : 'memcached'
+		}]
+	}).on('change', function() {
+		$('#cacheTypeValue').val($(this).getValue());
+	}).trigger('change');
+
+	selectSubSystem.find('#monitorType').select({
+		title : '请选择',
+		contents : [{
+			title : '本地',
+			value : 'local',
+			selected : true
+		}, {
+			title : '分布式',
+			value : 'distributed'
+		}]
+	}).on('change', function() {
+		$('#monitorTypeValue').val($(this).getValue());
+	}).trigger('change');
+
+	var selectedDevelopers = {};
+	var developerColumns = [{
+		title : '开发者ID',
+		name : 'developerId',
+		width : 150
+	}, {
+		title : '用户名称',
+		name : 'name',
+		width : 150
+	}, {
+		title : '邮箱',
+		name : 'email',
+		width : 'auto'
+	}];
+
+	projectAdd.find('#developerGrid').grid({
+		identity : 'id',
+		columns : developerColumns,
+		querys : [{
+			title : '开发者ID',
+			value : 'developerId'
+		}, {
+			title : '姓名',
+			value : 'name'
+		}, {
+			title : '邮箱',
+			value : 'email'
+		}],
+		url : 'developer/pagingquery'
+	}).on('selectedRow', function(e, result) {
+		var data = result.item;
+		if (result.checked) {
+			selectedDevelopers[data.id] = data;
+		} else {
+			delete selectedDevelopers[data.id];
+		}
+		console.info(selectedDevelopers)
+	});
+	
+	projectAdd.find('#isUseCas').on('click', function(){
+		$(this).toggleClass('checked');
+	});
+	var toolColumns = [{
+		title : '工具名',
+		name : 'name',
+		width : 250
+	}, {
+		title : '工具类型',
+		name : 'toolType',
+		width : 250
+	},{
+		title : '工具地址',
+		name : 'serviceUrl',
+		width : 'auto'
+	}];
+	$.get('toolconfiguration/get-all-usable').done(function(data) {
+		projectAdd.find('#toolsGrid').grid({
+			identity : 'id',
+			columns : toolColumns,
+			isShowPages : false,
+			isUserLocalData : true,
+			localData : data
+		}).on({
+			'selectedRow' : function(e, data) {
+				var item = data.item;
+				if(data.checked){
+					if(item.toolType == 'JENKINS'){
+						initJenkinsConfig();
+					}
+				}else{
+					
+				}
+			}
+		})
+	});
+	
+	var initJenkinsConfig = function(){
+		$.get('pages/cis/jenkins-config.html').done(function(data){
+			var dialog = $(data);
+			var selectTool = dialog.find('#selectTool');
+			selectTool.select({
+				title: '请选择',
+				contents: [
+					{title: 'SVN', value: 'SVN'},
+					{title: 'GIT', value: 'GIT'}
+				]
+			});
+			dialog.modal({
+				keyboard: false
+			}).on({
+				'hidden.bs.modal': function(){
+					$(this).remove();
+				}
+			});
 		});
 	}
 });
