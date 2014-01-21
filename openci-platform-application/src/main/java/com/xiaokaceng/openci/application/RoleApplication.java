@@ -1,7 +1,6 @@
 package com.xiaokaceng.openci.application;
 
 import com.dayatang.querychannel.support.Page;
-import com.xiaokaceng.openci.domain.Developer;
 import com.xiaokaceng.openci.domain.Role;
 
 public interface RoleApplication {
@@ -35,5 +34,12 @@ public interface RoleApplication {
 	 * @return
 	 */
 	Page<Role> pagingQeuryRoles(int currentPage, int pagesize);
+
+	/**
+	 * 废除角色
+	 * 
+	 * @param role
+	 */
+	void abolishRole(Role[] roles);
 
 }

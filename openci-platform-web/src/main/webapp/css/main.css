@@ -233,20 +233,21 @@ a, button {
 	max-width: 320px;
 }
 
-.message-preview .form-group {
-	width: 60%; 
-	margin-left: auto; 
-	margin-right: auto;
+.tool-manage .form-control {
+	display: inline;
+	width: 95%;
+	min-width: 150px;
+	max-width: 350px;
 }
 
-.message-preview .form-group legend {
-	font-size: 1.2rem;
-	font-size/*\**/: 16px\9;
-	margin-bottom: 2px;
+.tool-manage .cas-config {
+	margin-top: 45px;
 }
 
-.message-preview  .grid-table-body {
-	height: 120px!important;
+.tool-manage .cas-config .form-group:last-child {
+	margin-left: -10%;
+    margin-top: 35px;
+    text-align: center;
 }
 
 .g-footer {

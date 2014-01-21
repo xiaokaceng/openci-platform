@@ -21,7 +21,7 @@ $(function(){
 		});
 	};
 	
-	loadContent('项目列表', 'pages/cis/project-list.html');
+	loadContent('创建项目', 'pages/cis/project-add.html');
 	
 	$('#loginOutBtn').on('click', function(){
 		window.location.href = 'login.html';

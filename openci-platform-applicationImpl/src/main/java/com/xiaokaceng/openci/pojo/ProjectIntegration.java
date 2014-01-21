@@ -5,6 +5,7 @@ import java.util.Set;
 import org.openkoala.opencis.api.Developer;
 import org.openkoala.opencis.api.Project;
 
+import com.xiaokaceng.openci.application.dto.ScmConfig;
 import com.xiaokaceng.openci.domain.CasUserConfiguration;
 import com.xiaokaceng.openci.domain.Tool;
 

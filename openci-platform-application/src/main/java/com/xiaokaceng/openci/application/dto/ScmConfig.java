@@ -1,4 +1,4 @@
-package com.xiaokaceng.openci.pojo;
+package com.xiaokaceng.openci.application.dto;
 
 public class ScmConfig {
 
