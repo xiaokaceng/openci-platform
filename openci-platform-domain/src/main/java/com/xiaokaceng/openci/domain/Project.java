@@ -34,11 +34,13 @@ public class Project extends AbstractEntity {
 
 	@Temporal(TemporalType.TIME)
 	@Column(name = "create_date")
-	private Date createDate;
+	private Date createDate = new Date();
+
+	public Project() {
+	}
 
 	public Project(String name) {
 		this.name = name;
-		this.createDate = new Date();
 	}
 
 	public void addTool(Tool tool) {

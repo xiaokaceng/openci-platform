@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xiaokaceng.openci.EntityNullException;
 import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.application.dto.ProjectDto;
+import com.xiaokaceng.openci.domain.CasUserConfiguration;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.executor.ToolIntegrationExecutor;
@@ -27,19 +28,26 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		Project projectForCis = projectDto.getProjectForCis();
 		if (projectForCis == null) {
 			throw new EntityNullException();
-		} 
+		}
+		projectDto.getProjectForCreate().setPath(System.getenv("TMP"));
 		createProjectFile(projectDto.getProjectForCreate());
 		projectForCis.save();
 		
-		integrateProjectToTools(projectDto.getProjectForCreate(), projectDto.getProjectForCis().getTools());
+//		integrateProjectToTools(projectDto);
 	}
 
-	private void integrateProjectToTools(org.openkoala.koala.widget.Project project, Set<Tool> tools) {
+	private void integrateProjectToTools(ProjectDto projectDto) {
+		org.openkoala.koala.widget.Project project = projectDto.getProjectForCreate();
 		ProjectIntegration projectIntegration = new ProjectIntegration();
 		projectIntegration.setGroupId(project.getGroupId());
 		projectIntegration.setArtifactId(project.getArtifactId());
 		projectIntegration.setProjectName(project.getAppName());
-		projectIntegration.setTools(tools);
+		projectIntegration.setTools(projectDto.getProjectForCis().getTools());
+		projectIntegration.setProjectSavePath(project.getPath());
+		if (projectDto.isUserCas()) {
+			projectIntegration.setCasUserConfiguration(CasUserConfiguration.getUniqueInstance());
+		}
+		
 		toolIntegrationExecutor.execute(projectIntegration);
 	}
 	

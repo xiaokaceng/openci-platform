@@ -585,18 +585,8 @@ $(function() {
 			'url' : 'project/create',
 			'data' : JSON.stringify(projectDto),
 			'dataType' : 'json'
-		}).done(function(result){
-			if(result.result){
-				$('body').message({
-					type: 'success',
-					content: '创建成功'
-				});
-			}else{
-				$('body').message({
-					type: 'error',
-					content: '创建失败'
-				});
-			}
+		}).done(function(resutl){
+			
 		});
 	});
 	

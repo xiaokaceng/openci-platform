@@ -24,7 +24,7 @@ import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.domain.ToolType;
 
-@Ignore
+//@Ignore
 public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	
 	@Inject
@@ -73,7 +73,6 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 		projectForCreate.setGroupId("org.openkoala");
 		projectForCreate.setArtifactId("demo");
 		projectForCreate.setPackaging("pom");
-		projectForCreate.setPath("E:\\temp\\temp");
 		projectForCreate.initSSJProject();
 		
 		return projectDto;

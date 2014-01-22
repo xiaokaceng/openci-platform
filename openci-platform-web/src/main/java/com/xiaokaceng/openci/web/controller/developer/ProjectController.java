@@ -29,7 +29,7 @@ public class ProjectController extends BaseController {
 	
 	@ResponseBody
     @RequestMapping("/create")
-	public ResultDto createProject(ProjectDto projectDto) {
+	public ResultDto createProject(@RequestBody ProjectDto projectDto) {
 		projectApplication.createProject(projectDto);
 		return ResultDto.createSuccess();
 	}
