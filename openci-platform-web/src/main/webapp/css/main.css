@@ -195,10 +195,6 @@ a, button {
 	width: 1100px;	
 }
 
-.modual .grid-table-body {
-	height: 240px;
-}
-
 .modual .form-control {
 	display: inline;
 	width: 94%;	
@@ -222,10 +218,6 @@ a, button {
 	padding-top: 10px;
 }
 
-.select-tools .grid-table-body {
-	height: 265px!important;
-}
-
 .select-tools .checker {
 	margin-right: 15px;
 }
@@ -236,10 +228,6 @@ a, button {
 
 .select-developer .modal-dialog {
    width: 900px;
-}
-
-.select-developer .grid-table-body {
-	height:240px!important; 
 }
 
 .tool-manage .form-control {
