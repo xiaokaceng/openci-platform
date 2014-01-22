@@ -55,10 +55,14 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 	}
 
 	public boolean canConnect(ToolConfiguration toolConfiguration) {
-		CISClient cisClient = CISClientFactory.getInstance(toolConfiguration);
-		if (cisClient.authenticate()) {
-			setToolUsabled(toolConfiguration);
-			return true;
+		try {
+			CISClient cisClient = CISClientFactory.getInstance(toolConfiguration);
+			if (cisClient.authenticate()) {
+				setToolUsabled(toolConfiguration);
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}

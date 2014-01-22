@@ -28,26 +28,31 @@ public class CISClientFactory {
 		toolConfigurationPojos.add(new TracConfigurationPojo());
 	}
 	
-	public static void reloadJenkinsConfiguration(ToolConfigurationPojo jenkinsConfigurationPojo) {
+	public static void reloadJenkinsConfiguration(JenkinsConfigurationPojo jenkinsConfigurationPojo) {
+		System.out.println("========reload");
 		toolConfigurationPojos.remove(JenkinsConfigurationPojo.class);
 		toolConfigurationPojos.add(jenkinsConfigurationPojo);
 	}
 	
-	public static CISClient getInstance(ToolConfiguration toolConfiguration) {
+	public synchronized static CISClient getInstance(ToolConfiguration toolConfiguration) {
 		for (ToolConfigurationPojo each : toolConfigurationPojos) {
 			each.instanceCISClient(toolConfiguration, false);
 			if (each.isInstance()) {
-				return each.getCISClient();
+				CISClient cisClient = each.getCISClient();
+				each.destory();
+				return cisClient;
 			}
 		}
 		throw new CISClientNotInstanceException();
 	}
 	
-	public static CISClient getInstanceByCAS(ToolConfiguration toolConfiguration) {
+	public synchronized static CISClient getInstanceByCAS(ToolConfiguration toolConfiguration) {
 		for (ToolConfigurationPojo each : toolConfigurationPojos) {
 			each.instanceCISClient(toolConfiguration, true);
 			if (each.isInstance()) {
-				return each.getCISClient();
+				CISClient cisClient = each.getCISClient();
+				each.destory();
+				return cisClient;
 			}
 		}
 		throw new CISClientNotInstanceException();
