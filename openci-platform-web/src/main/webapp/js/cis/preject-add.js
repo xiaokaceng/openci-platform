@@ -570,6 +570,7 @@ $(function() {
 					this[prop] = system[prop];
 				}
 			}
+<<<<<<< HEAD
 		});
 		delete projectDto.projectForCreate.scanPackages;
 		delete projectDto.projectForCreate.packageName;
@@ -580,6 +581,10 @@ $(function() {
 				delete projectDto.projectForCreate.module[i].basePackagePath;
 			}
 		}
+=======
+		})
+		console.info(projectDto)
+>>>>>>> origin/master
 		$.ajax({
 			headers : {
 				'Accept' : 'application/json',

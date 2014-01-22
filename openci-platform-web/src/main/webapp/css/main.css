@@ -9,8 +9,13 @@ a, button {
 	cursor: pointer;
 }
 .content {
+<<<<<<< HEAD
 	padding-left: 25px;
 	padding-right: 25px;
+=======
+	padding-left: 15px;
+	padding-right: 15px;
+>>>>>>> origin/master
 	margin-left: auto;
 	margin-right: auto;
 }
