@@ -539,6 +539,38 @@ $(function() {
 		projectDto.projectForCis.name= projectDto.projectName;
 		projectDto.projectForCis.developers= developers;
 		projectDto.projectForCis.tools= tools;
+		var securitySystem = projectAdd.find('#securitySystem');
+		var cacheTypeValue = projectAdd.find('#cacheTypeValue').val();
+		var monitorSystem = projectAdd.find('#monitorSystem');
+		var monitorTypeValue = projectAdd.find('#monitorTypeValue').val();
+		var generquerySystem = projectAdd.find('#generquerySystem');
+		var organisationSystem = projectAdd.find('#organisationSystem');
+		var logSystem = projectAdd.find('#logSystem');
+		var system = {};
+		if(securitySystem.hasClass('checked')){
+			system.security = {};
+			system.security.cacheType = cacheTypeValue;
+		}
+		if(monitorSystem.hasClass('checked')){
+			system.monitor = {};
+			system.monitor.installType = monitorTypeValue;
+		}
+		if(generquerySystem.hasClass('checked')){
+			system.generalQuery = {};
+		}
+		if(organisationSystem.hasClass('checked')){
+			system.organization = {};
+		}
+		if(logSystem.hasClass('checked')){
+			system.businessLog = {};
+		}
+		$.each(projectDto.projectForCreate.module, function(index){
+			if(this.moduleType == 'war'){
+				for(prop in system){
+					this[prop] = system[prop];
+				}
+			}
+		})
 		console.info(projectDto)
 		$.ajax({
 			headers : {

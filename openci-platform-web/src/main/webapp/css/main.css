@@ -3,7 +3,12 @@ a, button {
 	text-decoration: none;
 	cursor: pointer;
 }
-
+.content {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-left: auto;
+	margin-right: auto;
+}
 .g-header {
 	background-color: #3F9FD9;
 }
