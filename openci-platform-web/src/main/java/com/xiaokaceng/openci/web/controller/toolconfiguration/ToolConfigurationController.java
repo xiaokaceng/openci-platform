@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.xiaokaceng.openci.application.dto.ScmType;
+import com.xiaokaceng.openci.domain.ScmType;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 import com.xiaokaceng.openci.domain.ToolType;
 import com.xiaokaceng.openci.web.dto.ResultDto;

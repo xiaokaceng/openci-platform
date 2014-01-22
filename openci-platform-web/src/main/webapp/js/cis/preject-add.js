@@ -537,7 +537,11 @@ $(function() {
 		var tools = projectAdd.find('#toolsGrid').getGrid().getAllItems();
 		projectDto.projectForCis = {};
 		projectDto.projectForCis.name= projectDto.projectName;
-		projectDto.projectForCis.developers= developers;
+		var projectDeveloper = [];
+		$.each(developers, function(){
+			projectDeveloper.push({developer: this});
+		});
+		projectDto.projectForCis.developers = projectDeveloper;
 		projectDto.projectForCis.tools= tools;
 		var securitySystem = projectAdd.find('#securitySystem');
 		var cacheTypeValue = projectAdd.find('#cacheTypeValue').val();
@@ -586,7 +590,17 @@ $(function() {
 			'data' : JSON.stringify(projectDto),
 			'dataType' : 'json'
 		}).done(function(resutl){
-			
+			if(result.result){
+				$('body').message({
+					type: 'success',
+					content: '创建成功'
+				});
+			}else{
+				$('body').message({
+					type: 'error',
+					content: '创建失败'
+				});
+			}
 		});
 	});
 	
