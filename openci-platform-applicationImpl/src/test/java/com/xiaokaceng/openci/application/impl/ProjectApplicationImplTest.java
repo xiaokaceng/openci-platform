@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
@@ -19,10 +20,12 @@ import com.xiaokaceng.openci.domain.Developer;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
 import com.xiaokaceng.openci.domain.Role;
+import com.xiaokaceng.openci.domain.ScmType;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.dto.ProjectDto;
+import com.xiaokaceng.openci.dto.ScmConfig;
 
-//@Ignore
+@Ignore
 public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	
 	@Inject
@@ -65,6 +68,7 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 		ProjectDto projectDto = new ProjectDto(NAME);
 		projectDto.getProjectForCis().setDevelopers(createProjectDeveloper(projectDto.getProjectForCis()));
 		projectDto.getProjectForCis().setTools(createTool(projectDto.getProjectForCis()));
+		projectDto.setScmConfig(createScmConfig());
 		
 		org.openkoala.koala.widget.Project projectForCreate = projectDto.getProjectForCreate();
 		projectForCreate.setAppName("demo");
@@ -76,6 +80,13 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 		return projectDto;
 	}
 	
+	private ScmConfig createScmConfig() {
+		ScmConfig scmConfig = new ScmConfig();
+		scmConfig.setRepositoryUrl("xxxxxxx");
+		scmConfig.setScmType(ScmType.GIT);
+		return scmConfig;
+	}
+
 	private Project getProjectInstance() {
 		Project project = new Project(NAME);
 		project.setDevelopers(createProjectDeveloper(project));

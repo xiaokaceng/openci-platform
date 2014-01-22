@@ -22,7 +22,7 @@ public class ToolConfigurationTest extends AbstractIntegrationTest {
 		tracConfiguration.save();
 		jenkinsConfiguration.save();
 		
-		assertEquals(4, ToolConfiguration.findAll(ToolConfiguration.class).size());
+		assertEquals(gitConfiguration, GitConfiguration.get(ToolConfiguration.class, gitConfiguration.getId()));
 		
 		gitConfiguration.remove();
 		svnConfiguration.remove();

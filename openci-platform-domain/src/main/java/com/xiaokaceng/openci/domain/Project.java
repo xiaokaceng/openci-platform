@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -27,10 +29,14 @@ public class Project extends AbstractEntity {
 	private static final long serialVersionUID = -1381157577442931544L;
 
 	private String name;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_detail_id")
 	private ProjectDetail projectDetail;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "project_status")
+	private ProjectStatus projectStatus;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
 	private Set<ProjectDeveloper> developers = new HashSet<ProjectDeveloper>();
@@ -57,6 +63,11 @@ public class Project extends AbstractEntity {
 		save();
 	}
 	
+	public void updateProjectStatus(ProjectStatus projectStatus) {
+		this.projectStatus = projectStatus;
+		save();
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -83,6 +94,22 @@ public class Project extends AbstractEntity {
 
 	public Date getCreateDate() {
 		return createDate;
+	}
+
+	public ProjectDetail getProjectDetail() {
+		return projectDetail;
+	}
+
+	public void setProjectDetail(ProjectDetail projectDetail) {
+		this.projectDetail = projectDetail;
+	}
+
+	public ProjectStatus getProjectStatus() {
+		return projectStatus;
+	}
+
+	public void setProjectStatus(ProjectStatus projectStatus) {
+		this.projectStatus = projectStatus;
 	}
 
 	@Override

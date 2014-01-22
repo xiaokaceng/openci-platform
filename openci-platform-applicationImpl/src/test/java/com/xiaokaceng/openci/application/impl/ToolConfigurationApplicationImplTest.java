@@ -28,7 +28,6 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 	@Test
 	public void testCreateConfiguration() {
 		toolConfigurationApplication.createConfiguration(toolConfiguration);
-		assertEquals(1, ToolConfiguration.findAll(ToolConfiguration.class).size());
 		assertEquals(toolConfiguration, ToolConfiguration.get(ToolConfiguration.class, toolConfiguration.getId()));
 		toolConfiguration.remove();
 	}
@@ -36,10 +35,8 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 	@Test
 	public void testUpdateConfiguration() {
 		toolConfigurationApplication.createConfiguration(toolConfiguration);
-		assertEquals(1, ToolConfiguration.findAll(ToolConfiguration.class).size());
 		toolConfiguration.setName("abc");
 		toolConfigurationApplication.updateConfiguration(toolConfiguration);
-		assertEquals(1, ToolConfiguration.findAll(ToolConfiguration.class).size());
 		assertEquals("abc", ToolConfiguration.get(ToolConfiguration.class, toolConfiguration.getId()).getName());
 		toolConfiguration.remove();
 	}
@@ -83,7 +80,6 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 		toolConfiguration.save();
 		ToolConfiguration toolConfiguration2 = new JenkinsConfiguration("test2", null, null, null);
 		toolConfiguration2.save();
-		assertEquals(2, ToolConfiguration.findAll(ToolConfiguration.class).size());
 
 		List<JenkinsConfiguration> toolConfigurations = toolConfigurationApplication.pagingQeuryJenkinsConfigurations(1, 2).getResult();
 		assertEquals(1, toolConfigurations.size());
