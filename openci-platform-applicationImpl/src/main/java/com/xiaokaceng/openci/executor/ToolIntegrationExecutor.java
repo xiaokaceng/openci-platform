@@ -24,7 +24,7 @@ public class ToolIntegrationExecutor {
 	private TaskExecutor taskExecutor;
 
 	@Inject
-	private OpenciApplication openciApplication;
+	private OpenciApplication openciApplication; 
 
 	public void execute(ProjectIntegration projectIntegration) {
 		verify(projectIntegration);
@@ -69,6 +69,7 @@ public class ToolIntegrationExecutor {
 			createRoleIfNecessary();
 			assignUserToRole();
 			cisClient.close();
+			tool.updateToolIntegrationStatus();
 		}
 
 		private void createProject() {

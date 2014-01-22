@@ -9,24 +9,12 @@ import com.xiaokaceng.openci.domain.TracConfiguration;
 public class TracConfigurationPojo extends ToolConfigurationPojo {
 
 	@Override
-	protected void createCISClient(ToolConfiguration toolConfiguration, boolean isIntegrationCas) {
+	public void createCISClient(ToolConfiguration toolConfiguration) {
 		if (toolConfiguration instanceof TracConfiguration) {
 			SSHConnectConfig sshConnectConfig = new SSHConnectConfig(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword(), ((TracConfiguration) toolConfiguration).getSavePath());
 			cisClient = new TracCISClient(sshConnectConfig);
 			isInstance = true;
 		}
-	}
-
-	@Override
-	protected void createAuthenticationByDB(ToolConfiguration toolConfiguration, boolean isIntegrationCas) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void createAuthenticationByCAS(ToolConfiguration toolConfiguration, boolean isIntegrationCas) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

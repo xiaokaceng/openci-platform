@@ -6,22 +6,10 @@ import com.xiaokaceng.openci.domain.ToolConfiguration;
 public class GitConfigurationPojo extends ToolConfigurationPojo {
 
 	@Override
-	public void createCISClient(ToolConfiguration toolConfiguration, boolean isIntegrationCas) {
+	public void createCISClient(ToolConfiguration toolConfiguration) {
 		if (toolConfiguration instanceof GitConfiguration) {
 			System.out.println("========Git");
 		}
-	}
-
-	@Override
-	protected void createAuthenticationByDB(ToolConfiguration toolConfiguration, boolean isIntegrationCas) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void createAuthenticationByCAS(ToolConfiguration toolConfiguration, boolean isIntegrationCas) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

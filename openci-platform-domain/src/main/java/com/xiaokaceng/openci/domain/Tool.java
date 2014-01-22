@@ -52,6 +52,16 @@ public class Tool extends AbstractEntity {
 		this.status = ToolIntegrationStatus.ONGOING;
 		this.integrationDate = new Date();
 	}
+	
+	public void updateToolIntegrationStatus() {
+		status = ToolIntegrationStatus.SUCCESS;
+		for (ToolInterfaceImplement each : toolInterfaceImplements) {
+			if (!each.isSuccess()) {
+				status = ToolIntegrationStatus.FAILURE;
+			}
+		}
+		save();
+	}
 
 	public Project getProject() {
 		return project;

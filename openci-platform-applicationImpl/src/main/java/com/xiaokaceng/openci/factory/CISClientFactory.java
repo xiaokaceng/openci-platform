@@ -36,7 +36,7 @@ public class CISClientFactory {
 	
 	public synchronized static CISClient getInstance(ToolConfiguration toolConfiguration) {
 		for (ToolConfigurationPojo each : toolConfigurationPojos) {
-			each.instanceCISClient(toolConfiguration, false);
+			each.createCISClient(toolConfiguration);
 			if (each.isInstance()) {
 				CISClient cisClient = each.getCISClient();
 				each.destory();
@@ -46,16 +46,4 @@ public class CISClientFactory {
 		throw new CISClientNotInstanceException();
 	}
 	
-	public synchronized static CISClient getInstanceByCAS(ToolConfiguration toolConfiguration) {
-		for (ToolConfigurationPojo each : toolConfigurationPojos) {
-			each.instanceCISClient(toolConfiguration, true);
-			if (each.isInstance()) {
-				CISClient cisClient = each.getCISClient();
-				each.destory();
-				return cisClient;
-			}
-		}
-		throw new CISClientNotInstanceException();
-	}
-
 }

@@ -1,5 +1,7 @@
 package com.xiaokaceng.openci.application.impl;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -8,10 +10,7 @@ import javax.inject.Inject;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
 import com.xiaokaceng.openci.EntityNullException;
@@ -22,7 +21,6 @@ import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
 import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.domain.Tool;
-import com.xiaokaceng.openci.domain.ToolType;
 
 //@Ignore
 public class ProjectApplicationImplTest extends AbstractIntegrationTest {
@@ -43,7 +41,7 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 //		assertEquals(2, projectDto.getProjectForCis().getTools().size());
 	}
 	
-	@Test(expected = EntityNullException.class)
+	@Test(expected = NullPointerException.class)
 	public void testCreateProjectIfNull() {
 		projectApplication.createProject(null);
 	}

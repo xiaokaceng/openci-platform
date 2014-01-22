@@ -6,22 +6,10 @@ import com.xiaokaceng.openci.domain.ToolConfiguration;
 public class JiraConfigurationPojo extends ToolConfigurationPojo {
 
 	@Override
-	protected void createCISClient(ToolConfiguration toolConfiguration, boolean isIntegrationCas) {
+	public void createCISClient(ToolConfiguration toolConfiguration) {
 		if (toolConfiguration instanceof JiraConfiguration) {
 			
 		}
-	}
-
-	@Override
-	protected void createAuthenticationByDB(ToolConfiguration toolConfiguration, boolean isIntegrationCas) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void createAuthenticationByCAS(ToolConfiguration toolConfiguration, boolean isIntegrationCas) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

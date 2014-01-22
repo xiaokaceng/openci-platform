@@ -5,18 +5,13 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.apache.http.client.AuthenticationStrategy;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.openkoala.opencis.api.AuthenticationStrategy;
 import org.openkoala.opencis.api.Developer;
 import org.openkoala.opencis.api.Project;
-import org.openkoala.opencis.jenkins.JenkinsCISClient;
-import org.openkoala.opencis.jenkins.authentication.JenkinsOwnAuthentication;
-import org.openkoala.opencis.jenkins.configureImpl.scm.GitConfig;
-import org.openkoala.opencis.jenkins.configureImpl.scm.SvnConfig;
 import org.openkoala.opencis.support.SSHConnectConfig;
 import org.openkoala.opencis.svn.SvnCISClient;
-import org.openkoala.opencis.trac.TracCISClient;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
 import com.xiaokaceng.openci.domain.JenkinsConfiguration;
@@ -39,7 +34,6 @@ public class ToolIntegrationExecutorTest extends AbstractIntegrationTest {
 		//
 		// driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
 		ToolConfiguration toolConfiguration = createToolConfiguration();
-		AuthenticationStrategy authentication = new JenkinsOwnAuthentication(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
 
 //		JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
 //		jenkinsCISClient.setScmConfig(new SvnConfig("http://git.oschina.net/xiaokaceng/openci-platform.git", "test", "test"));
