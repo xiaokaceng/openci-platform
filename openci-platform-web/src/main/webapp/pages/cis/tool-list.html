@@ -18,7 +18,7 @@
 				<input type="password" class="col-lg-8 form-control" id="password" name="password"  dataType="English" placeholder="输入密码" require/>
 				<span class="required">*</span>
 			</div>
-			<div class="form-group">
+			<div class="form-group" style="text-align:center;">
 				<button class="btn btn-default" type="button" id="resetBtn">
 					重置
 				</button>
@@ -37,7 +37,9 @@
 		var casConfig = toolManagement.find('.cas-config');
 		$.get('toolconfiguration/get-tool-type').done(function(data) {
 			for (type in data) {
-				toolTab.append($('<li data-tool-type="' + type + '"><a href="#">' + type + '</></li>'));
+				var $li = $('<li data-tool-type="' + type + '"></li>');
+				$li.html('<a href="#">' + type + '</>');
+				toolTab.append($li);
 			}
 			toolTab.find('li').on('click', function() {
 				var $this = $(this);
