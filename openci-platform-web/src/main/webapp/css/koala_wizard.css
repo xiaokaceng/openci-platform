@@ -16,8 +16,8 @@
 }
 
 .wizard  > ul > li >a{
+  	font-size: 1.2em;
   	font-size: 1.2rem;
-  	font-size/*\**/: 16px\9;
 }
 .wizard .items{
 	clear:both; 
@@ -37,6 +37,6 @@
 .wizard .items .page .btn_nav{
 	height:36px; 
 	line-height:36px; 
-	margin-top: 6%;
+	margin-top: 8%;
 	text-align: center;
 }

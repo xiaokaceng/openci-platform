@@ -46,6 +46,8 @@
 	      }, this));
 	       this.items.find(this.options.complete).on('click.bs.wizard',$.proxy(function (e) {
 			  e && e.preventDefault();
+			  console.info(this.$element)
+			  this.$element.trigger('complate');
 	      }, this));
 	  };
 	  

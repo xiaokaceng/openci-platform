@@ -383,6 +383,7 @@
 			self.initSelectRowEvent();
 			self.options.isShowPages && self._initPageNo();
 			self.$element.trigger('complate');
+			self.$element.find('[data-role="selectAll"]').removeClass('checked');
 		},
         initSelectRowEvent: function(){
             var self = this;

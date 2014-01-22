@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xiaokaceng.openci.application.dto.ScmType;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 import com.xiaokaceng.openci.domain.ToolType;
 import com.xiaokaceng.openci.web.dto.ResultDto;
@@ -54,6 +55,16 @@ public class ToolConfigurationController extends ToolConfigurationBaseController
 			toolTypes.put(each.toString(), each);
 		}
 		return toolTypes;
+	}
+	
+	@ResponseBody
+    @RequestMapping("/get-scm-type")
+	public Map<String, Object> getScmType() {
+		Map<String, Object> scmTypes = new HashMap<String, Object>();
+		for (ScmType each : ScmType.values()) {
+			scmTypes.put(each.toString(), each);
+		}
+		return scmTypes;
 	}
 	
 }
