@@ -23,6 +23,8 @@ public class Developer extends TimeIntervalEntity {
 	@Column(nullable = false, unique = true)
 	private String email;
 
+	private String password;
+	
 	public Developer(String developerId, String name, String email) {
 		super(new Date());
 		this.developerId = developerId;
@@ -57,6 +59,14 @@ public class Developer extends TimeIntervalEntity {
 		this.email = email;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) {

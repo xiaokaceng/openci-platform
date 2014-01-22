@@ -59,12 +59,10 @@ public class ProjectController extends BaseController {
 		return projectDto;
 	}
 	
-	
-//	@ResponseBody
-//    @RequestMapping(value = "/abolish_developers", method = RequestMethod.POST, consumes = "application/json")
-//	public ResultDto abolishDevelopers(@RequestBody Developer[] developers) {
-//		developerApplication.abolishDevelopers(Arrays.asList(developers));
-//		return ResultDto.createSuccess();
-//	}
+	@ResponseBody
+    @RequestMapping("/get-all-projects")
+	public List<com.xiaokaceng.openci.domain.Project> getAllProjects() {
+		return projectApplication.findAllProjects();
+	}
 	
 }
