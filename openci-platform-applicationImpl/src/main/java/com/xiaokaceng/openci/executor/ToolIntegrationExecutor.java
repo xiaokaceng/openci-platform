@@ -24,13 +24,12 @@ public class ToolIntegrationExecutor {
 	private TaskExecutor taskExecutor;
 
 	@Inject
-	private OpenciApplication openciApplication; 
+	private OpenciApplication openciApplication;
 
 	public void execute(ProjectIntegration projectIntegration) {
 		verify(projectIntegration);
 		reloadToolConfigurationIfNecessary(projectIntegration);
 		Set<Tool> tools = projectIntegration.getTools();
-		System.out.println(tools.size() + "========");
 		if (tools.size() > 0) {
 			for (Tool each : tools) {
 				taskExecutor.execute(new CISClientTask(each, projectIntegration));
