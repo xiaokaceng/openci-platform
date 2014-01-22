@@ -19,6 +19,7 @@ import com.xiaokaceng.openci.domain.CasUserConfiguration;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDetail;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
+import com.xiaokaceng.openci.domain.ProjectStatus;
 import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.executor.ToolIntegrationExecutor;
@@ -37,11 +38,24 @@ public class ProjectApplicationImpl implements ProjectApplication {
 			throw new EntityNullException();
 		}
 		projectDto.getProjectForCreate().setPath(getProjectSavePath());
+		persistProject(projectDto, projectForCis);
+	}
+
+	private void persistProject(ProjectDto projectDto, Project projectForCis) {
 		projectForCis.setProjectDetail(createProjectDetail(projectDto));
-		createProjectFile(projectDto.getProjectForCreate());
+		boolean createResult = createProjectFile(projectDto.getProjectForCreate());
+		projectForCis.setProjectStatus(getProjectStatus(createResult));
 		projectForCis.save();
-		
-//		integrateProjectToTools(projectDto);
+		if (createResult) {
+//			integrateProjectToTools(projectDto);
+		}
+	}
+
+	private ProjectStatus getProjectStatus(boolean createResult) {
+		if (createResult) {
+			return ProjectStatus.INTEGRATION_TOOL;
+		}
+		return ProjectStatus.CREATE_MAVEN_PROJECT_FAILURE;
 	}
 
 	private String getProjectSavePath() {
@@ -60,12 +74,14 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		return projectDetail;
 	}
 
-	private void createProjectFile(org.openkoala.koala.widget.Project projectForCreate) {
+	private boolean createProjectFile(org.openkoala.koala.widget.Project projectForCreate) {
 		KoalaProjectCreate koalaProjectCreate = new KoalaProjectCreate();
 		try {
 			koalaProjectCreate.createProject(projectForCreate);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
