@@ -7,7 +7,9 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +27,10 @@ public class Project extends AbstractEntity {
 	private static final long serialVersionUID = -1381157577442931544L;
 
 	private String name;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "project_detail_id")
+	private ProjectDetail projectDetail;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
 	private Set<ProjectDeveloper> developers = new HashSet<ProjectDeveloper>();
