@@ -25,6 +25,7 @@ public class JenkinsConfigurationPojo extends ToolConfigurationPojo {
 		if (toolConfiguration instanceof JenkinsConfiguration) {
 			JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), authentication);
 			jenkinsCISClient.setScmConfig(createScmConfigStrategy());
+			System.out.println(scmConfig.getScmType());
 			cisClient = jenkinsCISClient;
 			isInstance = true;
 		}

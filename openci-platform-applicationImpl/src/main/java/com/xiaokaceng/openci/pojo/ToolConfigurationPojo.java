@@ -36,6 +36,11 @@ public abstract class ToolConfigurationPojo {
 		}
 		return cisClient;
 	}
+	
+	public void destory() {
+		cisClient = null;
+		isInstance = false;
+	}
 
 	public boolean isInstance() {
 		return isInstance;

@@ -13,6 +13,7 @@ public class TracConfigurationPojo extends ToolConfigurationPojo {
 		if (toolConfiguration instanceof TracConfiguration) {
 			SSHConnectConfig sshConnectConfig = new SSHConnectConfig(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword(), ((TracConfiguration) toolConfiguration).getSavePath());
 			cisClient = new TracCISClient(sshConnectConfig);
+			isInstance = true;
 		}
 	}
 
