@@ -62,6 +62,11 @@ public class Project extends AbstractEntity {
 		tools.add(tool);
 		save();
 	}
+	
+	public void updateProjectStatus(ProjectStatus projectStatus) {
+		this.projectStatus = projectStatus;
+		save();
+	}
 
 	public String getName() {
 		return name;
