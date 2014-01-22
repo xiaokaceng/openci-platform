@@ -53,7 +53,6 @@ public class RoleApplicationImplTest extends AbstractIntegrationTest {
 		role.save();
 		Role role2 = new Role(NAME, NAME);
 		role2.save();
-		assertEquals(2, Role.findAll(Role.class).size());
 		
 		List<Role> roles = roleApplication.pagingQeuryRoles(1, 2).getResult();
 		assertEquals(2, roles.size());

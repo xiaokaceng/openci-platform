@@ -16,10 +16,12 @@ import com.xiaokaceng.openci.AbstractIntegrationTest;
 import com.xiaokaceng.openci.EntityNullException;
 import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.application.dto.ProjectDto;
+import com.xiaokaceng.openci.application.dto.ScmConfig;
 import com.xiaokaceng.openci.domain.Developer;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
 import com.xiaokaceng.openci.domain.Role;
+import com.xiaokaceng.openci.domain.ScmType;
 import com.xiaokaceng.openci.domain.Tool;
 
 //@Ignore
@@ -65,6 +67,7 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 		ProjectDto projectDto = new ProjectDto(NAME);
 		projectDto.getProjectForCis().setDevelopers(createProjectDeveloper(projectDto.getProjectForCis()));
 		projectDto.getProjectForCis().setTools(createTool(projectDto.getProjectForCis()));
+		projectDto.setScmConfig(createScmConfig());
 		
 		org.openkoala.koala.widget.Project projectForCreate = projectDto.getProjectForCreate();
 		projectForCreate.setAppName("demo");
@@ -76,6 +79,13 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 		return projectDto;
 	}
 	
+	private ScmConfig createScmConfig() {
+		ScmConfig scmConfig = new ScmConfig();
+		scmConfig.setRepositoryUrl("xxxxxxx");
+		scmConfig.setScmType(ScmType.GIT);
+		return scmConfig;
+	}
+
 	private Project getProjectInstance() {
 		Project project = new Project(NAME);
 		project.setDevelopers(createProjectDeveloper(project));
