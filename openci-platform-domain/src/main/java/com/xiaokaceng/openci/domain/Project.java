@@ -27,7 +27,7 @@ public class Project extends AbstractEntity {
 	private static final long serialVersionUID = -1381157577442931544L;
 
 	private String name;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "project_detail_id")
 	private ProjectDetail projectDetail;
@@ -56,7 +56,7 @@ public class Project extends AbstractEntity {
 		tools.add(tool);
 		save();
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -83,6 +83,14 @@ public class Project extends AbstractEntity {
 
 	public Date getCreateDate() {
 		return createDate;
+	}
+
+	public ProjectDetail getProjectDetail() {
+		return projectDetail;
+	}
+
+	public void setProjectDetail(ProjectDetail projectDetail) {
+		this.projectDetail = projectDetail;
 	}
 
 	@Override

@@ -17,6 +17,7 @@ import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.application.dto.ProjectDto;
 import com.xiaokaceng.openci.domain.CasUserConfiguration;
 import com.xiaokaceng.openci.domain.Project;
+import com.xiaokaceng.openci.domain.ProjectDetail;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
 import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.domain.Tool;
@@ -35,13 +36,30 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		if (projectForCis == null) {
 			throw new EntityNullException();
 		}
-		projectDto.getProjectForCreate().setPath(System.getenv("TMP"));
+		projectDto.getProjectForCreate().setPath(getProjectSavePath());
+		projectForCis.setProjectDetail(createProjectDetail(projectDto));
 		createProjectFile(projectDto.getProjectForCreate());
 		projectForCis.save();
 		
 //		integrateProjectToTools(projectDto);
 	}
+
+	private String getProjectSavePath() {
+		return System.getenv("TMP");
+	}
 	
+	private ProjectDetail createProjectDetail(ProjectDto projectDto) {
+		ProjectDetail projectDetail = new ProjectDetail();
+		org.openkoala.koala.widget.Project project = projectDto.getProjectForCreate();
+		projectDetail.setArtifactId(project.getArtifactId());
+		projectDetail.setGroupId(project.getGroupId());
+		projectDetail.setIntegrationCas(projectDto.isUserCas());
+		projectDetail.setProjectSavePath(getProjectSavePath());
+		projectDetail.setScmRepositoryUrl(projectDto.getScmConfig().getRepositoryUrl());
+		projectDetail.setScmType(projectDto.getScmConfig().getScmType());
+		return projectDetail;
+	}
+
 	private void createProjectFile(org.openkoala.koala.widget.Project projectForCreate) {
 		KoalaProjectCreate koalaProjectCreate = new KoalaProjectCreate();
 		try {

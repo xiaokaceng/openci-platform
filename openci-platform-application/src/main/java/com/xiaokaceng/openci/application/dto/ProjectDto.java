@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.openkoala.koala.widget.Project;
 
+import com.xiaokaceng.openci.domain.ProjectDetail;
+
 public class ProjectDto implements Serializable {
 
 	private static final long serialVersionUID = -6708098893349388801L;
