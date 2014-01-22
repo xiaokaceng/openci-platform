@@ -542,7 +542,11 @@ $(function() {
 			projectDeveloper.push({developer: this});
 		});
 		projectDto.projectForCis.developers = projectDeveloper;
-		projectDto.projectForCis.tools= tools;
+		var projectTools = [];
+		$.each(tools, function(){
+			projectTools.push({toolConfiguration: this});
+		});
+		projectDto.projectForCis.tools= projectTools;
 		var securitySystem = projectAdd.find('#securitySystem');
 		var cacheTypeValue = projectAdd.find('#cacheTypeValue').val();
 		var monitorSystem = projectAdd.find('#monitorSystem');
