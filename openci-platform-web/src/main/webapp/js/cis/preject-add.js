@@ -537,8 +537,16 @@ $(function() {
 		var tools = projectAdd.find('#toolsGrid').getGrid().getAllItems();
 		projectDto.projectForCis = {};
 		projectDto.projectForCis.name= projectDto.projectName;
-		projectDto.projectForCis.developers= developers;
-		projectDto.projectForCis.tools= tools;
+		var projectDeveloper = [];
+		$.each(developers, function(){
+			projectDeveloper.push({developer: this});
+		});
+		projectDto.projectForCis.developers = projectDeveloper;
+		var projectTools = [];
+		$.each(tools, function(){
+			projectTools.push({toolConfiguration: this});
+		});
+		projectDto.projectForCis.tools= projectTools;
 		var securitySystem = projectAdd.find('#securitySystem');
 		var cacheTypeValue = projectAdd.find('#cacheTypeValue').val();
 		var monitorSystem = projectAdd.find('#monitorSystem');
@@ -586,7 +594,17 @@ $(function() {
 			'data' : JSON.stringify(projectDto),
 			'dataType' : 'json'
 		}).done(function(resutl){
-			
+			if(result.result){
+				$('body').message({
+					type: 'success',
+					content: '创建成功'
+				});
+			}else{
+				$('body').message({
+					type: 'error',
+					content: '创建失败'
+				});
+			}
 		});
 	});
 	
