@@ -112,7 +112,7 @@
 }
 .grid-table-body {
 	min-height: 150px;
-	height: 340px;
+	height: 315px;
 	overflow: auto;
 }
 .grid .grid-tree-space {
@@ -122,24 +122,6 @@
 	cursor: pointer;
 }
 
-@media (max-width: 1366px) {
-	html, body {
-		font-size: 12px!important;
-	}
-	.btn, .wizard, .dropdown-menu {
-		font-size: 12px;
-	}
-	.form-control {
-		height: 30px;
-		padding: 5px 10px;
-		font-size: 12px;
-		line-height: 1.5;
-		border-radius: 3px;
-	}
-	.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
-		padding: 5px;
-	}
-}
 /**
  *  提示样式
  */
@@ -565,4 +547,23 @@ div.uploader input {
 .tree .radio, .tree .checkbox {
 	margin-top: 2px;
 	margin-bottom: 2px;
+}
+
+@media (max-width: 1366px) {
+	.btn, .wizard, .dropdown-menu, .select, .tree .tree-folder-name {
+		font-size: 12px!important;
+	}
+	.form-control {
+		height: 30px;
+		padding: 5px 10px;
+		font-size: 12px;
+		line-height: 1.5;
+		border-radius: 3px;
+	}
+	.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+		padding: 5px;
+	}
+	.grid > tbody > tr > td {
+		padding: 0;
+	}
 }

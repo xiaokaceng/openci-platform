@@ -285,7 +285,7 @@
 						});
 						return;
 					}
-					self.startRecord.text(result.start);
+					self.startRecord.text(result.start + 1);
 					self.endRecord.text(result.start + result.limit);
 					self.totalRecordHtml.text(result.Total);
 					//self._initPageNo(result.Total)

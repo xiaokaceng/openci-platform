@@ -539,7 +539,47 @@ $(function() {
 		projectDto.projectForCis.name= projectDto.projectName;
 		projectDto.projectForCis.developers= developers;
 		projectDto.projectForCis.tools= tools;
-		console.info(projectDto)
+		var securitySystem = projectAdd.find('#securitySystem');
+		var cacheTypeValue = projectAdd.find('#cacheTypeValue').val();
+		var monitorSystem = projectAdd.find('#monitorSystem');
+		var monitorTypeValue = projectAdd.find('#monitorTypeValue').val();
+		var generquerySystem = projectAdd.find('#generquerySystem');
+		var organisationSystem = projectAdd.find('#organisationSystem');
+		var logSystem = projectAdd.find('#logSystem');
+		var system = {};
+		if(securitySystem.hasClass('checked')){
+			system.security = {};
+			system.security.cacheType = cacheTypeValue;
+		}
+		if(monitorSystem.hasClass('checked')){
+			system.monitor = {};
+			system.monitor.installType = monitorTypeValue;
+		}
+		if(generquerySystem.hasClass('checked')){
+			system.generalQuery = {};
+		}
+		if(organisationSystem.hasClass('checked')){
+			system.organization = {};
+		}
+		if(logSystem.hasClass('checked')){
+			system.businessLog = {};
+		}
+		$.each(projectDto.projectForCreate.module, function(index){
+			if(this.moduleType == 'war'){
+				for(prop in system){
+					this[prop] = system[prop];
+				}
+			}
+		});
+		delete projectDto.projectForCreate.scanPackages;
+		delete projectDto.projectForCreate.packageName;
+		delete projectDto.projectForCreate.groupPackage;
+		if (project.module) {
+			for (var i = 0, j = project.module.length; i < j; i++) {
+				delete projectDto.projectForCreate.module[i].security;
+				delete projectDto.projectForCreate.module[i].basePackagePath;
+			}
+		}
 		$.ajax({
 			headers : {
 				'Accept' : 'application/json',
@@ -549,7 +589,9 @@ $(function() {
 			'url' : 'project/create',
 			'data' : JSON.stringify(projectDto),
 			'dataType' : 'json'
-		})
+		}).done(function(resutl){
+			
+		});
 	});
 	
 });
