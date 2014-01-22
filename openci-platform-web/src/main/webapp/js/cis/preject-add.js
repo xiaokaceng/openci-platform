@@ -565,26 +565,17 @@ $(function() {
 			system.businessLog = {};
 		}
 		$.each(projectDto.projectForCreate.module, function(index){
+			delete projectDto.projectForCreate.module[index].security;
+			delete projectDto.projectForCreate.module[index].basePackagePath;
 			if(this.moduleType == 'war'){
 				for(prop in system){
 					this[prop] = system[prop];
 				}
 			}
-<<<<<<< HEAD
 		});
 		delete projectDto.projectForCreate.scanPackages;
 		delete projectDto.projectForCreate.packageName;
 		delete projectDto.projectForCreate.groupPackage;
-		if (project.module) {
-			for (var i = 0, j = project.module.length; i < j; i++) {
-				delete projectDto.projectForCreate.module[i].security;
-				delete projectDto.projectForCreate.module[i].basePackagePath;
-			}
-		}
-=======
-		})
-		console.info(projectDto)
->>>>>>> origin/master
 		$.ajax({
 			headers : {
 				'Accept' : 'application/json',
