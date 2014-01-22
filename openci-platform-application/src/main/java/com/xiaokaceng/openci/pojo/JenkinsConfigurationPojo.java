@@ -5,10 +5,10 @@ import org.openkoala.opencis.jenkins.KoalaGitConfig;
 import org.openkoala.opencis.jenkins.KoalaScmConfig;
 import org.openkoala.opencis.jenkins.KoalaSvnConfig;
 
-import com.xiaokaceng.openci.application.dto.ScmConfig;
 import com.xiaokaceng.openci.domain.JenkinsConfiguration;
 import com.xiaokaceng.openci.domain.ScmType;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
+import com.xiaokaceng.openci.dto.ScmConfig;
 
 public class JenkinsConfigurationPojo extends ToolConfigurationPojo {
 

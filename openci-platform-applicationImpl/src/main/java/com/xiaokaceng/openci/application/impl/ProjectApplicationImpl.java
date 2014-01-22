@@ -14,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xiaokaceng.openci.EntityNullException;
 import com.xiaokaceng.openci.application.ProjectApplication;
-import com.xiaokaceng.openci.application.dto.ProjectDto;
 import com.xiaokaceng.openci.domain.CasUserConfiguration;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
 import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.domain.Tool;
+import com.xiaokaceng.openci.dto.ProjectDto;
 import com.xiaokaceng.openci.executor.ToolIntegrationExecutor;
 import com.xiaokaceng.openci.pojo.ProjectIntegration;
 

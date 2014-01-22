@@ -1,4 +1,4 @@
-package com.xiaokaceng.openci.application.dto;
+package com.xiaokaceng.openci.dto;
 
 import com.xiaokaceng.openci.domain.ScmType;
 

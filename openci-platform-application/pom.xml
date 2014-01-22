@@ -17,6 +17,48 @@
 			<artifactId>openci-platform-domain</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<!-- OPENCIS -->
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-api</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-git</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-svn</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-jenkins</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-sonar</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-jira</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-trac</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openkoala.opencis</groupId>
+			<artifactId>koala-opencis-support</artifactId>
+			<version>${koala.opencis.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.dayatang.commons</groupId>
 			<artifactId>dayatang-commons-querychannel</artifactId>
@@ -48,4 +90,8 @@
 		</dependency>
 		
 	</dependencies>
+	
+	<properties>
+		<koala.opencis.version>2.1.0-SNAPSHOT</koala.opencis.version>
+	</properties>
 </project>

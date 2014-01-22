@@ -35,6 +35,10 @@ public class ProjectDeveloper extends AbstractEntity {
 	@JoinColumn(name = "project_id")
 	private Project project;
 	
+	public ProjectDeveloper() {
+		
+	}
+	
 	public ProjectDeveloper(Set<Role> roles, Developer developer, Project project) {
 		this.roles = roles;
 		this.developer = developer;

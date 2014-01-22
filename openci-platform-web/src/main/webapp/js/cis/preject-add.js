@@ -573,13 +573,19 @@ $(function() {
 			system.businessLog = {};
 		}
 		$.each(projectDto.projectForCreate.module, function(index){
-			delete projectDto.projectForCreate.module[index].security;
-			delete projectDto.projectForCreate.module[index].basePackagePath;
+			delete this.security;
+			delete this.basePackagePath;
 			if(this.moduleType == 'war'){
 				for(prop in system){
 					this[prop] = system[prop];
 				}
 			}
+		});
+		$.each(projectDto.projectForCis.developers, function(index){
+			delete this.developer['new'];
+		});
+		$.each(projectDto.projectForCis.tools, function(index){
+			delete this.toolConfiguration['new'];
 		});
 		delete projectDto.projectForCreate.scanPackages;
 		delete projectDto.projectForCreate.packageName;

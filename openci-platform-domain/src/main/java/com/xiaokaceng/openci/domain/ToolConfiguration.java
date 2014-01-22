@@ -38,18 +38,16 @@ public abstract class ToolConfiguration extends AbstractEntity {
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_date")
-	private Date createDate;
+	private Date createDate = new Date();
+	
+	public ToolConfiguration() {
+	}
 	
 	public ToolConfiguration(String name, String serviceUrl, String username, String password) {
 		this.name = name;
 		this.serviceUrl = serviceUrl;
 		this.username = username;
 		this.password = password;
-		this.createDate = new Date();
-	}
-	
-	public ToolConfiguration() {
-		this.createDate = new Date();
 	}
 
 	public static List<ToolConfiguration> findByUsable() {

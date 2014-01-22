@@ -22,49 +22,6 @@
 			<artifactId>openci-platform-conf</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		
-		<!-- 加入对dayatang的spring的实现 -->
-		<!-- OPENCIS -->
-		<dependency>
-			<groupId>org.openkoala.opencis</groupId>
-			<artifactId>koala-opencis-api</artifactId>
-			<version>${koala.opencis.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openkoala.opencis</groupId>
-			<artifactId>koala-opencis-git</artifactId>
-			<version>${koala.opencis.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openkoala.opencis</groupId>
-			<artifactId>koala-opencis-svn</artifactId>
-			<version>${koala.opencis.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openkoala.opencis</groupId>
-			<artifactId>koala-opencis-jenkins</artifactId>
-			<version>${koala.opencis.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openkoala.opencis</groupId>
-			<artifactId>koala-opencis-sonar</artifactId>
-			<version>${koala.opencis.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openkoala.opencis</groupId>
-			<artifactId>koala-opencis-jira</artifactId>
-			<version>${koala.opencis.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openkoala.opencis</groupId>
-			<artifactId>koala-opencis-trac</artifactId>
-			<version>${koala.opencis.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.openkoala.opencis</groupId>
-			<artifactId>koala-opencis-support</artifactId>
-			<version>${koala.opencis.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -107,9 +64,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	
-	<properties>
-		<koala.opencis.version>2.1.0-SNAPSHOT</koala.opencis.version>
-	</properties>
 	
 </project>

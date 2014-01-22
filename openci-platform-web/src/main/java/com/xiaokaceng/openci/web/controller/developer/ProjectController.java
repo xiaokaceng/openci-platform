@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaokaceng.openci.application.ProjectApplication;
-import com.xiaokaceng.openci.application.dto.ProjectDto;
+import com.xiaokaceng.openci.dto.ProjectDto;
 import com.xiaokaceng.openci.web.controller.BaseController;
 import com.xiaokaceng.openci.web.dto.ResultDto;
 

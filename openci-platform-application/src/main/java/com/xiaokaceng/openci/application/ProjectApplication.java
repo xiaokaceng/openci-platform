@@ -2,9 +2,9 @@ package com.xiaokaceng.openci.application;
 
 import java.util.List;
 
-import com.xiaokaceng.openci.application.dto.ProjectDto;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.Tool;
+import com.xiaokaceng.openci.dto.ProjectDto;
 
 public interface ProjectApplication {
 
