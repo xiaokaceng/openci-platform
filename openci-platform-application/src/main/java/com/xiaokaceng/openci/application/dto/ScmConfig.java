@@ -1,5 +1,7 @@
 package com.xiaokaceng.openci.application.dto;
 
+import com.xiaokaceng.openci.domain.ScmType;
+
 public class ScmConfig {
 
 	private ScmType scmType;
