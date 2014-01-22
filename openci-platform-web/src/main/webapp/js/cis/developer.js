@@ -27,7 +27,7 @@ var developerManager = {
 	del: function(grid, items){
 		var self = this;
 		$.each(items, function(){
-			delete this.new;
+			delete this['new'];
 		})
 		$.ajax({
 		    headers: { 
