@@ -279,6 +279,9 @@
 </div>
 <script>
 	$(function(){
+		$.get('project/get-all-projects').done(function(data){
+			console.info(data)
+		});
 		$('[data-role="removeBtn"]').on('click', function(){
 			$(this).closest('.panel').fadeOut(600, function(){
 				$(this).remove();

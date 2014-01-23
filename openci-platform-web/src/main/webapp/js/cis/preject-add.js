@@ -581,7 +581,6 @@ $(function() {
 		delete projectDto.projectForCreate.scanPackages;
 		delete projectDto.projectForCreate.packageName;
 		delete projectDto.projectForCreate.groupPackage;
-		console.info(projectDto)
 		$.ajax({
 			headers : {
 				'Accept' : 'application/json',
@@ -593,12 +592,12 @@ $(function() {
 			'dataType' : 'json'
 		}).done(function(result){
 			if(result.result){
-				$('.project-add').message({
+				$('.content').message({
 					type: 'success',
 					content: '创建成功'
 				});
 			}else{
-				$('.project-add').message({
+				$('.content').message({
 					type: 'error',
 					content: '创建失败'
 				});
