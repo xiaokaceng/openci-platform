@@ -217,17 +217,20 @@
 					data.password = password.val();
 					$.post(url, data).done(function(data) {
 						if (data.result) {
-							$('body').message({
+							casConfig.message({
 								type : 'success',
 								content : '保存成功'
 							});
 						} else {
-							self.dialog.message({
+							casConfig.message({
 								type : 'error',
 								content : data.actionError
 							});
 						}
 					});
+				});
+				casConfig.find('#resetBtn').on('click', function() {
+					casConfig.find('input').val('');
 				});
 			});
 		}

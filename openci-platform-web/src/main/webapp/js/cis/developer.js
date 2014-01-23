@@ -40,14 +40,14 @@ var developerManager = {
 		    'dataType': 'json'
 		 }).done(function(data){
 			if(data.result){
-				$('body').message({
+				self.dataGrid.message({
 						type: 'success',
 						content: '删除成功'
 					});
 					$(this).modal('hide');
 					grid.grid('refresh');
 			}else{
-				self.dialog.message({
+				self.dialog.find('.modal-content').message({
 					type: 'error',
 					content: data.actionError
 				});
@@ -74,7 +74,7 @@ var developerManager = {
 					$(this).remove();
 				},
 				'complete': function(){
-					$('body').message({
+					self.dataGrid.message({
 						type: 'success',
 						content: '保存成功'
 					});
@@ -106,7 +106,7 @@ var developerManager = {
 			if(data.result){
 				self.dialog.trigger('complete');
 			}else{
-				self.dialog.message({
+				self.dialog.find('.modal-content').message({
 					type: 'error',
 					content: data.actionError
 				});

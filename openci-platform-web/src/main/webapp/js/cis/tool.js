@@ -48,14 +48,14 @@ var toolManager = {
 			'dataType' : 'json'
 		}).done(function(data) {
 			if (data.result) {
-				$('body').message({
+				self.dataGrid.message({
 					type : 'success',
 					content : '删除成功'
 				});
 				$(this).modal('hide');
 				grid.grid('refresh');
 			} else {
-				self.dialog.message({
+				self.dialog.find('.modal-content').message({
 					type : 'error',
 					content : data.actionError
 				});
@@ -91,7 +91,7 @@ var toolManager = {
 				$(this).remove();
 			},
 			'complete' : function() {
-				$('body').message({
+				self.dataGrid.message({
 					type : 'success',
 					content : '保存成功'
 				});
@@ -130,7 +130,7 @@ var toolManager = {
 			if (data.result) {
 				self.dialog.trigger('complete');
 			} else {
-				self.dialog.message({
+				self.dataGrid.message({
 					type : 'error',
 					content : data.actionError
 				});
@@ -223,7 +223,7 @@ var toolManager = {
 					.css('color', '#5CB85C');
 		$.get('toolconfiguration/can-connect/'+id).done(function(data){
 			if(data.result){
-				$('body').message({
+				self.dataGrid.message({
 						type: 'success',
 						content: '该工具连接可用'
 				});
@@ -232,7 +232,7 @@ var toolManager = {
 					.addClass('glyphicon-ok')
 					.css('color', '#5CB85C');
 			}else{
-				self.dialog.message({
+				self.dataGrid.message({
 					type: 'error',
 					content: data.actionError
 				});

@@ -535,18 +535,22 @@ $(function() {
 		projectDto.scmConfig = jenkinsConfig;
 		var developers = projectAdd.find('#developerGrid').getGrid().getAllItems();
 		var tools = projectAdd.find('#toolsGrid').getGrid().getAllItems();
-		projectDto.projectForCis = {};
-		projectDto.projectForCis.name= projectDto.projectName;
+		var projectForCis = {};
+		if(projectDto.projectForCis){
+			projectForCis.name = projectDto.projectForCis.name;
+		}
+		projectDto.projectForCis = projectForCis;
 		var projectDeveloper = [];
 		$.each(developers, function(){
+			delete this['new'];
 			projectDeveloper.push({developer: this});
 		});
 		projectDto.projectForCis.developers = projectDeveloper;
 		var projectTools = [];
 		$.each(tools, function(){
-			projectTools.push({toolConfiguration: this});
+			projectTools.push({id:this.id, toolType: this.toolType});
 		});
-		projectDto.projectForCis.tools= projectTools;
+		projectDto.toolConfigurationDtos= projectTools;
 		var securitySystem = projectAdd.find('#securitySystem');
 		var cacheTypeValue = projectAdd.find('#cacheTypeValue').val();
 		var monitorSystem = projectAdd.find('#monitorSystem');
@@ -575,21 +579,21 @@ $(function() {
 		$.each(projectDto.projectForCreate.module, function(index){
 			delete this.security;
 			delete this.basePackagePath;
+			delete this.businessLog;
+			delete this.generalQuery;
+			delete this.organization;
+			delete this.monitor;
 			if(this.moduleType == 'war'){
 				for(prop in system){
 					this[prop] = system[prop];
 				}
 			}
 		});
-		$.each(projectDto.projectForCis.developers, function(index){
-			delete this.developer['new'];
-		});
-		$.each(projectDto.projectForCis.tools, function(index){
-			delete this.toolConfiguration['new'];
-		});
+		delete projectDto.projectForCreate.path;
 		delete projectDto.projectForCreate.scanPackages;
 		delete projectDto.projectForCreate.packageName;
 		delete projectDto.projectForCreate.groupPackage;
+		console.info(projectDto)
 		$.ajax({
 			headers : {
 				'Accept' : 'application/json',
@@ -599,14 +603,14 @@ $(function() {
 			'url' : 'project/create',
 			'data' : JSON.stringify(projectDto),
 			'dataType' : 'json'
-		}).done(function(resutl){
+		}).done(function(result){
 			if(result.result){
-				$('body').message({
+				$('.project-add').message({
 					type: 'success',
 					content: '创建成功'
 				});
 			}else{
-				$('body').message({
+				$('.project-add').message({
 					type: 'error',
 					content: '创建失败'
 				});
