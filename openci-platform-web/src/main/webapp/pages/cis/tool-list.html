@@ -104,10 +104,16 @@
 						url = 'sonarconfiguration/pagingquery';
 						break;
 					case 'JENKINS':
+					    columns.splice(3, 1);
+					    columns.splice(3, 0, {
+							title : 'Token',
+							name : 'password',
+							width : '180px'
+						});
 						url = 'jenkinsconfiguration/pagingquery';
 						break;
 					case 'GIT':
-						columns.splice(2, 0, {
+						columns.splice(4, 0, {
 							title : 'Token',
 							name : 'token',
 							width : '180px'

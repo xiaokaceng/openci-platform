@@ -79,8 +79,11 @@ var toolManager = {
 		if (self.toolType != 'TRAC' && self.toolType != 'SVN') {
 			self.savePath.closest('.form-group').hide();
 		}
-		if (self.toolType != 'GIT') {
+		if (self.toolType != 'GIT' && self.toolType != 'JENKINS') {
 			self.token.closest('.form-group').hide();
+		}
+		if(self.toolType == 'JENKINS'){
+			self.password.closest('.form-group').hide();
 		}
 		dialog.find('#save').on('click', function() {
 			self.save(item);
@@ -112,6 +115,9 @@ var toolManager = {
 		}
 		if (item.token) {
 			self.token.val(item.savePath);
+		}
+		if(self.toolType == 'JENKINS'){
+			self.token.val(item.password);
 		}
 	},
 	/*
@@ -192,6 +198,9 @@ var toolManager = {
 		}
 		if (self.toolType == 'GIT') {
 			data['token'] = self.token.val();
+		}
+		if(self.toolType == 'JENKINS'){
+			data['password'] = self.token.val();
 		}
 		return data;
 	},

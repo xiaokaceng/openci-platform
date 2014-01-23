@@ -476,9 +476,7 @@ $(function() {
 		$.get('pages/cis/jenkins-config.html').done(function(data) {
 			var dialog = $(data);
 			var scmType = dialog.find('#scmType');
-			var repositoryUrl= dialog.find('#repositoryUrl');
-			var username= dialog.find('#username');
-			var password= dialog.find('#password');
+			var repositoryUrl = dialog.find('#repositoryUrl');
 			$.get('toolconfiguration/get-scm-type').done(function(data) {
 				var contents = [];
 				for (prop in data) {
@@ -494,8 +492,6 @@ $(function() {
 				if(!$.isEmptyObject(jenkinsConfig)){
 					scmType.setValue(jenkinsConfig.scmType);
 					repositoryUrl.val(jenkinsConfig.repositoryUrl);
-					username.val(jenkinsConfig.username);
-					password.val(jenkinsConfig.password);
 				}
 			});
 			dialog.modal({
@@ -513,17 +509,9 @@ $(function() {
 				if (!Validation.notNull(dialog, repositoryUrl, repositoryUrl.val(), '请输入地址')) {
 					return false;
 				}
-				if (!Validation.notNull(dialog, username, username.val(), '请输入用户名')) {
-					return false;
-				}
-				if (!Validation.notNull(dialog, password, password.val(), '请输入密码')) {
-					return false;
-				}
 				jenkinsConfig = {
 					scmType: scmType.getValue(),
-					repositoryUrl: repositoryUrl.val(),
-					username: username.val(),
-					password: password.val()
+					repositoryUrl: repositoryUrl.val()
 				}
 				dialog.modal('hide');
 			});
