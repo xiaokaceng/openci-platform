@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -37,7 +38,7 @@ public class Tool extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	private ToolIntegrationStatus status;
 
-	@OneToMany(mappedBy = "tool")
+	@OneToMany(mappedBy = "tool", fetch = FetchType.EAGER)
 	private Set<ToolInterfaceImplement> toolInterfaceImplements = new HashSet<ToolInterfaceImplement>();
 
 	@Temporal(TemporalType.TIME)
@@ -55,7 +56,7 @@ public class Tool extends AbstractEntity {
 	
 	public void updateToolIntegrationStatus() {
 		status = ToolIntegrationStatus.SUCCESS;
-		for (ToolInterfaceImplement each : toolInterfaceImplements) {
+		for (ToolInterfaceImplement each : getToolInterfaceImplements()) {
 			if (!each.isSuccess()) {
 				status = ToolIntegrationStatus.FAILURE;
 			}

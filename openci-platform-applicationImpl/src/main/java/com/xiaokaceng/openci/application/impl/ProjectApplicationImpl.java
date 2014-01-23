@@ -115,6 +115,7 @@ public class ProjectApplicationImpl implements ProjectApplication {
 				roles.add(role.getName());
 			}
 			developer.setRoles(roles);
+			results.add(developer);
 		}
 		return results;
 	}

@@ -27,7 +27,7 @@ public class ToolInterfaceImplement extends AbstractEntity {
 	@ManyToOne
 	@JoinColumn(name = "tool_id")
 	private Tool tool;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tool_interface")
 	private ToolInterface toolInterface;
@@ -50,6 +50,9 @@ public class ToolInterfaceImplement extends AbstractEntity {
 		this.executeDate = new Date();
 	}
 
+	public ToolInterfaceImplement() {
+	}
+
 	public ToolInterface getToolInterface() {
 		return toolInterface;
 	}
@@ -65,7 +68,7 @@ public class ToolInterfaceImplement extends AbstractEntity {
 	public String getRecord() {
 		return record;
 	}
-	
+
 	public void setSuccess(boolean isSuccess) {
 		this.isSuccess = isSuccess;
 	}
