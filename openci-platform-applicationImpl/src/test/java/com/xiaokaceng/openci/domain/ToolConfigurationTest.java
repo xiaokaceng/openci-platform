@@ -41,7 +41,7 @@ public class ToolConfigurationTest extends AbstractIntegrationTest {
 	}
 	
 	private SvnConfiguration createSvnConfiguration() {
-		SvnConfiguration svnConfiguration = new SvnConfiguration(TEST_STR2, TEST_STR, TEST_STR, TEST_STR, TEST_STR);
+		SvnConfiguration svnConfiguration = new SvnConfiguration(TEST_STR2, TEST_STR, TEST_STR, TEST_STR, TEST_STR, TEST_STR);
 		return svnConfiguration;
 	}
 	

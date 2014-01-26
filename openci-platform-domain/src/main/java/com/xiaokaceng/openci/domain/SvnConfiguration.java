@@ -13,9 +13,13 @@ public class SvnConfiguration extends ToolConfiguration {
 	@Column(name = "save_path")
 	private String savePath;
 
-	public SvnConfiguration(String name, String serviceUrl, String username, String password, String savePath) {
+	@Column(name = "request_root_address")
+	private String requestRootAddress;
+	
+	public SvnConfiguration(String name, String serviceUrl, String username, String password, String savePath, String requestRootAddress) {
 		super(name, serviceUrl, username, password);
 		this.savePath = savePath;
+		this.requestRootAddress = requestRootAddress;
 	}
 
 	public SvnConfiguration() {
