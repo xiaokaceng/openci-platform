@@ -58,4 +58,8 @@ public class RoleApplicationImpl implements RoleApplication {
 		}
 	}
 
+	public List<Role> findAll() {
+		return Role.findAll(Role.class);
+	}
+
 }

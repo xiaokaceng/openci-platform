@@ -1,5 +1,7 @@
 package com.xiaokaceng.openci.application;
 
+import java.util.List;
+
 import com.dayatang.querychannel.support.Page;
 import com.xiaokaceng.openci.domain.Role;
 
@@ -42,4 +44,10 @@ public interface RoleApplication {
 	 */
 	void abolishRole(Role[] roles);
 
+	/**
+	 * 查找所有有效的角色
+	 * 
+	 * @return
+	 */
+	List<Role> findAll();
 }
