@@ -9,6 +9,7 @@ var toolManager = {
 	savePath : null,
 	token : null,
 	toolType : null,
+	requestRootAddress: null,
 	dialog : null,
 	developerId : null,
 
@@ -76,6 +77,7 @@ var toolManager = {
 		self.password = dialog.find('#password');
 		self.savePath = dialog.find('#savePath');
 		self.token = dialog.find('#token');
+		self.requestRootAddress = dialog.find('#requestRootAddress');
 		if (self.toolType != 'TRAC' && self.toolType != 'SVN') {
 			self.savePath.closest('.form-group').hide();
 		}
@@ -84,6 +86,9 @@ var toolManager = {
 		}
 		if(self.toolType == 'JENKINS'){
 			self.password.closest('.form-group').hide();
+		}
+		if(self.toolType != 'SVN'){
+			self.requestRootAddress.closest('.form-group').hide();
 		}
 		dialog.find('#save').on('click', function() {
 			self.save(item);
@@ -118,6 +123,9 @@ var toolManager = {
 		}
 		if(self.toolType == 'JENKINS'){
 			self.token.val(item.password);
+		}
+		if(self.toolType == 'SVN'){
+			self.requestRootAddress.val(item.requestRootAddress);
 		}
 	},
 	/*
@@ -156,6 +164,7 @@ var toolManager = {
 		var password = self.password;
 		var savePath = self.savePath;
 		var token = self.token;
+		var requestRootAddress = self.requestRootAddress;
 		if (!Validation.notNull(dialog, name, name.val(), '请输入工具名')) {
 			return false;
 		}
@@ -169,6 +178,11 @@ var toolManager = {
 		}
 		if (self.toolType == 'GIT') {
 			if (!Validation.notNull(dialog, token, token.val(), '请输入Token')) {
+				return false;
+			}
+		}
+		if(self.toolType == 'SVN'){
+			if (!Validation.notNull(dialog, requestRootAddress, requestRootAddress.val(), '请输入请求根路径')) {
 				return false;
 			}
 		}
@@ -201,6 +215,9 @@ var toolManager = {
 		}
 		if(self.toolType == 'JENKINS'){
 			data['password'] = self.token.val();
+		}
+		if(self.toolType == 'SVN'){
+			data['requestRootAddress'] = self.requestRootAddress.val();
 		}
 		return data;
 	},

@@ -528,10 +528,9 @@ $(function() {
 			projectForCis.name = projectDto.projectForCis.name;
 		}
 		projectDto.projectForCis = projectForCis;
-		var projectDeveloper = [];
+		var projectDeveloperDtos = [];
 		$.each(developers, function(){
-			delete this['new'];
-			projectDeveloper.push({developer: this});
+			projectDeveloperDtos.push({developerId: this.id});
 		});
 		projectDto.projectForCis.developers = projectDeveloper;
 		var projectTools = [];

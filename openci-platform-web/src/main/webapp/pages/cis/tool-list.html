@@ -59,7 +59,7 @@
 				var columns = [{
 					title : '工具名称',
 					name : 'name',
-					width : 150
+					width : 120
 				}, {
 					title : '工具地址',
 					name : 'serviceUrl',
@@ -82,7 +82,7 @@
 				}, {
 					title : '操作',
 					name : 'usable',
-					width : 'auto',
+					width : '150px',
 					render : function(item, name, index) {
 						return '<a onclick="toolManager.testConnection(' + item.id + ', ' + index + ')"><span id="usable' + index + '" class="glyphicon glyphicon-transfer"></span>&nbsp;测试连接</a>';
 					}
@@ -125,6 +125,11 @@
 							title : '保存路径',
 							name : 'savePath',
 							width : '180px'
+						});
+						columns.splice(3, 0, {
+							title : '请求根路径',
+							name : 'requestRootAddress',
+							width : '150px'
 						});
 						url = 'svnconfiguration/pagingquery';
 						break;
