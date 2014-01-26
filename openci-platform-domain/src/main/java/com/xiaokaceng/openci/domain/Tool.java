@@ -43,16 +43,15 @@ public class Tool extends AbstractEntity {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "integration_date")
-	private Date integrationDate;
+	private Date integrationDate = new Date();
 
-	private Tool() {
+	Tool() {
 	}
 
 	public Tool(ToolConfiguration toolConfiguration, Project project) {
 		this.toolConfiguration = toolConfiguration;
 		this.project = project;
 		this.status = ToolIntegrationStatus.ONGOING;
-		this.integrationDate = new Date();
 	}
 
 	public void updateToolIntegrationStatus() {

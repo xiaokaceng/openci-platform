@@ -6,32 +6,30 @@ import java.util.Set;
 
 import org.openkoala.koala.widget.Project;
 
-import com.xiaokaceng.openci.domain.GitConfiguration;
-import com.xiaokaceng.openci.domain.JenkinsConfiguration;
-import com.xiaokaceng.openci.domain.JiraConfiguration;
-import com.xiaokaceng.openci.domain.SonarConfiguration;
-import com.xiaokaceng.openci.domain.SvnConfiguration;
+import com.xiaokaceng.openci.domain.Developer;
+import com.xiaokaceng.openci.domain.ProjectDeveloper;
+import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
-import com.xiaokaceng.openci.domain.ToolType;
-import com.xiaokaceng.openci.domain.TracConfiguration;
 
 public class ProjectDto implements Serializable {
 
 	private static final long serialVersionUID = -6708098893349388801L;
 
 	private String projectName;
-	
+
 	private Project projectForCreate;
-	
+
 	private com.xiaokaceng.openci.domain.Project projectForCis;
 
 	private ScmConfig scmConfig;
-	
+
 	private boolean userCas;
-	
+
 	private Set<ToolConfigurationDto> toolConfigurationDtos;
-	
+
+	private Set<ProjectDeveloperDto> projectDeveloperDtos;
+
 	public String getProjectName() {
 		return projectName;
 	}
@@ -61,7 +59,7 @@ public class ProjectDto implements Serializable {
 	public void setProjectForCis(com.xiaokaceng.openci.domain.Project projectForCis) {
 		this.projectForCis = projectForCis;
 	}
-	
+
 	public ScmConfig getScmConfig() {
 		return scmConfig;
 	}
@@ -86,7 +84,7 @@ public class ProjectDto implements Serializable {
 		this.toolConfigurationDtos = toolConfigurationDtos;
 		configTools(toolConfigurationDtos);
 	}
-	
+
 	private void configTools(Set<ToolConfigurationDto> toolConfigurationDtos) {
 		Set<Tool> tools = new HashSet<Tool>();
 		for (ToolConfigurationDto toolConfigurationDto : toolConfigurationDtos) {
@@ -102,16 +100,46 @@ public class ProjectDto implements Serializable {
 		projectForCis = new com.xiaokaceng.openci.domain.Project(null);
 		initProjectInfo();
 	}
-	
+
 	public ProjectDto(String projectName) {
 		this.projectName = projectName;
 		projectForCis = new com.xiaokaceng.openci.domain.Project(projectName);
 		initProjectInfo();
 	}
-	
+
 	private void initProjectInfo() {
 		projectForCreate = new Project();
 		projectForCreate.setPackaging("pom");
 	}
-	
+
+	public void setProjectDeveloperDtos(Set<ProjectDeveloperDto> projectDeveloperDtos) {
+		this.projectDeveloperDtos = projectDeveloperDtos;
+		configProjectDevelopers();
+	}
+
+	private void configProjectDevelopers() {
+		if (projectDeveloperDtos != null && projectDeveloperDtos.size() > 0) {
+			Set<ProjectDeveloper> developers = new HashSet<ProjectDeveloper>();
+			for (ProjectDeveloperDto each : projectDeveloperDtos) {
+				ProjectDeveloper projectDeveloper = new ProjectDeveloper(getRoles(each.getRoleIds()), getDeveloper(each.getDeveloperId()), projectForCis);
+				developers.add(projectDeveloper);
+			}
+			projectForCis.setDevelopers(developers);
+		}
+	}
+
+	private Developer getDeveloper(Long developerId) {
+		return Developer.get(Developer.class, developerId);
+	}
+
+	private Set<Role> getRoles(Long[] roleIds) {
+		Set<Role> roles = new HashSet<Role>();
+		if (roleIds != null && roleIds.length > 0) {
+			for (Long roleId : roleIds) {
+				roles.add(Role.get(Role.class, roleId));
+			}
+		}
+		return roles;
+	}
+
 }

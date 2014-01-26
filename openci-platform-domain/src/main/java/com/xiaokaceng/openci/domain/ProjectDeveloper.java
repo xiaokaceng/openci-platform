@@ -35,7 +35,7 @@ public class ProjectDeveloper extends AbstractEntity {
 	@JoinColumn(name = "project_id")
 	private Project project;
 
-	protected ProjectDeveloper() {
+	ProjectDeveloper() {
 
 	}
 
