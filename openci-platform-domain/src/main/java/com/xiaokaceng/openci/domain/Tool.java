@@ -41,19 +41,20 @@ public class Tool extends AbstractEntity {
 	@OneToMany(mappedBy = "tool", fetch = FetchType.EAGER)
 	private Set<ToolInterfaceImplement> toolInterfaceImplements = new HashSet<ToolInterfaceImplement>();
 
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "integration_date")
 	private Date integrationDate;
 
-	public Tool() {}
-	
+	private Tool() {
+	}
+
 	public Tool(ToolConfiguration toolConfiguration, Project project) {
 		this.toolConfiguration = toolConfiguration;
 		this.project = project;
 		this.status = ToolIntegrationStatus.ONGOING;
 		this.integrationDate = new Date();
 	}
-	
+
 	public void updateToolIntegrationStatus() {
 		status = ToolIntegrationStatus.SUCCESS;
 		for (ToolInterfaceImplement each : getToolInterfaceImplements()) {
@@ -62,10 +63,6 @@ public class Tool extends AbstractEntity {
 			}
 		}
 		save();
-	}
-
-	public Project getProject() {
-		return project;
 	}
 
 	public ToolConfiguration getToolConfiguration() {

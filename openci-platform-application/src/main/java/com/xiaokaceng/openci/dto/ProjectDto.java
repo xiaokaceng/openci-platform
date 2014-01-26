@@ -90,26 +90,7 @@ public class ProjectDto implements Serializable {
 	private void configTools(Set<ToolConfigurationDto> toolConfigurationDtos) {
 		Set<Tool> tools = new HashSet<Tool>();
 		for (ToolConfigurationDto toolConfigurationDto : toolConfigurationDtos) {
-			ToolConfiguration toolConfiguration = null;
-			if (ToolType.GIT == toolConfigurationDto.getToolType()) {
-				toolConfiguration = new GitConfiguration();
-			}
-			if (ToolType.JENKINS == toolConfigurationDto.getToolType()) {
-				toolConfiguration = new JenkinsConfiguration();
-			}
-			if (ToolType.JIRA == toolConfigurationDto.getToolType()) {
-				toolConfiguration = new JiraConfiguration();
-			}
-			if (ToolType.SONAR == toolConfigurationDto.getToolType()) {
-				toolConfiguration = new SonarConfiguration();
-			}
-			if (ToolType.SVN == toolConfigurationDto.getToolType()) {
-				toolConfiguration = new SvnConfiguration();
-			}
-			if (ToolType.TRAC == toolConfigurationDto.getToolType()) {
-				toolConfiguration = new TracConfiguration();
-			}
-			
+			ToolConfiguration toolConfiguration = toolConfigurationDto.getToolType().getToolConfiguration();
 			toolConfiguration.setId(toolConfigurationDto.getId());
 			Tool tool = new Tool(toolConfiguration, projectForCis);
 			tools.add(tool);

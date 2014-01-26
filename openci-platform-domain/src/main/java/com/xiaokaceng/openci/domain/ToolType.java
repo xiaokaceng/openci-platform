@@ -1,11 +1,22 @@
 package com.xiaokaceng.openci.domain;
 
 public enum ToolType {
-	CAS_USER_MANAGE,
-	SVN,
-	GIT,
-	JENKINS,
-	SONAR,
-	JIRA,
-	TRAC
+	CAS_USER_MANAGE(new CasUserConfiguration()),
+	SVN(new SvnConfiguration()),
+	GIT(new GitConfiguration()),
+	JENKINS(new JenkinsConfiguration()),
+	SONAR(new SonarConfiguration()),
+	JIRA(new JiraConfiguration()),
+	TRAC(new TracConfiguration());
+	
+	private ToolConfiguration toolConfiguration;
+
+	private ToolType(ToolConfiguration toolConfiguration) {
+		this.toolConfiguration = toolConfiguration;
+	}
+
+	public ToolConfiguration getToolConfiguration() {
+		return toolConfiguration;
+	}
+	
 }

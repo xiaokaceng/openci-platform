@@ -44,7 +44,7 @@ public class Project extends AbstractEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
 	private Set<Tool> tools = new HashSet<Tool>();
 
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_date")
 	private Date createDate = new Date();
 

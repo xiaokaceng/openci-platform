@@ -69,9 +69,8 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 	@Test
 	public void testGetAllUsable() {
 		toolConfigurationApplication.createConfiguration(toolConfiguration);
-		assertEquals(0, ToolConfiguration.findByUsable().size());
 		toolConfigurationApplication.setToolUsabled(toolConfiguration);
-		assertEquals(1, ToolConfiguration.findByUsable().size());
+		assertTrue(toolConfiguration.isUsable());
 		toolConfiguration.remove();
 	}
 
@@ -81,7 +80,7 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 		ToolConfiguration toolConfiguration2 = new JenkinsConfiguration("test2", null, null, null);
 		toolConfiguration2.save();
 
-		List<JenkinsConfiguration> toolConfigurations = toolConfigurationApplication.pagingQeuryJenkinsConfigurations(1, 2).getResult();
+		List<JenkinsConfiguration> toolConfigurations = toolConfigurationApplication.pagingQeuryJenkinsConfigurations(1, 1).getResult();
 		assertEquals(1, toolConfigurations.size());
 
 		toolConfiguration.remove();

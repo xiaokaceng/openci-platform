@@ -35,7 +35,7 @@ public class ToolInterfaceImplement extends AbstractEntity {
 	@Column(name = "is_success")
 	private boolean isSuccess;
 
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "execute_date")
 	private Date executeDate;
 

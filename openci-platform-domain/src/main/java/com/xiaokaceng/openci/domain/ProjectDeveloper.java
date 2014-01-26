@@ -26,25 +26,25 @@ public class ProjectDeveloper extends AbstractEntity {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "project_developer_role_relations", joinColumns = { @JoinColumn(name = "project_developer_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
 	private Set<Role> roles = new HashSet<Role>();
-	
+
 	@OneToOne
 	@JoinColumn(name = "developer_id")
 	private Developer developer;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "project_id")
 	private Project project;
-	
-	public ProjectDeveloper() {
-		
+
+	protected ProjectDeveloper() {
+
 	}
-	
+
 	public ProjectDeveloper(Set<Role> roles, Developer developer, Project project) {
 		this.roles = roles;
 		this.developer = developer;
 		this.project = project;
 	}
-	
+
 	public void assignRole(Role role) {
 		roles.add(role);
 		save();
@@ -57,10 +57,6 @@ public class ProjectDeveloper extends AbstractEntity {
 	public Set<Role> getRoles() {
 		return roles;
 	}
-	
-	public Project getProject() {
-		return project;
-	}
 
 	@Override
 	public boolean equals(Object other) {
@@ -71,13 +67,13 @@ public class ProjectDeveloper extends AbstractEntity {
 			return false;
 		}
 		ProjectDeveloper that = (ProjectDeveloper) other;
-		return new EqualsBuilder().append(getDeveloper(), that.getDeveloper()).append(getProject(), that.getProject()).isEquals();
+		return new EqualsBuilder().append(getDeveloper(), that.getDeveloper()).append(getRoles(), that.getRoles()).isEquals();
 
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(getDeveloper()).append(getProject()).hashCode();
+		return new HashCodeBuilder().append(getDeveloper()).append(getRoles()).hashCode();
 	}
 
 	@Override
