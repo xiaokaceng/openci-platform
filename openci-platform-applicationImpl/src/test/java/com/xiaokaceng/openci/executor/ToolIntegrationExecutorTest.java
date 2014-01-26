@@ -53,7 +53,7 @@ public class ToolIntegrationExecutorTest extends AbstractIntegrationTest {
 //		tracCISClient.assignUsersToRole(project, project.getArtifactId(), createDeveloper());
 
 		SSHConnectConfig sshConnectConfig = new SSHConnectConfig("10.108.1.138", "apache", "apache", "/home/svn");
-		SvnCISClient tracCISClient = new SvnCISClient(sshConnectConfig);
+		SvnCISClient tracCISClient = new SvnCISClient(null);
 		Project project = createProjectIntegration().toCISProject();
 		tracCISClient.createProject(project);
 		tracCISClient.createUserIfNecessary(project, createDeveloper());

@@ -1,6 +1,6 @@
 package com.xiaokaceng.openci.pojo;
 
-import org.openkoala.opencis.support.SSHConnectConfig;
+import org.openkoala.opencis.support.SvnConfig;
 import org.openkoala.opencis.svn.SvnCISClient;
 
 import com.xiaokaceng.openci.domain.SvnConfiguration;
@@ -11,10 +11,14 @@ public class SvnConfigurationPojo extends ToolConfigurationPojo {
 	@Override
 	public void createCISClient(ToolConfiguration toolConfiguration) {
 		if (toolConfiguration instanceof SvnConfiguration) {
-			SSHConnectConfig sshConnectConfig = new SSHConnectConfig(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword(), ((SvnConfiguration) toolConfiguration).getSavePath());
-			cisClient = new SvnCISClient(sshConnectConfig);
+			SvnConfig svnConfig = new SvnConfig(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword(),
+					((SvnConfiguration) toolConfiguration).getSavePath(), getSvnAddress((SvnConfiguration) toolConfiguration));
+			cisClient = new SvnCISClient(svnConfig);
 			isInstance = true;
 		}
 	}
 
+	private String getSvnAddress(SvnConfiguration toolConfiguration) {
+		return "http://" + toolConfiguration.getServiceUrl() + "/" + toolConfiguration.getRequestRootAddress();
+	}
 }
