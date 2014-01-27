@@ -115,7 +115,7 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 
 	@Before
 	public void init() {
-		developer = new Developer(NAME, NAME, NAME);
+		developer = new Developer(NAME, NAME, NAME, NAME);
 		developer.save();
 		role = new Role(NAME, NAME);
 		role.save();

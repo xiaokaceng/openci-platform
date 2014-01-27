@@ -50,7 +50,7 @@ public class OpenciApplicationImplTest extends AbstractIntegrationTest {
 	
 	@Before
 	public void init() {
-		developer = new Developer(NAME, NAME, NAME);
+		developer = new Developer(NAME, NAME, NAME, NAME);
 	}
 	
 	@After

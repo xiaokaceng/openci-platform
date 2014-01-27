@@ -3,6 +3,7 @@ var developerManager = {
 	baseUrl: 'developer/',
 	dataGrid: null,
 	name: null,
+	password: null,
 	email: null,
 	dialog: null,
 	developerId: null,
@@ -63,6 +64,7 @@ var developerManager = {
 		self.dialog = dialog;
 		dialog.find('.modal-header').find('.modal-title').html(item ? '修改开发者信息':'添加开发者');
 		self.name = dialog.find('#name');
+		self.password = dialog.find('#password');
         self.email = dialog.find('#email');
         self.developerId = dialog.find('#developerId');
 		dialog.find('#save').on('click',function(){
@@ -88,6 +90,7 @@ var developerManager = {
 		var self = this;
 		self.developerId.val(item.developerId);
 		self.name.val(item.name);
+		self.password.val(item.password);
 		self.email.val(item.email);
 	},
 	/*
@@ -120,12 +123,16 @@ var developerManager = {
 		var self = this;
 		var dialog = self.dialog;
 		var name = self.name;
+		var password = self.password;
 		var email = self.email;
 		var developerId = self.developerId;
 		if(!Validation.notNull(dialog, developerId, developerId.val(), '请输入开发者ID')){
 			return false;
 		}
 		if(!Validation.notNull(dialog, name, name.val(), '请输入用户名称')){
+			return false;
+		}
+		if(!Validation.notNull(dialog, password, password.val(), '请输入用户密码')){
 			return false;
 		}
 		if(!Validation.notNull(dialog, email, email.val(), '请输入邮箱')){
@@ -147,6 +154,7 @@ var developerManager = {
 		}
 		data['developerId'] = self.developerId.val();
 		data['name'] = self.name.val();
+		data['password'] = self.password.val();
 		data['email'] = self.email.val();
 		if(item){
 			data['id'] = item.id;	

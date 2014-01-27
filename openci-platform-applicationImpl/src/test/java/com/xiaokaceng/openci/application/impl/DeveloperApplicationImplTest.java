@@ -20,7 +20,7 @@ public class DeveloperApplicationImplTest extends AbstractIntegrationTest {
 	
 	@Test
 	public void testCreateDeveloper() {
-		Developer developer = new Developer("zhuyuanbiao", "朱远标", "zhuyuanbiao@foreveross.com");
+		Developer developer = new Developer("zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao@foreveross.com");
 		developerApplication.createDeveloper(developer);
 		assertEquals(developer, Developer.get(Developer.class, developer.getId()));
 		Developer.findAll(Developer.class);
@@ -28,19 +28,19 @@ public class DeveloperApplicationImplTest extends AbstractIntegrationTest {
 
 	@Test
 	public void testUpdateDeveloper() {
-		Developer developer = new Developer("zhuyuanbiao", "朱远标", "zhuyuanbiao@foreveross.com");
+		Developer developer = new Developer("zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao@foreveross.com");
 		developer.save();
-		assertEquals("朱远标", Developer.get(Developer.class, developer.getId()).getName());
+		assertEquals("zhuyuanbiao", Developer.get(Developer.class, developer.getId()).getName());
 		
-		developer.setName("猪肉标");
+		developer.setName("zhuyuanbiao2");
 		developerApplication.updateDeveloperInfo(developer);
-		assertEquals("猪肉标", Developer.get(Developer.class, developer.getId()).getName());
+		assertEquals("zhuyuanbiao2", Developer.get(Developer.class, developer.getId()).getName());
 	}
 	
 	@Test
 	public void testPagingQueryDeveloper() {
-		Developer developer1 = new Developer("zhuyuanbiao1", "朱远标1", "zhuyuanbiao1@foreveross.com");
-		Developer developer2 = new Developer("zhuyuanbiao2", "朱远标2", "zhuyuanbiao2@foreveross.com");
+		Developer developer1 = new Developer("zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao1@foreveross.com");
+		Developer developer2 = new Developer("zhuyuanbiao2", "zhuyuanbiao2", "zhuyuanbiao", "zhuyuanbiao2@foreveross.com");
 		developer1.save();
 		developer2.save();
 		
@@ -48,14 +48,14 @@ public class DeveloperApplicationImplTest extends AbstractIntegrationTest {
 		developersInRepository.add(developer1);
 		developersInRepository.add(developer2);
 		
-		List<Developer> developersFromPagingQuery = developerApplication.pagingQeuryDevelopers(new Developer(), 1, 2).getResult();
-		assertEquals(2, developersFromPagingQuery.size());
+		List<Developer> developersFromPagingQuery = developerApplication.pagingQeuryDevelopers(developer1, 1, 10).getResult();
+		assertEquals(1, developersFromPagingQuery.size());
 //		assertEquals(developersInRepository, developersFromPagingQuery);
 	}
 	
 	@Test
 	public void testAbolishDeveloper() {
-		Developer developer = new Developer("zhuyuanbiao", "朱远标", "zhuyuanbiao@foreveross.com");
+		Developer developer = new Developer("zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao@foreveross.com");
 		developer.save();
 		assertEquals(developer, Developer.get(Developer.class, developer.getId()));
 		
@@ -65,8 +65,8 @@ public class DeveloperApplicationImplTest extends AbstractIntegrationTest {
 	
 	@Test
 	public void testAbolishDevelopers() {
-		Developer developer1 = new Developer("zhuyuanbiao1", "朱远标1", "zhuyuanbiao1@foreveross.com");
-		Developer developer2 = new Developer("zhuyuanbiao2", "朱远标2", "zhuyuanbiao2@foreveross.com");
+		Developer developer1 = new Developer("zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao1@foreveross.com");
+		Developer developer2 = new Developer("zhuyuanbiao2", "zhuyuanbiao2", "zhuyuanbiao", "zhuyuanbiao2@foreveross.com");
 		developer1.save();
 		developer2.save();
 		assertTrue(Developer.findAll(Developer.class).contains(developer1));

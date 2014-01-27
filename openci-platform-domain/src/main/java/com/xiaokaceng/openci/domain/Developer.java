@@ -24,15 +24,16 @@ public class Developer extends TimeIntervalEntity {
 	private String email;
 
 	private String password;
-	
-	public Developer(String developerId, String name, String email) {
+
+	public Developer(String developerId, String name, String password, String email) {
 		super(new Date());
 		this.developerId = developerId;
 		this.name = name;
+		this.password = password;
 		this.email = email;
 	}
 
-	public Developer() {
+	Developer() {
 	}
 
 	public String getDeveloperId() {
@@ -58,7 +59,7 @@ public class Developer extends TimeIntervalEntity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -76,7 +77,8 @@ public class Developer extends TimeIntervalEntity {
 			return false;
 		}
 		Developer that = (Developer) other;
-		return new EqualsBuilder().append(getName(), that.getName()).append(getDeveloperId(), that.getDeveloperId()).isEquals();
+		return new EqualsBuilder().append(getName(), that.getName()).append(getDeveloperId(), that.getDeveloperId())
+				.isEquals();
 	}
 
 	@Override
