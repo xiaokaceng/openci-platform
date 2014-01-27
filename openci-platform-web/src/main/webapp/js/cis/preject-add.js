@@ -532,7 +532,7 @@ $(function() {
 		$.each(developers, function(){
 			projectDeveloperDtos.push({developerId: this.id});
 		});
-		projectDto.projectForCis.developers = projectDeveloper;
+		projectDto.projectDeveloperDtos = projectDeveloperDtos;
 		var projectTools = [];
 		$.each(tools, function(){
 			projectTools.push({id:this.id, toolType: this.toolType});

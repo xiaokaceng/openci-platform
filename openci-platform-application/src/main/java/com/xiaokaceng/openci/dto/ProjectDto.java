@@ -88,8 +88,7 @@ public class ProjectDto implements Serializable {
 	private void configTools(Set<ToolConfigurationDto> toolConfigurationDtos) {
 		Set<Tool> tools = new HashSet<Tool>();
 		for (ToolConfigurationDto toolConfigurationDto : toolConfigurationDtos) {
-			ToolConfiguration toolConfiguration = toolConfigurationDto.getToolType().getToolConfiguration();
-			toolConfiguration.setId(toolConfigurationDto.getId());
+			ToolConfiguration toolConfiguration = ToolConfiguration.get(ToolConfiguration.class, toolConfigurationDto.getId());
 			Tool tool = new Tool(toolConfiguration, projectForCis);
 			tools.add(tool);
 		}

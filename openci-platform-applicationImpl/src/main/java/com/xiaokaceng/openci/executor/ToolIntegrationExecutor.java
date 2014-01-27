@@ -30,7 +30,7 @@ public class ToolIntegrationExecutor {
 		verify(projectIntegration);
 		reloadToolConfigurationIfNecessary(projectIntegration);
 		Set<Tool> tools = projectIntegration.getTools();
-		if (tools.size() > 0) {
+		if (tools != null && tools.size() > 0) {
 			for (Tool each : tools) {
 				taskExecutor.execute(new CISClientTask(each, projectIntegration));
 			}

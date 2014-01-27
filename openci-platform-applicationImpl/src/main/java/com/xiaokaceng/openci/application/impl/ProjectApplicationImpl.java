@@ -55,6 +55,7 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		projectForCis.setProjectStatus(getProjectStatus(createResult));
 		projectForCis.save();
 		if (createResult) {
+			System.out.println("=====");
 			// integrateProjectToTools(projectDto);
 		}
 	}
