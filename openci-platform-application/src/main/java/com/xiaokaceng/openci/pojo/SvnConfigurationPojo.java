@@ -12,7 +12,7 @@ public class SvnConfigurationPojo extends ToolConfigurationPojo {
 	public void createCISClient(ToolConfiguration toolConfiguration) {
 		if (toolConfiguration instanceof SvnConfiguration) {
 			SvnConfig svnConfig = new SvnConfig(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword(),
-					((SvnConfiguration) toolConfiguration).getSavePath(), getSvnAddress((SvnConfiguration) toolConfiguration));
+					((SvnConfiguration) toolConfiguration).getSavePath(), getSvnAddress((SvnConfiguration) toolConfiguration), null, null);
 			cisClient = new SvnCISClient(svnConfig);
 			isInstance = true;
 		}

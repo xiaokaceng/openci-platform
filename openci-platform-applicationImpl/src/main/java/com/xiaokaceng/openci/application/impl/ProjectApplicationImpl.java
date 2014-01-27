@@ -1,5 +1,6 @@
 package com.xiaokaceng.openci.application.impl;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,10 +9,13 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openkoala.koala.mojo.KoalaProjectCreate;
 import org.openkoala.opencis.api.Developer;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dayatang.querychannel.service.QueryChannelService;
+import com.dayatang.querychannel.support.Page;
 import com.xiaokaceng.openci.EntityNullException;
 import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.domain.CasUserConfiguration;
@@ -22,6 +26,7 @@ import com.xiaokaceng.openci.domain.ProjectStatus;
 import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.dto.ProjectDto;
+import com.xiaokaceng.openci.dto.ProjectQueryDto;
 import com.xiaokaceng.openci.executor.ToolIntegrationExecutor;
 import com.xiaokaceng.openci.pojo.ProjectIntegration;
 
@@ -31,7 +36,10 @@ public class ProjectApplicationImpl implements ProjectApplication {
 
 	@Inject
 	private ToolIntegrationExecutor toolIntegrationExecutor;
-	
+
+	@Inject
+	private QueryChannelService queryChannel;
+
 	public void createProject(ProjectDto projectDto) {
 		Project projectForCis = projectDto.getProjectForCis();
 		if (projectForCis == null) {
@@ -47,7 +55,7 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		projectForCis.setProjectStatus(getProjectStatus(createResult));
 		projectForCis.save();
 		if (createResult) {
-//			integrateProjectToTools(projectDto);
+			// integrateProjectToTools(projectDto);
 		}
 	}
 
@@ -61,7 +69,7 @@ public class ProjectApplicationImpl implements ProjectApplication {
 	private String getProjectSavePath() {
 		return System.getenv("TMP");
 	}
-	
+
 	private ProjectDetail createProjectDetail(ProjectDto projectDto) {
 		ProjectDetail projectDetail = new ProjectDetail();
 		org.openkoala.koala.widget.Project project = projectDto.getProjectForCreate();
@@ -97,10 +105,10 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		if (projectDto.isUserCas()) {
 			projectIntegration.setCasUserConfiguration(CasUserConfiguration.getUniqueInstance());
 		}
-		
+
 		toolIntegrationExecutor.execute(projectIntegration);
 	}
-	
+
 	private Set<Developer> transformDevelopers(Set<ProjectDeveloper> projectDevelopers) {
 		Set<Developer> results = new HashSet<Developer>();
 		for (ProjectDeveloper each : projectDevelopers) {
@@ -109,7 +117,7 @@ public class ProjectApplicationImpl implements ProjectApplication {
 			developer.setName(each.getDeveloper().getName());
 			developer.setEmail(each.getDeveloper().getEmail());
 			developer.setPassword(each.getDeveloper().getPassword());
-			
+
 			List<String> roles = new ArrayList<String>();
 			for (Role role : each.getRoles()) {
 				roles.add(role.getName());
@@ -120,15 +128,33 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		return results;
 	}
 
-	public List<Project> findAllProjects() {
-		return Project.findAll(Project.class);
-	}
-	
 	public void addIntegrationTool(Project project, Tool tool) {
 		if (project == null) {
 			throw new EntityNullException();
 		}
 		project.addTool(tool);
 	}
-	
+
+	public Page<Project> pagingQueryProject(ProjectQueryDto projectQueryDto, int currentPage, int pagesize) {
+		List<Object> conditionVals = new ArrayList<Object>();
+		StringBuilder jpql = new StringBuilder("select _project from Project _project");
+		
+		if (projectQueryDto != null) {
+			jpql.append(" where 1=1");
+			if (!StringUtils.isBlank(projectQueryDto.getName())) {
+				jpql.append(" and _project.name like ?");
+				conditionVals.add(MessageFormat.format("%{0}%", projectQueryDto.getName()));
+			}
+			if (projectQueryDto.getStartDate() != null) {
+				jpql.append(" and _project.createDate > ?");
+				conditionVals.add(MessageFormat.format("{0}", projectQueryDto.getStartDate()));
+			}
+			if (projectQueryDto.getEndDate() != null) {
+				jpql.append(" and _project.createDate < ?");
+				conditionVals.add(MessageFormat.format("{0}", projectQueryDto.getEndDate()));
+			}
+		}
+		return queryChannel.queryPagedResultByPageNo(jpql.toString(), conditionVals.toArray(), currentPage, pagesize);
+	}
+
 }
