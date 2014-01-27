@@ -50,7 +50,7 @@
 		<jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
 		<jdbc.url><![CDATA[jdbc:h2:~/db/testdb]]></jdbc.url>
 		<jdbc.username>sa</jdbc.username>
-		<jdbc.password/>
+		<jdbc.password />
 		<hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
 		<hibernate.query.substitutions>true 'Y', false 'N'</hibernate.query.substitutions>
 		<hibernate.cache.provider_class>org.hibernate.cache.EhCacheProvider</hibernate.cache.provider_class>
@@ -67,7 +67,7 @@
 
 	<dependencyManagement>
 		<dependencies>
-		
+
 			<!-- SPECIFICATION -->
 			<dependency>
 				<groupId>javax.persistence</groupId>
@@ -91,34 +91,34 @@
 				<version>2.2</version>
 				<scope>provided</scope>
 			</dependency>
-		
+
 			<!-- HIBERNATE -->
-	        <dependency>
-	            <groupId>org.hibernate</groupId>
-	            <artifactId>hibernate-core</artifactId>
-	            <version>${hibernate.version}</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.hibernate</groupId>
-	            <artifactId>hibernate-entitymanager</artifactId>
-	            <version>${hibernate.version}</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.hibernate</groupId>
-	            <artifactId>hibernate-validator</artifactId>
-	            <version>4.3.1.Final</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.hibernate</groupId>
-	            <artifactId>hibernate-c3p0</artifactId>
-	            <version>${hibernate.version}</version>
-	        </dependency>
-	        <dependency>
-	            <groupId>org.hibernate</groupId>
-	            <artifactId>hibernate-ehcache</artifactId>
-	            <version>${hibernate.version}</version>
-	        </dependency>
-			
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>4.3.1.Final</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-c3p0</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-ehcache</artifactId>
+				<version>${hibernate.version}</version>
+			</dependency>
+
 			<!-- DDDLIB -->
 			<dependency>
 				<groupId>com.dayatang.commons</groupId>
@@ -208,6 +208,18 @@
 				<version>${spring.version}</version>
 			</dependency>
 
+			<!-- JACKSON -->
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-core-asl</artifactId>
+				<version>1.9.11</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-mapper-asl</artifactId>
+				<version>1.9.11</version>
+			</dependency>
+
 			<!-- OTHER -->
 			<dependency>
 				<groupId>commons-dbcp</groupId>
@@ -275,34 +287,34 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-			    <groupId>org.mockito</groupId>
-			    <artifactId>mockito-core</artifactId>
-			    <version>1.9.5</version>
-			    <scope>test</scope>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>1.9.5</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
-			    <groupId>org.unitils</groupId>
-			    <artifactId>unitils-core</artifactId>
-			    <version>${unitils.version}</version>
-			    <scope>test</scope>
+				<groupId>org.unitils</groupId>
+				<artifactId>unitils-core</artifactId>
+				<version>${unitils.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
-			    <groupId>org.unitils</groupId>
-			    <artifactId>unitils-dbunit</artifactId>
-			    <version>${unitils.version}</version>
-			    <scope>test</scope>
+				<groupId>org.unitils</groupId>
+				<artifactId>unitils-dbunit</artifactId>
+				<version>${unitils.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
-			    <groupId>org.unitils</groupId>
-			    <artifactId>unitils-spring</artifactId>
-			    <version>${unitils.version}</version>
-			    <scope>test</scope>
+				<groupId>org.unitils</groupId>
+				<artifactId>unitils-spring</artifactId>
+				<version>${unitils.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
-			    <groupId>org.unitils</groupId>
-			    <artifactId>unitils-orm</artifactId>
-			    <version>${unitils.version}</version>
-			    <scope>test</scope>
+				<groupId>org.unitils</groupId>
+				<artifactId>unitils-orm</artifactId>
+				<version>${unitils.version}</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.dayatang.commons</groupId>
@@ -384,7 +396,7 @@
 				<jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
 				<jdbc.url><![CDATA[jdbc:mysql://${db.host}:${db.port}/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
 				<jdbc.username>root</jdbc.username>
-				<jdbc.password/>
+				<jdbc.password />
 			</properties>
 		</profile>
 	</profiles>
