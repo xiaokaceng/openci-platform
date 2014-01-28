@@ -21,15 +21,15 @@ public class JenkinsConfigurationPojo extends ToolConfigurationPojo {
 	@Override
 	public void createCISClient(ToolConfiguration toolConfiguration) {
 		if (toolConfiguration instanceof JenkinsConfiguration) {
-			System.out.println(toolConfiguration.getServiceUrl() + "==========");
 			JenkinsCISClient jenkinsCISClient = new JenkinsCISClient(toolConfiguration.getServiceUrl(), toolConfiguration.getUsername(), toolConfiguration.getPassword());
-			jenkinsCISClient.setKoalaScmConfig(new KoalaGitConfig("xxxx"));
+			jenkinsCISClient.setKoalaScmConfig(createKoalaScmConfig());
 			cisClient = jenkinsCISClient;
 			isInstance = true;
 		}
 	}
 
 	private KoalaScmConfig createKoalaScmConfig() {
+		System.out.println(scmConfig.getRepositoryUrl() + "===" + scmConfig.getScmType());
 		if (scmConfig == null) {
 			return null;
 		}

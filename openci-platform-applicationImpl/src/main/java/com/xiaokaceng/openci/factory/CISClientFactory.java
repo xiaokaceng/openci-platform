@@ -28,8 +28,7 @@ public class CISClientFactory {
 		toolConfigurationPojos.add(new TracConfigurationPojo());
 	}
 	
-	public static void reloadJenkinsConfiguration(JenkinsConfigurationPojo jenkinsConfigurationPojo) {
-		System.out.println("========reload");
+	public synchronized static void reloadJenkinsConfiguration(JenkinsConfigurationPojo jenkinsConfigurationPojo) {
 		toolConfigurationPojos.remove(JenkinsConfigurationPojo.class);
 		toolConfigurationPojos.add(jenkinsConfigurationPojo);
 	}

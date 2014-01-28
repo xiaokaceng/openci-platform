@@ -25,7 +25,6 @@ import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.domain.CasUserConfiguration;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
 import com.xiaokaceng.openci.domain.Role;
-import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.dto.ProjectDto;
 import com.xiaokaceng.openci.dto.ProjectQueryDto;
 import com.xiaokaceng.openci.executor.ToolIntegrationExecutor;
@@ -57,25 +56,15 @@ public class ProjectController extends BaseController {
 		projectIntegration.setGroupId(project.getGroupId());
 		projectIntegration.setArtifactId(project.getArtifactId());
 		projectIntegration.setProjectName(project.getAppName());
-		projectIntegration.setTools(transformTools(projectDto.getProjectForCis().getTools()));
+		projectIntegration.setTools(projectDto.getProjectForCis().getTools());
 		projectIntegration.setProjectSavePath(project.getPath());
 		projectIntegration.setDevelopers(transformDevelopers(projectDto.getProjectForCis().getDevelopers()));
+		projectIntegration.setScmConfig(projectDto.getScmConfig());
 		if (projectDto.isUserCas()) {
 			projectIntegration.setCasUserConfiguration(CasUserConfiguration.getUniqueInstance());
 		}
 
 		toolIntegrationExecutor.execute(projectIntegration);
-	}
-
-	private Set<Tool> transformTools(Set<Tool> tools) {
-		if (tools != null && tools.size() > 0) {
-			Set<Tool> tools2 = new HashSet<Tool>();
-			for (Tool each : tools) {
-				tools2.add(Tool.get(Tool.class, each.getId()));
-			}
-			return tools2;
-		}
-		return null;
 	}
 
 	private Set<Developer> transformDevelopers(Set<ProjectDeveloper> projectDevelopers) {
