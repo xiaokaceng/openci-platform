@@ -112,4 +112,8 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		return Project.get(Project.class, projectId);
 	}
 
+	public boolean isExistByName(String name) {
+		return Project.isExixtByName(name);
+	}
+
 }

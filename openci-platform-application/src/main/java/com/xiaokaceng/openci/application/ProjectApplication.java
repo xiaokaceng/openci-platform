@@ -33,6 +33,14 @@ public interface ProjectApplication {
 	Project getDetail(long projectId);
 
 	/**
+	 * 根据项目名检测项目是否存在
+	 * 
+	 * @param name
+	 * @return
+	 */
+	boolean isExistByName(String name);
+
+	/**
 	 * 添加整合工具
 	 * 
 	 * @param project

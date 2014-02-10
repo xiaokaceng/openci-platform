@@ -114,9 +114,9 @@ public class ProjectController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/pagingquery")
-	public Map<String, Object> pagingQuery(ProjectQueryDto projectQueryDto) {
+	public Map<String, Object> pagingQuery(ProjectQueryDto projectQueryDto, int page, int pagesize) {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		Page<com.xiaokaceng.openci.domain.Project> projectPage = projectApplication.pagingQueryProject(projectQueryDto, 1, 10);
+		Page<com.xiaokaceng.openci.domain.Project> projectPage = projectApplication.pagingQueryProject(projectQueryDto, page, pagesize);
 		dataMap.put("Rows", projectPage.getResult());
 		dataMap.put("Total", projectPage.getTotalCount());
 		return dataMap;
@@ -126,6 +126,12 @@ public class ProjectController extends BaseController {
 	@RequestMapping("/detail/{projectId}")
 	public com.xiaokaceng.openci.domain.Project getProjectDetail(@PathVariable long projectId) {
 		return projectApplication.getDetail(projectId);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/is-exist/{name}") 
+	public boolean isExistByName(@PathVariable String name) {
+		return projectApplication.isExistByName(name);
 	}
 	
 }

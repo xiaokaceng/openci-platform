@@ -2,6 +2,7 @@ package com.xiaokaceng.openci.domain;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,6 +21,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dayatang.domain.AbstractEntity;
+import com.dayatang.domain.QuerySettings;
 import com.xiaokaceng.openci.EntityNullException;
 
 @Entity
@@ -68,6 +70,11 @@ public class Project extends AbstractEntity {
 		save();
 	}
 
+	public static boolean isExixtByName(String name) {
+		List<Project> projects = getRepository().find(QuerySettings.create(Project.class).eq("name", name));
+		return projects.size() > 0;
+	}
+	
 	public String getName() {
 		return name;
 	}

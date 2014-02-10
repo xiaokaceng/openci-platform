@@ -1,6 +1,6 @@
 package com.xiaokaceng.openci.application.impl;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,11 +81,38 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 		List<Project> projects = projectApplication.pagingQueryProject(projectQueryDto, 1, 10).getResult();
 		assertEquals(0, projects.size());
 		
-		
 		projectQueryDto.setStartDate(dateFormat.parse("2013-1-1"));
 		projects = projectApplication.pagingQueryProject(projectQueryDto, 1, 10).getResult();
 		assertEquals(1, projects.size());
 		
+		projectDto.getProjectForCis().remove();
+	}
+	
+	@Test
+	public void testGetDetail() {
+		ProjectDto projectDto = getProjectDtoInstance();
+		projectApplication.createProject(projectDto);
+
+		Project project = projectApplication.getDetail(projectDto.getProjectForCis().getId());
+		assertNotNull(project);
+		assertEquals(project.getName(), projectDto.getProjectForCis().getName());
+		
+		projectDto.getProjectForCis().remove();
+	}
+	
+	@Test
+	public void testGetDetail2() {
+		Project project = projectApplication.getDetail(0);
+		assertNull(project);
+	}
+	
+	@Test
+	public void testIsExistByName() {
+		ProjectDto projectDto = getProjectDtoInstance();
+		projectApplication.createProject(projectDto);
+		
+		assertTrue(projectApplication.isExistByName(NAME));
+		assertFalse(projectApplication.isExistByName("tt"));
 		projectDto.getProjectForCis().remove();
 	}
 	
