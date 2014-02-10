@@ -43,14 +43,23 @@
 				$.get('project/is-exist/' + projectName.val()).done(function(result) {
 					if (result) {
 						projectName.closest('.wizard').message({
-							type : 'error',
+							type : 'warning',
 							content : '项目名称已经存在'
 						});
 						projectName.focus();
 						return;
 					}else{
-						self.next(e);
 						var action = $this.data('action');
+						if(action == 'step2'){
+							if(self.$element.find('#modualGrid').getGrid().getAllItems().length == 0){
+								self.$element.find('#modualGrid').message({
+									type: 'warning',
+									content: '请添加模块'
+								});
+								return;
+							}
+						}
+						self.next(e);
 						action && self.$element.trigger(action);
 					}
 				});
