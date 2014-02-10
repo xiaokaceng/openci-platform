@@ -190,8 +190,8 @@ $(function() {
 	}
 	//-------------子系统选择------------------------------//
 	var selectSubSystem = projectAdd.find('.select-sub-system');
-	selectSubSystem.find('.checker span').on('click', function() {
-		$(this).toggleClass('checked');
+	selectSubSystem.find('.checker').on('click', function() {
+		$(this).find('span').toggleClass('checked');
 	});
 	selectSubSystem.find('#cacheType').select({
 		title : '请选择',
@@ -237,6 +237,17 @@ $(function() {
 				title : '邮箱',
 				name : 'email',
 				width : 150
+			}, {
+				title : '角色',
+				name : 'roles',
+				width : 250,
+				render: function(item, name, index){
+					var roles = [];
+					$.each(item[name], function() {
+						roles.push(this.name)
+					});
+					return roles.join(',');
+				}
 			}, {
 				title : '操作',
 				name : 'id',
@@ -286,47 +297,91 @@ $(function() {
 				selectedDevelopers[this.id] = this;
 			});
 		}
-		dialog.find('#developerGrid').grid({
-			identity : 'id',
-			columns : [{
-				title : '开发者ID',
-				name : 'developerId',
-				width : 150
-			}, {
-				title : '用户名称',
-				name : 'name',
-				width : 150
-			}, {
-				title : '邮箱',
-				name : 'email',
-				width : 150
-			}],
-			querys : [{
-				title : '开发者ID',
-				value : 'developerId'
-			}, {
-				title : '姓名',
-				value : 'name'
-			}, {
-				title : '邮箱',
-				value : 'email'
-			}],
-			url : 'developer/pagingquery'
-		}).on({
-			'selectedRow' : function(e, result) {
-				var data = result.item;
-				if (result.checked) {
-					selectedDevelopers[data.id] = data;
-				} else {
-					delete selectedDevelopers[data.id];
+		$.get('role/findall').done(function(roles) {
+			var rolesHtml = [];
+			$.each(roles, function() {
+				rolesHtml.push('<div class="checker role"><span data-value="'+this.id+'" data-name="'+this.name+'"></span><label>'+this.name+'</label></div>');
+			});
+			rolesHtmls = rolesHtml.join('');
+			dialog.find('#developerGrid').grid({
+				identity : 'id',
+				columns : [{
+					title : '开发者ID',
+					name : 'developerId',
+					width : 150
+				}, {
+					title : '用户名称',
+					name : 'name',
+					width : 150
+				}, {
+					title : '邮箱',
+					name : 'email',
+					width : 150
+				}, {
+					title : '角色',
+					name : 'roles',
+					width : 250,
+					render : function() {
+						return rolesHtmls;
+					}
+				}],
+				querys : [{
+					title : '开发者ID',
+					value : 'developerId'
+				}, {
+					title : '姓名',
+					value : 'name'
+				}, {
+					title : '邮箱',
+					value : 'email'
+				}],
+				url : 'developer/pagingquery'
+			}).on({
+				'selectedRow' : function(e, result) {
+					var data = result.item;
+					if (result.checked) {
+						selectedDevelopers[data.id] = data;
+						selectedDevelopers[data.id].roles = {};
+						var $tr = $(this).find('[data-role="indexCheckbox"][data-value="'+data.id+'"]').closest('tr');
+						$tr.find('.role .checked').each(function(){
+							var value = $(this).data('value');
+							var name = $(this).data('name');
+							selectedDevelopers[data.id].roles[value] = {id:value, name:name};
+						});
+					} else {
+						delete selectedDevelopers[data.id];
+					}
+				},
+				'complate' : function() {
+					var $this = $(this);
+					for (id in selectedDevelopers) {
+						if(id == 'roles'){
+							var $tr = $this.find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + id + '"]');
+							for(roleId in selectedDevelopers[id]){
+								$tr.find('.role span[data-value="'+roleId+'"]').addClass('checked');
+							}
+						}else{
+							$this.find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + id + '"]').click();
+						}
+					}
+					$this.find('.role').on('click', function(e){
+						e.stopPropagation();
+						e.preventDefault();
+						var $span = $(this).find('span:first').toggleClass('checked');
+						var $tr = $(this).closest('tr');
+						if($tr.hasClass('success')){
+							var value = $(this).find('span').data('value');
+							var name = $(this).find('span').data('name');
+							var id = $tr.find('[data-role="indexCheckbox"]').data('value');
+							if($span.hasClass('checked')){
+								selectedDevelopers[id].roles[value] = {id:value, name:name};
+							}else{
+								delete selectedDevelopers[id].roles[value]
+							}
+						}
+					});
 				}
-			},
-			'complate' : function() {
-				var $this = $(this);
-				for (id in selectedDevelopers) {
-					$this.find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + id + '"]').click();
-				}
-			}
+			});
 		});
 		dialog.find('#save').on('click', function() {
 			var developers = [];
@@ -530,8 +585,13 @@ $(function() {
 		projectDto.projectForCis = projectForCis;
 		var projectDeveloperDtos = [];
 		$.each(developers, function() {
+			var roleIds = [];
+			$.each(this.roles, function(){
+				roleIds.push(this.id);
+			});
 			projectDeveloperDtos.push({
-				developerId : this.id
+				developerId : this.id,
+				roleIds: roleIds
 			});
 		});
 		projectDto.projectDeveloperDtos = projectDeveloperDtos;

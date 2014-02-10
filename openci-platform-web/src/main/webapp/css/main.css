@@ -142,6 +142,17 @@ a, button {
 	width: 96%;
 }
 
+.project-add .checker {
+	width: auto!important;	
+}
+
+.project-add .checker label {
+	position: relative;
+	margin-left: 15px;
+	top: -3px;
+	cursor: pointer
+}
+
 .required {
 	color: red;
 }
@@ -262,6 +273,17 @@ a, button {
 	text-align: center;
 }
 
+.grid .role {
+	width: auto!important;
+	cursor: pointer!important;
+	margin: 3px 10px;
+}
+
+.grid .role label {
+	position: relative;
+	top: -4px;
+	font-weight: normal;
+}
 .g-footer span {
 	font-size: 1.4em;
 	font-size: 1.4rem;
