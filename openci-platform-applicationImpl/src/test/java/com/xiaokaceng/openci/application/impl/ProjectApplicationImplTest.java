@@ -2,6 +2,8 @@ package com.xiaokaceng.openci.application.impl;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,7 +12,6 @@ import javax.inject.Inject;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
@@ -23,9 +24,9 @@ import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.domain.ScmType;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.dto.ProjectDto;
+import com.xiaokaceng.openci.dto.ProjectQueryDto;
 import com.xiaokaceng.openci.dto.ScmConfig;
 
-@Ignore
 public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	
 	@Inject
@@ -40,13 +41,52 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 	public void testCreateProject() {
 		ProjectDto projectDto = getProjectDtoInstance();
 		projectApplication.createProject(projectDto);
-//		assertEquals(1, projectDto.getProjectForCis().getDevelopers().size());
-//		assertEquals(2, projectDto.getProjectForCis().getTools().size());
+		assertEquals(1, projectDto.getProjectForCis().getDevelopers().size());
+		assertEquals(2, projectDto.getProjectForCis().getTools().size());
+		projectDto.getProjectForCis().remove();
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void testCreateProjectIfNull() {
 		projectApplication.createProject(null);
+	}
+	
+	@Test
+	public void testPagingQueryProject() {
+		ProjectDto projectDto = getProjectDtoInstance();
+		projectApplication.createProject(projectDto);
+		
+		ProjectQueryDto projectQueryDto = new ProjectQueryDto();
+		projectQueryDto.setName("demo");
+		List<Project> projects = projectApplication.pagingQueryProject(projectQueryDto, 1, 10).getResult();
+		assertEquals(0, projects.size());
+		
+		projectQueryDto.setName("es");
+		projects = projectApplication.pagingQueryProject(projectQueryDto, 1, 10).getResult();
+		assertEquals(1, projects.size());
+		
+		projectDto.getProjectForCis().remove();
+	}
+	
+	@Test
+	public void testPagingQueryProject2() throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		ProjectDto projectDto = getProjectDtoInstance();
+		projectApplication.createProject(projectDto);
+		
+		ProjectQueryDto projectQueryDto = new ProjectQueryDto();
+		projectQueryDto.setName("test");
+		projectQueryDto.setStartDate(dateFormat.parse("8888-1-1"));
+		List<Project> projects = projectApplication.pagingQueryProject(projectQueryDto, 1, 10).getResult();
+		assertEquals(0, projects.size());
+		
+		
+		projectQueryDto.setStartDate(dateFormat.parse("2013-1-1"));
+		projects = projectApplication.pagingQueryProject(projectQueryDto, 1, 10).getResult();
+		assertEquals(1, projects.size());
+		
+		projectDto.getProjectForCis().remove();
 	}
 	
 	@Test

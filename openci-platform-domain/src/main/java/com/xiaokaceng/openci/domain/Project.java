@@ -92,8 +92,9 @@ public class Project extends AbstractEntity {
 		return tools;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	@SuppressWarnings("deprecation")
+	public String getCreateDate() {
+		return createDate.toLocaleString();
 	}
 
 	public ProjectDetail getProjectDetail() {

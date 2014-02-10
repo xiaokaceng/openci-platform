@@ -25,6 +25,14 @@ public interface ProjectApplication {
 	Page<Project> pagingQueryProject(ProjectQueryDto projectQueryDto, int currentPage, int pagesize);
 
 	/**
+	 * 获取项目详情
+	 * 
+	 * @param projectId
+	 * @return
+	 */
+	Project getDetail(long projectId);
+
+	/**
 	 * 添加整合工具
 	 * 
 	 * @param project

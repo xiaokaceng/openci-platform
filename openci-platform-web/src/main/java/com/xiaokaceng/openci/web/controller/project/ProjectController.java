@@ -1,7 +1,6 @@
 package com.xiaokaceng.openci.web.controller.project;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +15,7 @@ import org.openkoala.koala.widget.Module;
 import org.openkoala.koala.widget.Project;
 import org.openkoala.opencis.api.Developer;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -114,17 +114,18 @@ public class ProjectController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/pagingquery")
-	public Map<String, Object> pagingQuery() {
+	public Map<String, Object> pagingQuery(ProjectQueryDto projectQueryDto) {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		
-		ProjectQueryDto projectQueryDto = new ProjectQueryDto();
-		projectQueryDto.setName("dd");
-		projectQueryDto.setEndDate(new Date());
 		Page<com.xiaokaceng.openci.domain.Project> projectPage = projectApplication.pagingQueryProject(projectQueryDto, 1, 10);
-
 		dataMap.put("Rows", projectPage.getResult());
 		dataMap.put("Total", projectPage.getTotalCount());
 		return dataMap;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping("/detail/{projectId}")
+	public com.xiaokaceng.openci.domain.Project getProjectDetail(@PathVariable long projectId) {
+		return projectApplication.getDetail(projectId);
+	}
+	
 }

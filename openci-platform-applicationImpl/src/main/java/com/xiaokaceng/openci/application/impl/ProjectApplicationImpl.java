@@ -97,15 +97,19 @@ public class ProjectApplicationImpl implements ProjectApplication {
 				conditionVals.add(MessageFormat.format("%{0}%", projectQueryDto.getName()));
 			}
 			if (projectQueryDto.getStartDate() != null) {
-				jpql.append(" and _project.createDate > ?");
-				conditionVals.add(MessageFormat.format("{0}", projectQueryDto.getStartDate()));
+				jpql.append(" and _project.createDate >= ?");
+				conditionVals.add(projectQueryDto.getStartDate());
 			}
 			if (projectQueryDto.getEndDate() != null) {
-				jpql.append(" and _project.createDate < ?");
-				conditionVals.add(MessageFormat.format("{0}", projectQueryDto.getEndDate()));
+				jpql.append(" and _project.createDate <= ?");
+				conditionVals.add(projectQueryDto.getEndDate());
 			}
 		}
 		return queryChannel.queryPagedResultByPageNo(jpql.toString(), conditionVals.toArray(), currentPage, pagesize);
+	}
+
+	public Project getDetail(long projectId) {
+		return Project.get(Project.class, projectId);
 	}
 
 }
