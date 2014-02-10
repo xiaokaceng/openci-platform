@@ -437,11 +437,11 @@ $(function() {
 				'selectedRow' : function(e, data) {
 					var item = data.item;
 					if (data.checked) {
-						for(id in selectedTools){
-							if(item.id != id && item.toolType == selectedTools[id].toolType){
+						for (id in selectedTools) {
+							if (item.id != id && item.toolType == selectedTools[id].toolType) {
 								$('body').message({
-									type: 'warning',
-									content: '每种工具只能选择一个!'
+									type : 'warning',
+									content : '每种工具只能选择一个!'
 								});
 								$(this).find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + item.id + '"]').removeClass('checked').closest('tr').removeClass('success');
 								return;
@@ -453,7 +453,7 @@ $(function() {
 						selectedTools[item.id] = item;
 					} else {
 						delete selectedTools[item.id];
-					}					
+					}
 				},
 				'complate' : function() {
 					var $this = $(this);
@@ -489,20 +489,20 @@ $(function() {
 					title : '请选择',
 					contents : contents
 				});
-				if(!$.isEmptyObject(jenkinsConfig)){
+				if (!$.isEmptyObject(jenkinsConfig)) {
 					scmType.setValue(jenkinsConfig.scmType);
 					repositoryUrl.val(jenkinsConfig.repositoryUrl);
 				}
 			});
 			dialog.modal({
 				keyboard : false,
-				backdrop: false
+				backdrop : false
 			}).on({
 				'hidden.bs.modal' : function() {
 					$(this).remove();
 				}
 			});
-			dialog.find('#save').on('click', function(){
+			dialog.find('#save').on('click', function() {
 				if (!Validation.notNull(dialog, scmType, scmType.getValue(), '请选择工具')) {
 					return false;
 				}
@@ -510,34 +510,39 @@ $(function() {
 					return false;
 				}
 				jenkinsConfig = {
-					scmType: scmType.getValue(),
-					repositoryUrl: repositoryUrl.val()
+					scmType : scmType.getValue(),
+					repositoryUrl : repositoryUrl.val()
 				}
 				dialog.modal('hide');
 			});
 		});
 	}
-	
-	projectAdd.find('#complateBtn').on('click', function(){
+
+	projectAdd.find('#complateBtn').on('click', function() {
 		projectDto.userCas = projectAdd.find('#isUseCas').hasClass('checked');
 		projectDto.scmConfig = jenkinsConfig;
 		var developers = projectAdd.find('#developerGrid').getGrid().getAllItems();
 		var tools = projectAdd.find('#toolsGrid').getGrid().getAllItems();
 		var projectForCis = {};
-		if(projectDto.projectForCis){
+		if (projectDto.projectForCis) {
 			projectForCis.name = projectDto.projectForCis.name;
 		}
 		projectDto.projectForCis = projectForCis;
 		var projectDeveloperDtos = [];
-		$.each(developers, function(){
-			projectDeveloperDtos.push({developerId: this.id});
+		$.each(developers, function() {
+			projectDeveloperDtos.push({
+				developerId : this.id
+			});
 		});
 		projectDto.projectDeveloperDtos = projectDeveloperDtos;
 		var projectTools = [];
-		$.each(tools, function(){
-			projectTools.push({id:this.id, toolType: this.toolType});
+		$.each(tools, function() {
+			projectTools.push({
+				id : this.id,
+				toolType : this.toolType
+			});
 		});
-		projectDto.toolConfigurationDtos= projectTools;
+		projectDto.toolConfigurationDtos = projectTools;
 		var securitySystem = projectAdd.find('#securitySystem');
 		var cacheTypeValue = projectAdd.find('#cacheTypeValue').val();
 		var monitorSystem = projectAdd.find('#monitorSystem');
@@ -546,32 +551,32 @@ $(function() {
 		var organisationSystem = projectAdd.find('#organisationSystem');
 		var logSystem = projectAdd.find('#logSystem');
 		var system = {};
-		if(securitySystem.hasClass('checked')){
+		if (securitySystem.hasClass('checked')) {
 			system.security = {};
 			system.security.cacheType = cacheTypeValue;
 		}
-		if(monitorSystem.hasClass('checked')){
+		if (monitorSystem.hasClass('checked')) {
 			system.monitor = {};
 			system.monitor.installType = monitorTypeValue;
 		}
-		if(generquerySystem.hasClass('checked')){
+		if (generquerySystem.hasClass('checked')) {
 			system.generalQuery = {};
 		}
-		if(organisationSystem.hasClass('checked')){
+		if (organisationSystem.hasClass('checked')) {
 			system.organization = {};
 		}
-		if(logSystem.hasClass('checked')){
+		if (logSystem.hasClass('checked')) {
 			system.businessLog = {};
 		}
-		$.each(projectDto.projectForCreate.module, function(index){
+		$.each(projectDto.projectForCreate.module, function(index) {
 			delete this.security;
 			delete this.basePackagePath;
 			delete this.businessLog;
 			delete this.generalQuery;
 			delete this.organization;
 			delete this.monitor;
-			if(this.moduleType == 'war'){
-				for(prop in system){
+			if (this.moduleType == 'war') {
+				for (prop in system) {
 					this[prop] = system[prop];
 				}
 			}
@@ -589,21 +594,21 @@ $(function() {
 			'url' : 'project/create',
 			'data' : JSON.stringify(projectDto),
 			'dataType' : 'json'
-		}).done(function(result){
-			if(result.result){
+		}).done(function(result) {
+			if (result.result) {
 				$('.content').message({
-					type: 'success',
-					content: '创建成功'
+					type : 'success',
+					content : '创建成功'
 				});
-			}else{
+			} else {
 				$('.content').message({
-					type: 'error',
-					content: '创建失败'
+					type : 'error',
+					content : '创建失败'
 				});
 			}
 		});
 	});
-	
+
 });
 
 var deleteDeveloper = function(id) {

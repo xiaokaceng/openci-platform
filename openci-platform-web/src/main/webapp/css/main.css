@@ -9,8 +9,7 @@ a, button {
 	cursor: pointer;
 }
 .content {
-	padding-left: 25px;
-	padding-right: 25px;
+	width: 80%;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -104,50 +103,6 @@ a, button {
 .g-main .breadcrumb li {
 	font-size: 1.2em;
 	font-size: 1.2rem;
-}
-
-.g-main .u-project-list {
-	margin-left: auto;
-	margin-right: auto;
-}
-.g-main .u-project-list .panel:nth-child(2n+1) {
-	margin-right: 2%;
-}
-
-.u-project-list .title {
-	opacity: .4;
-	filter:alpha(opacity=40);
-}
-
-.u-project-list .project-management-btn {
-	float: right;
-}
-
-.u-project-list .project-management-btn span {
-	font-size: 16px;
-	margin-right: 5px;
-	cursor: pointer;
-	color: #000;
-	text-shadow: 0 1px 0 #fff;
-	opacity: .3;
-	filter: alpha(opacity=30);
-	-moz-transition: all .5s ease;
-	-webkit-transition: all .5s ease;
-	transition: all .5s ease;
-}
-
-.u-project-list .project-management-btn span:hover,
-.u-project-list .project-management-btn span:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-	opacity: .6;
-	filter: alpha(opacity=60);
-}
-
-.g-main .u-project-list .panel {
-	float: left;
-	width: 49%;
 }
 
 .system-config form {
@@ -263,7 +218,7 @@ a, button {
 	border:1px solid #d4d4d4;
 	font-size:14px;
 	height:460px;
-	margin:20px auto 0;
+	margin:20px auto 15px;
 	overflow:hidden;
 	position:relative;
 	-webkit-border-radius: 4px;

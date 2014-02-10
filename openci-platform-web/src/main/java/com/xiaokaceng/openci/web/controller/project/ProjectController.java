@@ -118,6 +118,8 @@ public class ProjectController extends BaseController {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		Page<com.xiaokaceng.openci.domain.Project> projectPage = projectApplication.pagingQueryProject(projectQueryDto, page, pagesize);
 		dataMap.put("Rows", projectPage.getResult());
+		dataMap.put("start", page * pagesize - pagesize);
+		dataMap.put("limit", pagesize);
 		dataMap.put("Total", projectPage.getTotalCount());
 		return dataMap;
 	}

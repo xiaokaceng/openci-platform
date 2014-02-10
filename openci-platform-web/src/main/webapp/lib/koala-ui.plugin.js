@@ -63,7 +63,7 @@
 			this.pages = this.$element.find('.pages');
 			this.grid = this.$element.find('.grid');
 			this.gridBody = this.$element.find('.grid-body').css('width', this.$element.width());
-			this.gridTableHead = this.$element.find('.grid-table-head');
+			this.gridTableHead = this.$element.find('.grid-table-head').css('min-width', this.$element.width());
 			this.gridTableHeadTable = this.gridTableHead.find('table');
 			this.gridTableBody = this.$element.find('.grid-table-body').css('width', this.$element.width());
 			this.gridTableBodyTable = this.gridTableBody.find('table');
@@ -133,7 +133,7 @@
 				this.gridTableBodyTable.css('width', totalColumnWidth);
 			}else{
 				this.gridTableHead.css('width', this.$element.width());
-				this.gridTableHeadTable.find('th:last').css('width', 'auto');
+				this.gridTableHeadTable.find('th:last').attr('width', 'auto');
 				this.options.columns[this.options.columns.length-1].width = 'auto';
 			}
 			this.gridTableHeadTable.find('[data-role="selectAll"]').on('click',function(e) {
