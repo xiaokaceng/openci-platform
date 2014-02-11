@@ -1,5 +1,6 @@
 package com.xiaokaceng.openci.pojo;
 
+import java.io.File;
 import java.util.Set;
 
 import org.openkoala.opencis.api.Developer;
@@ -36,6 +37,7 @@ public class ProjectIntegration {
 		project.setArtifactId(artifactId);
 		project.setGroupId(groupId);
 		project.setProjectName(projectName);
+		project.setPhysicalPath(projectSavePath + File.separator + projectName);
 		return project;
 	}
 

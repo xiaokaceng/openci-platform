@@ -10,10 +10,13 @@ public class GitConfiguration extends ToolConfiguration {
 	private static final long serialVersionUID = 2960979556527118613L;
 
 	private String token;
+	
+	private String email;
 
-	public GitConfiguration(String name, String serviceUrl, String username, String password, String token) {
+	public GitConfiguration(String name, String serviceUrl, String username, String password, String token, String email) {
 		super(name, serviceUrl, username, password);
 		this.token = token;
+		this.email = email;
 	}
 
 	public GitConfiguration() {
@@ -27,4 +30,13 @@ public class GitConfiguration extends ToolConfiguration {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 }

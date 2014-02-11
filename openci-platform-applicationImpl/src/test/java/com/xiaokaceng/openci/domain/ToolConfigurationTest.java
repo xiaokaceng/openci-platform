@@ -36,7 +36,7 @@ public class ToolConfigurationTest extends AbstractIntegrationTest {
 	}
 
 	private GitConfiguration createGitConfiguration() {
-		GitConfiguration gitConfiguration = new GitConfiguration(TEST_STR, TEST_STR, TEST_STR, TEST_STR, TEST_STR);
+		GitConfiguration gitConfiguration = new GitConfiguration(TEST_STR, TEST_STR, TEST_STR, TEST_STR, TEST_STR, TEST_STR);
 		return gitConfiguration;
 	}
 	

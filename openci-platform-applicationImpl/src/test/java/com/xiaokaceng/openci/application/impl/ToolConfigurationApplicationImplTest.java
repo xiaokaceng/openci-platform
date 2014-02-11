@@ -89,7 +89,7 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 
 	@Before
 	public void init() {
-		toolConfiguration = new GitConfiguration("test", null, null, null, "token");
+		toolConfiguration = new GitConfiguration("test", null, null, null, "token", null);
 	}
 
 	@After
