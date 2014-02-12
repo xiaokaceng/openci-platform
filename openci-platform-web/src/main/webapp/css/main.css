@@ -228,7 +228,6 @@ a, button {
 .wizard {
 	border:1px solid #d4d4d4;
 	font-size:14px;
-	height:460px;
 	margin:20px auto 15px;
 	overflow:hidden;
 	position:relative;
@@ -246,17 +245,22 @@ a, button {
   	font-size: 1.2rem;
   	padding: 7px 15px;
 }
-.wizard .items{
+.wizard .items {
 	clear:both; 
-	position:absolute;
+	position: relative;
 }
 
 .wizard .items .page{
 	padding:20px 15px 10px;
-	height:420px;
 	width: 20%;
 	float:left;
 }
+
+.wizard .wizard-buttons {
+	text-align: center;
+	margin: 15px 0;
+}
+
 .wizard .page .grid-table-body {
 	height: 265px!important;
 }

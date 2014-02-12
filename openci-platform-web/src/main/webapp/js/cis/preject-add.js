@@ -4,8 +4,10 @@ $(function() {
 	var projectAdd = $('.project-add');
 	projectAdd.find('.items').width(5 * $('#content').width());
 
-	projectAdd.wizard().on({
-		'step1' : function() {
+	projectAdd.wizard({
+		totalSteps: 5
+	}).on({
+		'step0' : function() {
 			var $this = $(this);
 			var projectName = $this.find('#projectName').val();
 			var groupId = $this.find('#groupId').val();

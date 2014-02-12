@@ -15,10 +15,9 @@
 		ul : '.nav-tabs',
 		items : '.items',
 		swing : 'swing',
-		next : '[data-toggle="next"]',
-		prev : '[data-toggle="prev"]',
-		complete : '[data-toggle="complete"]',
-		speed : 400
+		speed : 400,
+		step: 0,
+		totalSteps: 0
 	};
 
 	Wizard.prototype.init = function(element, options) {
@@ -27,10 +26,14 @@
 		this.options = $.extend({}, Wizard.DEFAULTS, options);
 		this.ul = this.$element.find(this.options.ul);
 		this.items = this.$element.find(this.options.items);
-		this.items.find(this.options.next).on('click.bs.wizard', function(e) {
+		this.pages = this.items.find('.page');
+		this.nextBtn = this.$element.find('#nextBtn');
+		this.prevBtn = this.$element.find('#prevBtn');
+		this.complateBtn = this.$element.find('#complateBtn');	
+		this.nextBtn.on('click.bs.wizard', function(e) {
 			e.preventDefault();
 			var $this = $(this);
-			var form = $(e.currentTarget).closest('.page').find('form');
+			var form = $(self.pages[self.options.step]).find('form');
 			if (form.length > 0 && !Validator.Validate(form[0], 3)) {
 				return;
 			}
@@ -49,8 +52,7 @@
 						projectName.focus();
 						return;
 					}else{
-						var action = $this.data('action');
-						if(action == 'step2'){
+						if(self.options.step == 1){
 							if(self.$element.find('#modualGrid').getGrid().getAllItems().length == 0){
 								self.$element.find('#modualGrid').message({
 									type: 'warning',
@@ -59,44 +61,56 @@
 								return;
 							}
 						}
-						self.next(e);
-						action && self.$element.trigger(action);
+						self.next();
+						self.$element.trigger('step'+ self.options.step);
 					}
 				});
 			}
 		});
-		this.items.find(this.options.prev).on('click.bs.wizard', $.proxy(function(e) {
+		this.prevBtn.hide().on('click.bs.wizard', $.proxy(function(e) {
 			e.preventDefault();
-			this.prev(e);
+			this.prev();
 		}, this));
-		this.items.find(this.options.complete).on('click.bs.wizard', $.proxy(function(e) {
+		this.complateBtn.hide().on('click.bs.wizard', $.proxy(function(e) {
 			e && e.preventDefault();
-			console.info(this.$element)
 			this.$element.trigger('complate');
 		}, this));
 	};
 
-	Wizard.prototype.next = function(e) {
+	Wizard.prototype.next = function() {
 		var that = this;
-		var target = $(e.currentTarget);
-		var page = target.closest('.page');
+		if(that.options.step == 0){
+			that.prevBtn.show();
+		}else if(that.options.step == that.options.totalSteps - 2){
+			that.nextBtn.hide();
+			that.complateBtn.show();
+		}
+		var page = $(this.pages[this.options.step]);
 		var n = {
 			left : -(page.position().left + page.outerWidth())
 		};
 		that.items.animate(n, that.options.speed, that.options.swing, function() {
 			that.ul.find('li').eq(page.index() + 1).find('a').tab('show');
+			that.options.step ++;
 		});
 	};
 
 	Wizard.prototype.prev = function(e) {
 		var that = this;
-		var target = $(e.currentTarget);
-		var page = target.closest('.page');
+		if(that.options.step != that.options.totalSteps - 2){
+			that.nextBtn.show();
+			that.complateBtn.hide();
+		}
+		if(that.options.step == 1){
+			that.prevBtn.hide();
+		}
+		var page = $(this.pages[this.options.step]);
 		var n = {
 			left : page.outerWidth() - page.position().left
 		};
 		that.items.animate(n, that.options.speed, that.options.swing, function() {
 			that.ul.find('li').eq(page.index() - 1).find('a').tab('show');
+			that.options.step --;
 		});
 	};
 
