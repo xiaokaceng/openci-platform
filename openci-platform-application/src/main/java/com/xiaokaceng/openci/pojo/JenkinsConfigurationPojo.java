@@ -14,10 +14,6 @@ public class JenkinsConfigurationPojo extends ToolConfigurationPojo {
 
 	private ScmConfig scmConfig;
 
-	public JenkinsConfigurationPojo(ScmConfig scmConfig) {
-		this.scmConfig = scmConfig;
-	}
-
 	@Override
 	public void createCISClient(ToolConfiguration toolConfiguration) {
 		if (toolConfiguration instanceof JenkinsConfiguration) {
@@ -29,7 +25,6 @@ public class JenkinsConfigurationPojo extends ToolConfigurationPojo {
 	}
 
 	private KoalaScmConfig createKoalaScmConfig() {
-		System.out.println(scmConfig.getRepositoryUrl() + "===" + scmConfig.getScmType());
 		if (scmConfig == null) {
 			return null;
 		}
@@ -40,6 +35,14 @@ public class JenkinsConfigurationPojo extends ToolConfigurationPojo {
 			return new KoalaGitConfig(scmConfig.getRepositoryUrl());
 		}
 		return null;
+	}
+
+	public ScmConfig getScmConfig() {
+		return scmConfig;
+	}
+
+	public void setScmConfig(ScmConfig scmConfig) {
+		this.scmConfig = scmConfig;
 	}
 
 }

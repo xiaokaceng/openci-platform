@@ -1,6 +1,8 @@
 package com.xiaokaceng.openci.application.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,6 +23,13 @@ import com.xiaokaceng.openci.domain.SvnConfiguration;
 import com.xiaokaceng.openci.domain.ToolConfiguration;
 import com.xiaokaceng.openci.domain.TracConfiguration;
 import com.xiaokaceng.openci.factory.CISClientFactory;
+import com.xiaokaceng.openci.pojo.GitConfigurationPojo;
+import com.xiaokaceng.openci.pojo.JenkinsConfigurationPojo;
+import com.xiaokaceng.openci.pojo.JiraConfigurationPojo;
+import com.xiaokaceng.openci.pojo.SonarConfigurationPojo;
+import com.xiaokaceng.openci.pojo.SvnConfigurationPojo;
+import com.xiaokaceng.openci.pojo.ToolConfigurationPojo;
+import com.xiaokaceng.openci.pojo.TracConfigurationPojo;
 
 @Named("toolConfigurationApplication")
 @Transactional("transactionManager_opencis")
@@ -56,7 +65,7 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 
 	public boolean canConnect(ToolConfiguration toolConfiguration) {
 		try {
-			CISClient cisClient = CISClientFactory.getInstance(toolConfiguration);
+			CISClient cisClient = CISClientFactory.getInstance(toolConfiguration, initToolConfigurationPojos());
 			if (cisClient.authenticate()) {
 				setToolUsabled(toolConfiguration);
 				return true;
@@ -65,6 +74,17 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	private Set<ToolConfigurationPojo> initToolConfigurationPojos() {
+		Set<ToolConfigurationPojo> toolConfigurationPojos = new HashSet<ToolConfigurationPojo>();
+		toolConfigurationPojos.add(new SvnConfigurationPojo());
+		toolConfigurationPojos.add(new GitConfigurationPojo());
+		toolConfigurationPojos.add(new JenkinsConfigurationPojo());
+		toolConfigurationPojos.add(new SonarConfigurationPojo());
+		toolConfigurationPojos.add(new JiraConfigurationPojo());
+		toolConfigurationPojos.add(new TracConfigurationPojo());
+		return toolConfigurationPojos;
 	}
 
 	public List<ToolConfiguration> getAllUsable() {

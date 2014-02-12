@@ -1,5 +1,6 @@
 package com.xiaokaceng.openci.executor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -15,8 +16,14 @@ import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.domain.ToolInterface;
 import com.xiaokaceng.openci.domain.ToolInterfaceImplement;
 import com.xiaokaceng.openci.factory.CISClientFactory;
+import com.xiaokaceng.openci.pojo.GitConfigurationPojo;
 import com.xiaokaceng.openci.pojo.JenkinsConfigurationPojo;
+import com.xiaokaceng.openci.pojo.JiraConfigurationPojo;
 import com.xiaokaceng.openci.pojo.ProjectIntegration;
+import com.xiaokaceng.openci.pojo.SonarConfigurationPojo;
+import com.xiaokaceng.openci.pojo.SvnConfigurationPojo;
+import com.xiaokaceng.openci.pojo.ToolConfigurationPojo;
+import com.xiaokaceng.openci.pojo.TracConfigurationPojo;
 
 public class ToolIntegrationExecutor {
 
@@ -28,7 +35,6 @@ public class ToolIntegrationExecutor {
 
 	public void execute(ProjectIntegration projectIntegration) {
 		verify(projectIntegration);
-		reloadToolConfigurationIfNecessary(projectIntegration);
 		Set<Tool> tools = projectIntegration.getTools();
 		if (tools != null && tools.size() > 0) {
 			for (Tool each : tools) {
@@ -36,12 +42,6 @@ public class ToolIntegrationExecutor {
 			}
 		}
 		// TODO 是否整合CAS用户管理
-	}
-
-	private void reloadToolConfigurationIfNecessary(ProjectIntegration projectIntegration) {
-		if (projectIntegration.getScmConfig() != null) {
-			CISClientFactory.reloadJenkinsConfiguration(new JenkinsConfigurationPojo(projectIntegration.getScmConfig()));
-		}
 	}
 
 	private class CISClientTask implements Runnable {
@@ -57,14 +57,33 @@ public class ToolIntegrationExecutor {
 		public CISClientTask(Tool tool, ProjectIntegration projectIntegration) {
 			this.tool = tool;
 			this.projectIntegration = projectIntegration;
-			cisClient = CISClientFactory.getInstance(tool.getToolConfiguration());
+			cisClient = CISClientFactory.getInstance(tool.getToolConfiguration(), initToolConfigurationPojos());
 			project = projectIntegration.toCISProject();
+		}
+
+		private Set<ToolConfigurationPojo> initToolConfigurationPojos() {
+			Set<ToolConfigurationPojo> toolConfigurationPojos = new HashSet<ToolConfigurationPojo>();
+			toolConfigurationPojos.add(new SvnConfigurationPojo());
+			toolConfigurationPojos.add(new GitConfigurationPojo());
+			toolConfigurationPojos.add(createJenkinsConfigurationPojo());
+			toolConfigurationPojos.add(new SonarConfigurationPojo());
+			toolConfigurationPojos.add(new JiraConfigurationPojo());
+			toolConfigurationPojos.add(new TracConfigurationPojo());
+			return toolConfigurationPojos;
+		}
+
+		private JenkinsConfigurationPojo createJenkinsConfigurationPojo() {
+			JenkinsConfigurationPojo jenkinsConfigurationPojo = new JenkinsConfigurationPojo();
+			if (projectIntegration.getScmConfig() != null) {
+				jenkinsConfigurationPojo.setScmConfig(projectIntegration.getScmConfig());
+			}
+			return jenkinsConfigurationPojo;
 		}
 
 		public void run() {
 			cisClient.authenticate();
-			createProject();
 			createUserIfNecessary();
+			createProject();
 			createRoleIfNecessary();
 			assignUserToRole();
 			cisClient.close();
