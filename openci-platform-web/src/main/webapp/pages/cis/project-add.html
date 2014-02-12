@@ -53,41 +53,26 @@
 				<div class="form-group">
 					<label for="dbProtocol" class="col-lg-4 control-label">Repository实现方式:</label>
 					<div class="btn-group select" id="dbProtocol"></div>
-					<input type="hidden"  id="dbProtocolValue"　name="dbProtocolValue" dataType="Require"/> 
+					<input type="hidden"  id="dbProtocolValue"　name="dbProtocolValue" dataType="Require"/>
 					<span class="required">*</span>
 				</div>
 				<div class="form-group">
 					<label for="projectName" class="col-lg-4 control-label">MVC实现方式:</label>
 					<div class="btn-group select" id="mvcProtocol"></div>
-					<input type="hidden"  id="mvcProtocolValue"　name="mvcProtocolValue" dataType="Require"/> 
+					<input type="hidden"  id="mvcProtocolValue"　name="mvcProtocolValue" dataType="Require"/>
 					<span class="required">*</span>
 				</div>
 			</form>
-			<div class="btn_nav">
-				<button data-toggle="next" class="btn btn-default" data-action="step1">
-					下一步&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
-				</button>
-			</div>
 		</div>
 		<div class="page">
 			<div id="modualGrid"></div>
-			<div class="btn_nav" style="margin-top: 2%;">
-				<button data-toggle="prev" class="btn btn-default" >
-					<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步
-				</button>
-				<button data-toggle="next" class="btn btn-default" data-action="step2">
-					下一步&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
-				</button>
-			</div>
 		</div>
 		<div class="page">
 			<form class="form-horizontal select-sub-system">
 				<div class="form-group">
 					<div class="col-sm-5">
 						<div class="checker">
-							<span id="securitySystem">
-								
-							</span>
+							<span id="securitySystem"> </span>
 							<label>权限系统</label>
 						</div>
 					</div>
@@ -100,9 +85,7 @@
 				<div class="form-group">
 					<div class="col-sm-5">
 						<div class="checker">
-							<span id="monitorSystem">
-								
-							</span>
+							<span id="monitorSystem"> </span>
 							<label>监控系统</label>
 						</div>
 					</div>
@@ -115,9 +98,7 @@
 				<div class="form-group">
 					<div class="col-sm-5" style="margin-left:2.5%;">
 						<div class="checker">
-							<span id="generquerySystem">
-								
-							</span>
+							<span id="generquerySystem"> </span>
 							<label>通用查询系统</label>
 						</div>
 					</div>
@@ -125,9 +106,7 @@
 				<div class="form-group">
 					<div class="col-sm-5">
 						<div class="checker">
-							<span id="organisationSystem">
-								
-							</span>
+							<span id="organisationSystem"> </span>
 							<label>组织系统</label>
 						</div>
 					</div>
@@ -135,45 +114,31 @@
 				<div class="form-group">
 					<div class="col-sm-5">
 						<div class="checker">
-							<span id="logSystem">
-								
-							</span>
+							<span id="logSystem"> </span>
 							<label>日志系统</label>
 						</div>
 					</div>
 				</div>
 			</form>
-				<div class="btn_nav" style="margin-top: 13.5%;">
-					<button data-toggle="prev" class="btn btn-default" >
-						<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步
-					</button>
-					<button data-toggle="next" class="btn btn-default" >
-						下一步&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
-					</button>
-				</div>
 		</div>
 		<div class="page select-developer">
-				<div id="developerGrid"></div>
-				<div class="btn_nav" style="margin-top: 2%;">
-					<button data-toggle="prev" class="btn btn-default" >
-						<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步
-					</button>
-					<button data-toggle="next" class="btn btn-default" >
-						下一步&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
-					</button>
-				</div>
+			<div id="developerGrid"></div>
 		</div>
 		<div class="page  select-tools">
 			<div id="toolsGrid"></div>
-			<div class="btn_nav" style="margin-top: 1%;">
-				<button data-toggle="prev" class="btn btn-default" >
-					<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步
-				</button>
-				<button data-toggle="complate" class="btn btn-success" id="complateBtn">
-					<span class="glyphicon glyphicon-ok"></span>&nbsp;完成
-				</button>
-			</div>
 		</div>
+	</div>
+
+	<div class="wizard-buttons">
+		<button id="prevBtn" class="btn btn-default" >
+			<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;上一步
+		</button>
+		<button id="nextBtn" class="btn btn-default" data-action="step2">
+			下一步&nbsp;<span class="glyphicon glyphicon-arrow-right"></span>
+		</button>
+		<button id="complateBtn" class="btn btn-success" id="complateBtn">
+			<span class="glyphicon glyphicon-ok"></span>&nbsp;完成
+		</button>
 	</div>
 </div>
 <script src="js/cis/preject-add.js"></script>
