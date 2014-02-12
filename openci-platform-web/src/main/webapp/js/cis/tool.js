@@ -119,7 +119,7 @@ var toolManager = {
 			self.savePath.val(item.savePath);
 		}
 		if (item.token) {
-			self.token.val(item.savePath);
+			self.token.val(item.token);
 		}
 		if(self.toolType == 'JENKINS'){
 			self.token.val(item.password);
@@ -189,8 +189,14 @@ var toolManager = {
 		if (!Validation.notNull(dialog, username, username.val(), '请输入用户名')) {
 			return false;
 		}
-		if (!Validation.notNull(dialog, password, password.val(), '请输入密码')) {
-			return false;
+		if (self.toolType == 'JENKINS'){
+			if (!Validation.notNull(dialog, token, token.val(), '请输入Tooken')) {
+				return false;
+			}
+		}else{
+			if (!Validation.notNull(dialog, password, password.val(), '请输入密码')) {
+				return false;
+			}
 		}
 		return true;
 	},
