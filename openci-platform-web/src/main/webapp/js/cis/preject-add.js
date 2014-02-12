@@ -662,6 +662,7 @@ $(function() {
 					type : 'success',
 					content : '创建成功'
 				});
+				$('#projectList').click();
 			} else {
 				$('.content').message({
 					type : 'error',
