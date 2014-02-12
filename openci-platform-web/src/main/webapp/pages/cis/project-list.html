@@ -76,14 +76,13 @@
 				var tools = [];
 				$.each(project.tools, function(){
 					var html = [];
-					html.push('<div class="panel panel-default"><div class="panel-heading">'+this.toolConfiguration.name+'</div><table class="table"><thead><th>创建过程</th><th>时间</th><th>结果</th><th>原因</th></thead><tbody>');
+					html.push('<div class="panel panel-default"><div class="panel-heading">'+this.toolConfiguration.name+'</div><table class="table"><thead><tr><th>创建过程</th><th>时间</th><th>结果</th><th>原因</th></tr></thead><tbody>');
 					$.each(this.toolInterfaceImplements, function(){
-						html.push('<tr>'+this.toolInterface+'</tr><tr>'+this.executeDate+'</tr><tr>'+this.success+'</tr><tr>'+this.record+'</tr>');
+						html.push('<tr><td>'+this.toolInterface+'</td><td>'+this.executeDate+'</td><td>'+this.success+'</td><td>'+this.record+'</td></tr>');
 					});
 					html.push('</tbody></table></div>');
 					tools.push(html.join(''));
 				});
-				console.info(tools)
 				dialog.find('#tools').html(tools.join(''));
 				dialog.modal({
 					keyboard: false
