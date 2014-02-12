@@ -8,28 +8,33 @@
 				width : 150
 			},
 			{
-				title : 'GroupID',
-				name : 'groupId',
-				width : 120,
+				title : '开发者',
+				name : 'developers',
+				width : 250,
 				render: function(item, name, index){
-					return item.projectDetail[name];
+					var developers = [];
+					$.each(item[name], function(){
+						developers.push(this.developer.name);
+					});
+					return developers.join(',');
 				}
 			},
 			{
-				title : 'AritifactID',
-				name : 'artifactId',
-				width : 120,
+				title : '集成工具',
+				name : 'tools',
+				width : 250,
 				render: function(item, name, index){
-					return item.projectDetail[name];
+					var tools = [];
+					$.each(item[name], function(){
+						tools.push(this.toolConfiguration.name);
+					});
+					return tools.join(',');
 				}
 			},
 			{
-				title : '项目路径',
-				name : 'projectSavePath',
-				width : 300,
-				render: function(item, name, index){
-					return item.projectDetail[name];
-				}
+				title : '项目状态',
+				name : 'projectStatus',
+				width : 150
 			},
 			{
 				title : '创建时间',
@@ -60,6 +65,7 @@
 				dialog.find('#name').html(project.name);
 				dialog.find('#groupId').html(project.projectDetail.groupId);
 				dialog.find('#artifactId').html(project.projectDetail.artifactId);
+				dialog.find('#projectStatus').html(project.projectStatus);
 				dialog.find('#projectSavePath').html(project.projectDetail.projectSavePath);
 				dialog.find('#createDate').html(project.createDate);
 				var devlopers = [];
@@ -69,9 +75,16 @@
 				dialog.find('#devlopers').html(devlopers.join(','));
 				var tools = [];
 				$.each(project.tools, function(){
-					tools.push(this.toolConfiguration.name);
+					var html = [];
+					html.push('<div class="panel panel-default"><div class="panel-heading">'+this.toolConfiguration.name+'</div><table class="table"><thead><th>创建过程</th><th>时间</th><th>结果</th><th>原因</th></thead><tbody>');
+					$.each(this.toolInterfaceImplements, function(){
+						html.push('<tr>'+this.toolInterface+'</tr><tr>'+this.executeDate+'</tr><tr>'+this.success+'</tr><tr>'+this.record+'</tr>');
+					});
+					html.push('</tbody></table></div>');
+					tools.push(html.join(''));
 				});
-				dialog.find('#tools').html(tools.join(','));
+				console.info(tools)
+				dialog.find('#tools').html(tools.join(''));
 				dialog.modal({
 					keyboard: false
 				}).on({

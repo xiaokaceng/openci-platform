@@ -135,6 +135,10 @@ var developerManager = {
 		if(!Validation.notNull(dialog, password, password.val(), '请输入用户密码')){
 			return false;
 		}
+		if(password.val().length < 8){
+			showErrorMessage(dialog, password, '密码长度至少为8位');
+			return false;
+		}
 		if(!Validation.notNull(dialog, email, email.val(), '请输入邮箱')){
 			return false;
 		}

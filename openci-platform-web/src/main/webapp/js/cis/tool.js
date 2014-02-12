@@ -10,6 +10,7 @@ var toolManager = {
 	token : null,
 	toolType : null,
 	requestRootAddress: null,
+	email: null,
 	dialog : null,
 	developerId : null,
 
@@ -77,12 +78,17 @@ var toolManager = {
 		self.password = dialog.find('#password');
 		self.savePath = dialog.find('#savePath');
 		self.token = dialog.find('#token');
+		self.email = dialog.find('#email');
 		self.requestRootAddress = dialog.find('#requestRootAddress');
 		if (self.toolType != 'TRAC' && self.toolType != 'SVN') {
 			self.savePath.closest('.form-group').hide();
 		}
 		if (self.toolType != 'GIT' && self.toolType != 'JENKINS') {
 			self.token.closest('.form-group').hide();
+			
+		}
+		if (self.toolType != 'GIT'){
+			self.email.closest('.form-group').hide();
 		}
 		if(self.toolType == 'JENKINS'){
 			self.password.closest('.form-group').hide();
@@ -127,6 +133,9 @@ var toolManager = {
 		if(self.toolType == 'SVN'){
 			self.requestRootAddress.val(item.requestRootAddress);
 		}
+		if(self.toolType == 'GIT'){
+			self.email.val(item.email);
+		}
 	},
 	/*
 	 *   保存数据 id存在则为修改 否则为新增
@@ -164,6 +173,7 @@ var toolManager = {
 		var password = self.password;
 		var savePath = self.savePath;
 		var token = self.token;
+		var email = self.email;
 		var requestRootAddress = self.requestRootAddress;
 		if (!Validation.notNull(dialog, name, name.val(), '请输入工具名')) {
 			return false;
@@ -178,6 +188,9 @@ var toolManager = {
 		}
 		if (self.toolType == 'GIT') {
 			if (!Validation.notNull(dialog, token, token.val(), '请输入Token')) {
+				return false;
+			}
+			if (!Validation.email(dialog, email, email.val(), '邮箱不合法')) {
 				return false;
 			}
 		}
@@ -218,6 +231,7 @@ var toolManager = {
 		}
 		if (self.toolType == 'GIT') {
 			data['token'] = self.token.val();
+			data['email'] = self.email.val();
 		}
 		if(self.toolType == 'JENKINS'){
 			data['password'] = self.token.val();
