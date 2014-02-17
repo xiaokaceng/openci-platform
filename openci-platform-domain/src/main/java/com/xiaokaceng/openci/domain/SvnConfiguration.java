@@ -42,4 +42,9 @@ public class SvnConfiguration extends ToolConfiguration {
 		this.requestRootAddress = requestRootAddress;
 	}
 
+	@Override
+	public String getRequestAddress(String projectName) {
+		return HTTP_PROTOCOL_REQUEST_STR + getServiceUrl() + endsWith(getRequestRootAddress()) + projectName;
+	}
+
 }

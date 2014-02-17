@@ -17,4 +17,9 @@ public class JiraConfiguration extends ToolConfiguration {
 		super(name, serviceUrl, username, password);
 	}
 
+	@Override
+	public String getRequestAddress(String projectName) {
+		return getServiceUrl();
+	}
+
 }

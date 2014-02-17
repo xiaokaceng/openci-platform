@@ -38,5 +38,10 @@ public class GitConfiguration extends ToolConfiguration {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Override
+	public String getRequestAddress(String projectName) {
+		return endsWith(getServiceUrl()) + endsWith(getUsername()) + projectName;
+	}
 	
 }

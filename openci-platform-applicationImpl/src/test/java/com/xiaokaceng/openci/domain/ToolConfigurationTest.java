@@ -46,7 +46,7 @@ public class ToolConfigurationTest extends AbstractIntegrationTest {
 	}
 	
 	private TracConfiguration createTracConfiguration() {
-		TracConfiguration tracConfiguration = new TracConfiguration(TEST_STR3, TEST_STR, TEST_STR, TEST_STR, TEST_STR);
+		TracConfiguration tracConfiguration = new TracConfiguration(TEST_STR3, TEST_STR, TEST_STR, TEST_STR, TEST_STR, TEST_STR);
 		return tracConfiguration;
 	}
 }

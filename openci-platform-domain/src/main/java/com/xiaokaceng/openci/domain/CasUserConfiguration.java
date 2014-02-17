@@ -23,5 +23,10 @@ public class CasUserConfiguration extends ToolConfiguration {
 		List<CasUserConfiguration> casUserConfigurations = CasUserConfiguration.findAll(CasUserConfiguration.class);
 		return casUserConfigurations.size() > 0 ? casUserConfigurations.get(0) : null;
 	}
+
+	@Override
+	public String getRequestAddress(String projectName) {
+		return null;
+	}
 	
 }

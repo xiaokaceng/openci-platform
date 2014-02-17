@@ -38,6 +38,7 @@ public class ProjectIntegration {
 		project.setGroupId(groupId);
 		project.setProjectName(projectName);
 		project.setPhysicalPath(projectSavePath + File.separator + projectName);
+		project.setProjectLead("luomin"); // TODO 这里是项目所属人，需更改
 		return project;
 	}
 

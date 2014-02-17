@@ -23,26 +23,27 @@ import com.dayatang.domain.QuerySettings;
 public abstract class ToolConfiguration extends AbstractEntity {
 
 	private static final long serialVersionUID = -7992490907551882249L;
+	protected static final String HTTP_PROTOCOL_REQUEST_STR = "http://";
 
 	@Column(nullable = false, unique = true)
 	private String name;
-	
+
 	@Column(name = "service_url")
 	private String serviceUrl;
-	
+
 	private String username;
-	
+
 	private String password;
-	
+
 	private boolean usable = false;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "create_date")
 	private Date createDate = new Date();
-	
+
 	public ToolConfiguration() {
 	}
-	
+
 	public ToolConfiguration(String name, String serviceUrl, String username, String password) {
 		this.name = name;
 		this.serviceUrl = serviceUrl;
@@ -53,12 +54,21 @@ public abstract class ToolConfiguration extends AbstractEntity {
 	public static List<ToolConfiguration> findByUsable() {
 		return getRepository().find(QuerySettings.create(ToolConfiguration.class).eq("usable", true));
 	}
-	
+
+	public abstract String getRequestAddress(String projectName);
+
+	protected String endsWith(String str) {
+		if (!str.endsWith("/")) {
+			str += "/";
+		}
+		return str;
+	}
+
 	public void usabled() {
 		usable = true;
 		save();
 	}
-	
+
 	public void unusabled() {
 		usable = false;
 		save();
@@ -67,7 +77,7 @@ public abstract class ToolConfiguration extends AbstractEntity {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getServiceUrl() {
 		return serviceUrl;
 	}
@@ -87,7 +97,7 @@ public abstract class ToolConfiguration extends AbstractEntity {
 	public boolean isUsable() {
 		return usable;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
