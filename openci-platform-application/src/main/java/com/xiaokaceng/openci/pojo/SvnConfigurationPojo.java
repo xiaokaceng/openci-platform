@@ -19,6 +19,6 @@ public class SvnConfigurationPojo extends ToolConfigurationPojo {
 	}
 
 	private String getSvnAddress(SvnConfiguration toolConfiguration) {
-		return "http://" + toolConfiguration.getServiceUrl() + "/" + toolConfiguration.getRequestRootAddress();
+		return "http://" + toolConfiguration.getServiceUrl() + toolConfiguration.getRequestRootAddress();
 	}
 }
