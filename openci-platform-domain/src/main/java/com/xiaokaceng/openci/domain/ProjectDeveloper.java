@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -35,6 +37,12 @@ public class ProjectDeveloper extends AbstractEntity {
 	@JoinColumn(name = "project_id")
 	private Project project;
 
+	@Column(name = "is_notice_success")
+	private boolean isNoticeSuccess = false;
+	
+	@Lob
+	private String record;
+	
 	ProjectDeveloper() {
 
 	}
@@ -56,6 +64,14 @@ public class ProjectDeveloper extends AbstractEntity {
 
 	public Set<Role> getRoles() {
 		return roles;
+	}
+	
+	public boolean isNoticeSuccess() {
+		return isNoticeSuccess;
+	}
+
+	public String getRecord() {
+		return record;
 	}
 
 	@Override
