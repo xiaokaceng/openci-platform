@@ -86,11 +86,6 @@ public class Tool extends AbstractEntity {
 		return integrationDate.toLocaleString();
 	}
 
-	@Transient
-	public Project getProject() {
-		return project;
-	}
-
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) {
