@@ -69,6 +69,10 @@ public class Tool extends AbstractEntity {
 		return toolConfiguration;
 	}
 
+	public String getToolRequestAddress() {
+		return toolConfiguration.getRequestAddress(project.getName());
+	}
+	
 	public ToolIntegrationStatus getStatus() {
 		return status;
 	}
