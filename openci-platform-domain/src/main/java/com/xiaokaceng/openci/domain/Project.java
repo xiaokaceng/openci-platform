@@ -65,8 +65,15 @@ public class Project extends AbstractEntity {
 		save();
 	}
 	
-	public void updateProjectStatus(ProjectStatus projectStatus) {
-		this.projectStatus = projectStatus;
+	public void updateProjectStatus() {
+		// TODO 需要优化
+		projectStatus = ProjectStatus.SUCCESS;
+		for (Tool each : tools) {
+			if (each.getStatus().equals(ToolIntegrationStatus.FAILURE)) {
+				projectStatus = ProjectStatus.INTEGRATION_TOOL_FAILURE;
+				break;
+			}
+		}
 		save();
 	}
 

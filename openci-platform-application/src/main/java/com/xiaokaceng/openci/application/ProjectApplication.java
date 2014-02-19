@@ -48,4 +48,10 @@ public interface ProjectApplication {
 	 */
 	void addIntegrationTool(Project project, Tool tool);
 
+	/**
+	 * 更新整合工具状态
+	 * 
+	 * @param toolId
+	 */
+	void updateIntegrationToolStatus(long toolId);
 }

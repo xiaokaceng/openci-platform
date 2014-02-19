@@ -12,6 +12,7 @@ import org.springframework.core.task.TaskExecutor;
 
 import com.xiaokaceng.openci.ToolIntegrationExecutorParamIllegalException;
 import com.xiaokaceng.openci.application.OpenciApplication;
+import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.domain.ToolInterface;
 import com.xiaokaceng.openci.domain.ToolInterfaceImplement;
@@ -32,6 +33,9 @@ public class ToolIntegrationExecutor {
 
 	@Inject
 	private OpenciApplication openciApplication;
+	
+	@Inject
+	private ProjectApplication projectApplication;
 
 	public void execute(ProjectIntegration projectIntegration) {
 		verify(projectIntegration);
@@ -87,7 +91,7 @@ public class ToolIntegrationExecutor {
 			createRoleIfNecessary();
 			assignUserToRole();
 			cisClient.close();
-			tool.updateToolIntegrationStatus();
+			projectApplication.updateIntegrationToolStatus(tool.getId());
 		}
 
 		private void createProject() {

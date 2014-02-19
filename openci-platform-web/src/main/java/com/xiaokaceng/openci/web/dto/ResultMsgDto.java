@@ -8,7 +8,7 @@ public class ResultMsgDto extends ResultDto {
 		return new ResultMsgDto(true, msg);
 	}
 	
-	public static ResultDto createFailure(String msg) {
+	public static ResultMsgDto createFailure(String msg) {
 		return new ResultMsgDto(false, msg);
 	} 
 	

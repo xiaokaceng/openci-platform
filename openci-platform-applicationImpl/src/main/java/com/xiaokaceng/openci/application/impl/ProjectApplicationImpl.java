@@ -116,4 +116,15 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		return Project.isExixtByName(name);
 	}
 
+	public void updateIntegrationToolStatus(long toolId) {
+		Tool tool = Tool.get(Tool.class, toolId);
+		tool.updateIntegrationStatus();
+		updateProjectStatus(tool);
+	}
+
+	private void updateProjectStatus(Tool tool) {
+		Project project = tool.getProject();
+		project.updateProjectStatus();
+	}
+
 }

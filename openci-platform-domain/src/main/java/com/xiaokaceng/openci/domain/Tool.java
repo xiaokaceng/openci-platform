@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -54,7 +55,7 @@ public class Tool extends AbstractEntity {
 		this.status = ToolIntegrationStatus.ONGOING;
 	}
 
-	public void updateToolIntegrationStatus() {
+	public void updateIntegrationStatus() {
 		status = ToolIntegrationStatus.SUCCESS;
 		for (ToolInterfaceImplement each : getToolInterfaceImplements()) {
 			if (!each.isSuccess()) {
@@ -71,13 +72,23 @@ public class Tool extends AbstractEntity {
 	public ToolIntegrationStatus getStatus() {
 		return status;
 	}
+	
+	public void setStatus(ToolIntegrationStatus status) {
+		this.status = status;
+	}
 
 	public Set<ToolInterfaceImplement> getToolInterfaceImplements() {
 		return toolInterfaceImplements;
 	}
 
-	public Date getIntegrationDate() {
-		return integrationDate;
+	@SuppressWarnings("deprecation")
+	public String getIntegrationDate() {
+		return integrationDate.toLocaleString();
+	}
+
+	@Transient
+	public Project getProject() {
+		return project;
 	}
 
 	@Override
