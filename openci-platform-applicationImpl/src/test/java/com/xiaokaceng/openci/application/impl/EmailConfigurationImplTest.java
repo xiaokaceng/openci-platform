@@ -1,10 +1,14 @@
 package com.xiaokaceng.openci.application.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.xiaokaceng.openci.AbstractIntegrationTest;
@@ -46,12 +50,12 @@ public class EmailConfigurationImplTest extends AbstractIntegrationTest {
 	}
 	
 	@Test
-	@Ignore
 	public void testSetUsable() {
-		emailConfiguration = new EmailConfiguration("openci@sina.com", "openci", "smtp.sina.com", 25, "开放持续构建平台");
-		emailConfigurationApplication.createEmailConfiguration(emailConfiguration);
-		assertTrue(emailConfigurationApplication.setUsable(emailConfiguration.getId()));
-		emailConfiguration.remove();
+		//  因为需要发送邮件
+//		emailConfiguration = new EmailConfiguration("openci@sina.com", "openci", "smtp.sina.com", 25, "开放持续构建平台");
+//		emailConfigurationApplication.createEmailConfiguration(emailConfiguration);
+//		assertTrue(emailConfigurationApplication.setUsable(emailConfiguration.getId()));
+//		emailConfiguration.remove();
 	}
 	
 	@Test
@@ -63,5 +67,31 @@ public class EmailConfigurationImplTest extends AbstractIntegrationTest {
 		emailConfiguration.remove();
 	}
 	
+	@Test
+	public void testFindAll() {
+		emailConfiguration = new EmailConfiguration("openci@sina.com", "openci", "smtp.sina.com", 25, "开放持续构建平台");
+		emailConfigurationApplication.createEmailConfiguration(emailConfiguration);
+		EmailConfiguration emailConfiguration2 = new EmailConfiguration("openci@sina.com2", "openci2", "smtp.sina.com", 25, "开放持续构建平台");
+		emailConfigurationApplication.createEmailConfiguration(emailConfiguration2);
+		List<EmailConfiguration> emailConfigurations = emailConfigurationApplication.findAll();
+		assertTrue(emailConfigurations.contains(emailConfiguration));
+		assertTrue(emailConfigurations.contains(emailConfiguration2));
+		emailConfiguration.remove();
+		emailConfiguration2.remove();
+	}
+	
+	@Test
+	public void testGetDefault() {
+		emailConfiguration = new EmailConfiguration("openci@sina.com", "openci", "smtp.sina.com", 25, "开放持续构建平台");
+		emailConfigurationApplication.createEmailConfiguration(emailConfiguration);
+		emailConfigurationApplication.setDefault(emailConfiguration.getId());
+		EmailConfiguration emailConfiguration2 = new EmailConfiguration("openci@sina.com2", "openci2", "smtp.sina.com", 25, "开放持续构建平台");
+		emailConfigurationApplication.createEmailConfiguration(emailConfiguration2);
+		emailConfigurationApplication.setDefault(emailConfiguration2.getId());
+		assertEquals(emailConfiguration2, emailConfigurationApplication.getDefault());
+		assertFalse(emailConfiguration.isDefault());
+		emailConfiguration.remove();
+		emailConfiguration2.remove();
+	}
 	
 }
