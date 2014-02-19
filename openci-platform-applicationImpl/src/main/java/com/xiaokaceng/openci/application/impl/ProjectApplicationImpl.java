@@ -125,6 +125,7 @@ public class ProjectApplicationImpl implements ProjectApplication {
 	private void updateProjectStatus(Tool tool) {
 		Project project = tool.getProject();
 		project.updateProjectStatus();
+		
 	}
 
 }
