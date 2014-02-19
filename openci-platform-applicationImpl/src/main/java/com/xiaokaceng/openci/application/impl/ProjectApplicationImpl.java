@@ -2,6 +2,7 @@ package com.xiaokaceng.openci.application.impl;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -123,7 +124,7 @@ public class ProjectApplicationImpl implements ProjectApplication {
 	}
 
 	private void updateProjectStatus(Tool tool) {
-		Project project = tool.getProject();
+		Project project = tool.getProject(new Date());
 		project.updateProjectStatus();
 		
 	}

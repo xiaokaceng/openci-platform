@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -28,7 +27,6 @@ public class Tool extends AbstractEntity {
 
 	private static final long serialVersionUID = -7321784040020043756L;
 
-	@Transient
 	@ManyToOne
 	@JoinColumn(name = "project_id")
 	private Project project;
@@ -91,7 +89,8 @@ public class Tool extends AbstractEntity {
 		return integrationDate.toLocaleString();
 	}
 
-	public Project getProject() {
+	// 此参数仅仅是为了不给其序列化，以后要去除
+	public Project getProject(Date now) {
 		return project;
 	}
 
