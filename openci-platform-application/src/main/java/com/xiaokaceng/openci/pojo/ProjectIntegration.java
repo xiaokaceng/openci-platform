@@ -31,6 +31,8 @@ public class ProjectIntegration {
 
 	// 开发者列表
 	private Set<Developer> developers;
+	
+	private String projectLead;
 
 	public Project toCISProject() {
 		Project project = new Project();
@@ -38,7 +40,7 @@ public class ProjectIntegration {
 		project.setGroupId(groupId);
 		project.setProjectName(projectName);
 		project.setPhysicalPath(projectSavePath + File.separator + projectName);
-		project.setProjectLead("luomin"); // TODO 这里是项目所属人，需更改
+		project.setProjectLead(projectLead); // TODO 这里是项目所属人，需更改
 		return project;
 	}
 
@@ -111,6 +113,14 @@ public class ProjectIntegration {
 
 	public void setDevelopers(Set<Developer> developers) {
 		this.developers = developers;
+	}
+
+	public String getProjectLead() {
+		return projectLead;
+	}
+
+	public void setProjectLead(String projectLead) {
+		this.projectLead = projectLead;
 	}
 
 }

@@ -29,6 +29,8 @@ public class ProjectDto implements Serializable {
 	private Set<ToolConfigurationDto> toolConfigurationDtos;
 
 	private Set<ProjectDeveloperDto> projectDeveloperDtos;
+	
+	private String projectLead;
 
 	public String getProjectName() {
 		return projectName;
@@ -139,6 +141,14 @@ public class ProjectDto implements Serializable {
 			}
 		}
 		return roles;
+	}
+
+	public String getProjectLead() {
+		return projectLead;
+	}
+
+	public void setProjectLead(String projectLead) {
+		this.projectLead = projectLead;
 	}
 
 }

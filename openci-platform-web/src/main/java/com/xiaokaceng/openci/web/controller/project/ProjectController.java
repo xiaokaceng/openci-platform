@@ -60,6 +60,7 @@ public class ProjectController extends BaseController {
 		projectIntegration.setProjectSavePath(project.getPath());
 		projectIntegration.setDevelopers(transformDevelopers(projectDto.getProjectForCis().getDevelopers()));
 		projectIntegration.setScmConfig(projectDto.getScmConfig());
+		projectIntegration.setProjectLead(projectDto.getProjectLead());
 		if (projectDto.isUserCas()) {
 			projectIntegration.setCasUserConfiguration(CasUserConfiguration.getUniqueInstance());
 		}
