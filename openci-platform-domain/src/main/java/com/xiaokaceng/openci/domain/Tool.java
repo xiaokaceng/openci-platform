@@ -64,8 +64,8 @@ public class Tool extends AbstractEntity {
 		save();
 	}
 
-	public ToolConfiguration getToolConfiguration() {
-		return toolConfiguration;
+	public String getToolConfiguration() {
+		return toolConfiguration.toString();
 	}
 
 	public ToolIntegrationStatus getStatus() {

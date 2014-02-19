@@ -58,8 +58,8 @@ public class ProjectDeveloper extends AbstractEntity {
 		save();
 	}
 
-	public Developer getDeveloper() {
-		return developer;
+	public String getDeveloper() {
+		return developer.toString();
 	}
 
 	public Set<Role> getRoles() {

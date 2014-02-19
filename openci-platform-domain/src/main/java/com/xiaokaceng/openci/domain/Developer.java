@@ -88,7 +88,7 @@ public class Developer extends TimeIntervalEntity {
 
 	@Override
 	public String toString() {
-		return getDeveloperId();
+		return getName();
 	}
 
 }

@@ -61,8 +61,9 @@ public class ToolInterfaceImplement extends AbstractEntity {
 		return isSuccess;
 	}
 
-	public Date getExecuteDate() {
-		return executeDate;
+	@SuppressWarnings("deprecation")
+	public String getExecuteDate() {
+		return executeDate.toLocaleString();
 	}
 
 	public String getRecord() {
