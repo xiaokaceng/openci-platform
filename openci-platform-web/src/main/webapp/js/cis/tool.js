@@ -93,7 +93,7 @@ var toolManager = {
 		if(self.toolType == 'JENKINS'){
 			self.password.closest('.form-group').hide();
 		}
-		if(self.toolType != 'SVN'){
+		if(self.toolType != 'SVN' && self.toolType != 'TRAC'){
 			self.requestRootAddress.closest('.form-group').hide();
 		}
 		dialog.find('#save').on('click', function() {
@@ -130,7 +130,7 @@ var toolManager = {
 		if(self.toolType == 'JENKINS'){
 			self.token.val(item.password);
 		}
-		if(self.toolType == 'SVN'){
+		if(self.toolType == 'SVN' || self.toolType == 'TRAC'){
 			self.requestRootAddress.val(item.requestRootAddress);
 		}
 		if(self.toolType == 'GIT'){
@@ -194,7 +194,7 @@ var toolManager = {
 				return false;
 			}
 		}
-		if(self.toolType == 'SVN'){
+		if(self.toolType == 'SVN' || self.toolType == 'TRAC'){
 			if (!Validation.notNull(dialog, requestRootAddress, requestRootAddress.val(), '请输入请求根路径')) {
 				return false;
 			}
@@ -228,6 +228,7 @@ var toolManager = {
 		data['password'] = self.password.val();
 		if (self.toolType == 'TRAC' || self.toolType == 'SVN') {
 			data['savePath'] = self.savePath.val();
+			data['requestRootAddress'] = self.requestRootAddress.val();
 		}
 		if (self.toolType == 'GIT') {
 			data['token'] = self.token.val();
@@ -235,9 +236,6 @@ var toolManager = {
 		}
 		if(self.toolType == 'JENKINS'){
 			data['password'] = self.token.val();
-		}
-		if(self.toolType == 'SVN'){
-			data['requestRootAddress'] = self.requestRootAddress.val();
 		}
 		return data;
 	},
@@ -262,27 +260,25 @@ var toolManager = {
 	},
 	
 	testConnection: function(id, index){
-		var self = this;
-		$('#toolGrid').find('#usable'+index)
+		var toolGrid = $('#toolGrid');
+		toolGrid.find('#usable'+index)
 					.removeClass('glyphicon-remove')
 					.addClass('glyphicon-ok')
 					.css('color', '#5CB85C');
 		$.get('toolconfiguration/can-connect/'+id).done(function(data){
 			if(data.result){
-				self.dataGrid.message({
+				toolGrid.message({
 						type: 'success',
 						content: '该工具连接可用'
-				});
-				$('#toolGrid').find('#usable'+index)
+				}).find('#usable'+index)
 					.removeClass('glyphicon-remove')
 					.addClass('glyphicon-ok')
 					.css('color', '#5CB85C');
 			}else{
-				self.dataGrid.message({
+				toolGrid.message({
 					type: 'error',
 					content: data.actionError
-				});
-				$('#toolGrid').find('#usable'+index)
+				}).find('#usable'+index)
 					.removeClass('glyphicon-ok')
 					.addClass('glyphicon-remove')
 					.css('color', '#D9534F');

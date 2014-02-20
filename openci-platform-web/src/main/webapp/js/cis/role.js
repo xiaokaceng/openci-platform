@@ -40,7 +40,7 @@ var roleManager = {
 		    'dataType': 'json'
 		 }).done(function(data){
 			if(data.result){
-				self.dataGrid.message({
+				grid.message({
 						type: 'success',
 						content: '删除成功'
 					});
