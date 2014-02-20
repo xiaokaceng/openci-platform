@@ -1,7 +1,8 @@
 package com.xiaokaceng.openci.pojo;
 
-import org.openkoala.opencis.git.impl.GitlabCISClient;
-import org.openkoala.opencis.git.impl.GitlabConfiguration;
+
+import org.openkoala.opencis.gitlab.GitlabCISClient;
+import org.openkoala.opencis.gitlab.GitlabConfiguration;
 
 import com.xiaokaceng.openci.domain.GitConfiguration;
 import com.xiaokaceng.openci.domain.ToolConfiguration;

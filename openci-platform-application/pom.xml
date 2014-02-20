@@ -26,7 +26,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openkoala.opencis</groupId>
-			<artifactId>koala-opencis-git</artifactId>
+			<artifactId>koala-opencis-gitlab</artifactId>
 			<version>${koala.opencis.version}</version>
 		</dependency>
 		<dependency>
