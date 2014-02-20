@@ -66,12 +66,14 @@ public class Project extends AbstractEntity {
 	}
 	
 	public void updateProjectStatus() {
-		// TODO 需要优化
 		projectStatus = ProjectStatus.SUCCESS;
 		for (Tool each : tools) {
 			if (each.getStatus().equals(ToolIntegrationStatus.FAILURE)) {
 				projectStatus = ProjectStatus.INTEGRATION_TOOL_FAILURE;
 				break;
+			}
+			if (each.getStatus().equals(ToolIntegrationStatus.ONGOING)) {
+				projectStatus = ProjectStatus.INTEGRATION_TOOL;
 			}
 		}
 		save();

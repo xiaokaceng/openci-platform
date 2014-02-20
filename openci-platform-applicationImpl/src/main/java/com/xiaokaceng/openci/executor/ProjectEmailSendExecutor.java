@@ -6,7 +6,7 @@ import org.springframework.core.task.TaskExecutor;
 
 import com.xiaokaceng.openci.domain.Project;
 
-public class EmailSendExecutor {
+public class ProjectEmailSendExecutor {
 
 	@Inject
 	private TaskExecutor taskExecutor;
@@ -15,5 +15,19 @@ public class EmailSendExecutor {
 		
 	}
 	
-	
+
+	private class EmailSendTask implements Runnable {
+
+		
+		
+		public EmailSendTask() {
+			
+		}
+		
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
 }

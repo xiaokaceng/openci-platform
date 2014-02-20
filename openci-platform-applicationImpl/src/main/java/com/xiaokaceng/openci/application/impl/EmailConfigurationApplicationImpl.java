@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.xiaokaceng.openci.EntityNullException;
 import com.xiaokaceng.openci.application.EmailConfigurationApplication;
 import com.xiaokaceng.openci.domain.EmailConfiguration;
-import com.xiaokaceng.openci.email.EmailSendTest;
+import com.xiaokaceng.openci.email.EmailValidTest;
 
 @Named("emailConfigurationApplication")
 @Transactional("transactionManager_opencis")
@@ -41,8 +41,8 @@ public class EmailConfigurationApplicationImpl implements EmailConfigurationAppl
 	public boolean setUsable(long emailConfigurationId) {
 		EmailConfiguration emailConfiguration = EmailConfiguration.get(EmailConfiguration.class, emailConfigurationId);
 		if (emailConfiguration != null) {
-			EmailSendTest emailSendTest = new EmailSendTest(emailConfiguration);
-			if (emailSendTest.send()) {
+			EmailValidTest validTest = new EmailValidTest(emailConfiguration);
+			if (validTest.valid()) {
 				emailConfiguration.setUsable();
 				return true;
 			}

@@ -83,4 +83,6 @@
     
     <bean id="toolIntegrationExecutor" class="com.xiaokaceng.openci.executor.ToolIntegrationExecutor" />
     
+    <bean id="projectEmailSendExecutor" class="com.xiaokaceng.openci.executor.ProjectEmailSendExecutor" />
+    
 </beans>
