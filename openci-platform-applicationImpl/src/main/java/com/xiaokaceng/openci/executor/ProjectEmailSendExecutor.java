@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.springframework.core.task.TaskExecutor;
 
 import com.xiaokaceng.openci.domain.Project;
+import com.xiaokaceng.openci.email.ProjectEmail;
 
 public class ProjectEmailSendExecutor {
 
@@ -12,21 +13,19 @@ public class ProjectEmailSendExecutor {
 	private TaskExecutor taskExecutor;
 
 	public void execute(Project project) {
-		
+		taskExecutor.execute(new EmailSendTask(project));
 	}
-	
 
 	private class EmailSendTask implements Runnable {
 
+		private Project project;
 		
-		
-		public EmailSendTask() {
-			
+		public EmailSendTask(Project project) {
+			this.project = project;
 		}
 		
 		public void run() {
-			// TODO Auto-generated method stub
-			
+			new ProjectEmail(project).send();
 		}
 		
 	}
