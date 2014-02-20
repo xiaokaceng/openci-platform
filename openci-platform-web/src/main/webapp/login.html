@@ -1,40 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <title>登陆</title>
+	<head>
+		<title>登陆</title>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="css/login.css" />
-    </head>
-    <body>
-        <div class="login">
-            <div class="logo">
-            </div>
-            <form method="post">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="input-group">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                            <input type="text" class="form-control" placeholder="用户名">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                            <input type="password" class="form-control" placeholder="密码">
-                        </div>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="login-button"><button type="button" class="btn btn-primary" id="loginBtn">登陆</button></div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <script src="lib/jquery-1.8.3.min.js"></script>
+		<link rel="stylesheet" href="css/login.css" />
+	</head>
+	<body>
+		<div class="login">
+			<div class="logo"></div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+						<input type="text" id="username" name="username" class="form-control" placeholder="用户名">
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+						<input type="password" id="password" name="password" class="form-control" placeholder="密码">
+					</div>
+				</div>
+				<div class="panel-footer">
+					<div class="login-button">
+						<button type="button" class="btn btn-primary" id="loginBtn">
+							登陆
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="lib/jquery-1.8.3.min.js"></script>
+		<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+		<script src="lib/koala-ui.plugin.js"></script>
+		<script src="lib/validate.js"></script>
 		<script>
-			$(function(){
-				$('#loginBtn').on('click', function(){
-					window.location.href = "index.html";
+			$(function() {
+				$('#loginBtn').on('click', function() {
+					var $this = $(this);
+					var username = $('#username');
+					var password = $('#password');
+					if (!Validation.notNull($('body'), username, username.val(), '用户名不能为空')) {
+			            return false;
+			        }
+			        if (!Validation.notNull($('body'), password, password.val(), '密码不能为空')) {
+			            return false;
+			        }
+					$this.attr('disabled', 'disabled').html('登录中...');
+  					$.post('loginAction', {username:username.val(), password:password.val()}).done(function(data){
+						if(data.result){
+							window.location.href = 'index.html';
+						}else{
+							$('.panel-body').message({
+								type: 'error',
+								content: data.msg
+							});
+							$this.removeAttr('disabled').html('登录');
+						}
+  					});
 				});
 			})
 		</script>
-    </body>
+	</body>
 </html>

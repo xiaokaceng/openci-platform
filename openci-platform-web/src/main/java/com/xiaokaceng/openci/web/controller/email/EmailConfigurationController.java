@@ -5,7 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaokaceng.openci.application.EmailConfigurationApplication;
@@ -35,15 +38,17 @@ public class EmailConfigurationController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/remove/{emailConfigurationId}")
-	public ResultDto removeEmailConfiguration(long emailConfigurationId) {
-		emailConfigurationApplication.removeEmailConfiguration(emailConfigurationId);
+	@RequestMapping(value = "/remove", method = RequestMethod.POST, consumes = "application/json")
+	public ResultDto removeEmailConfiguration(@RequestBody long[] emailConfigurationIds) {
+		for(long emailConfigurationId:emailConfigurationIds){
+			emailConfigurationApplication.removeEmailConfiguration(emailConfigurationId);
+		}
 		return ResultDto.createSuccess();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/setusable/{emailConfigurationId}")
-	public ResultDto setUsable(long emailConfigurationId) {
+	public ResultDto setUsable(@PathVariable long emailConfigurationId) {
 		ResultDto resultDto = new ResultDto();
 		resultDto.setResult(emailConfigurationApplication.setUsable(emailConfigurationId));
 		return resultDto;
@@ -51,7 +56,7 @@ public class EmailConfigurationController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("/setdefault/{emailConfigurationId}")
-	public ResultDto setDefault(long emailConfigurationId) {
+	public ResultDto setDefault(@PathVariable long emailConfigurationId) {
 		emailConfigurationApplication.setDefault(emailConfigurationId);
 		return ResultDto.createSuccess();
 	}

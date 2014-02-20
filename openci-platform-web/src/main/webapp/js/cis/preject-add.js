@@ -251,6 +251,14 @@ $(function() {
 					return roles.join(',');
 				}
 			}, {
+				title : '是否为Leader',
+				name : 'developerId',
+				width : 100,
+				align: 'center',
+				render: function(item, name, index){
+					return '<div class="radio"><span data-role="isLeader" data-value="'+item[name]+'"></span></div>';
+				}
+			},{
 				title : '操作',
 				name : 'id',
 				width : 'auto',
@@ -265,8 +273,18 @@ $(function() {
 			isShowPages : false,
 			isUserLocalData : true,
 			localData : data
-		}).on('selectDeveloper', function() {
-			selectDeveloper($(this).getGrid().getAllItems());
+		}).on({
+			'selectDeveloper': function() {
+				selectDeveloper($(this).getGrid().getAllItems());
+			},
+			'complate': function(){
+				var isLeaders = $(this).find('[data-role="isLeader"]');
+				isLeaders.on('click', function(e){
+					e.stopPropagation();
+					isLeaders.removeClass('checked');
+					$(this).addClass('checked');
+				});
+			}
 		});
 	}
 	initDeveloperGrid([]);
@@ -597,6 +615,12 @@ $(function() {
 			});
 		});
 		projectDto.projectDeveloperDtos = projectDeveloperDtos;
+		
+		var isLeader = projectAdd.find('#developerGrid').find('[data-role="isLeader"].checked');
+		if(isLeader.length > 0){
+			projectDto.projectLead = isLeader.data('value');
+		}
+		
 		var projectTools = [];
 		$.each(tools, function() {
 			projectTools.push({
