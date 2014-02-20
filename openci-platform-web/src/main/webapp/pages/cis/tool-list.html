@@ -77,7 +77,7 @@
 					name : 'usable',
 					width : 100,
 					render : function(item, name, index) {
-						return item[name] ? '<span id="usable' + index + '" class="glyphicon glyphicon-ok" style="color:#5CB85C;margin-left:15px;"></span>' : '<span class="glyphicon glyphicon-remove" style="color:#D9534F;margin-left:15px;"></span>'
+						return item[name] ? '<span id="usable' + index + '" class="glyphicon glyphicon-ok" style="color:#5CB85C;margin-left:15px;"></span>' : '<span id="usable' + index + '" class="glyphicon glyphicon-remove" style="color:#D9534F;margin-left:15px;"></span>'
 					}
 				}, {
 					title : '操作',
@@ -94,6 +94,11 @@
 							title : '保存路径',
 							name : 'savePath',
 							width : '180px'
+						});
+						columns.splice(3, 0, {
+							title : '请求根路径',
+							name : 'requestRootAddress',
+							width : '150px'
 						});
 						url = 'tracconfiguration/pagingquery';
 						break;
