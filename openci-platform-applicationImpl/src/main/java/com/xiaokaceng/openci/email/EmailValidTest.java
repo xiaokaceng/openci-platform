@@ -7,17 +7,17 @@ import org.apache.commons.mail.SimpleEmail;
 
 import com.xiaokaceng.openci.domain.EmailConfiguration;
 
-public class EmailSendTest {
+public class EmailValidTest {
 
 	private static final String CHAREST = "UTF-8";
 
 	private EmailConfiguration emailConfiguration;
 
-	public EmailSendTest(EmailConfiguration emailConfiguration) {
+	public EmailValidTest(EmailConfiguration emailConfiguration) {
 		this.emailConfiguration = emailConfiguration;
 	}
 
-	public boolean send() {
+	public boolean valid() {
 		try {
 			Email email = new SimpleEmail();
 			email.setHostName(emailConfiguration.getSmtpAddress());

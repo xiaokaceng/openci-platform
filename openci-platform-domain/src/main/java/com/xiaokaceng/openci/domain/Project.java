@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -40,7 +41,7 @@ public class Project extends AbstractEntity {
 	@Column(name = "project_status")
 	private ProjectStatus projectStatus;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project", fetch = FetchType.EAGER)
 	private Set<ProjectDeveloper> developers = new HashSet<ProjectDeveloper>();
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
@@ -66,12 +67,14 @@ public class Project extends AbstractEntity {
 	}
 	
 	public void updateProjectStatus() {
-		// TODO 需要优化
 		projectStatus = ProjectStatus.SUCCESS;
 		for (Tool each : tools) {
 			if (each.getStatus().equals(ToolIntegrationStatus.FAILURE)) {
 				projectStatus = ProjectStatus.INTEGRATION_TOOL_FAILURE;
 				break;
+			}
+			if (each.getStatus().equals(ToolIntegrationStatus.ONGOING)) {
+				projectStatus = ProjectStatus.INTEGRATION_TOOL;
 			}
 		}
 		save();

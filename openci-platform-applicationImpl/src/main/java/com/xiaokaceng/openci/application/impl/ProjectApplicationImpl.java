@@ -22,6 +22,7 @@ import com.xiaokaceng.openci.domain.ProjectStatus;
 import com.xiaokaceng.openci.domain.Tool;
 import com.xiaokaceng.openci.dto.ProjectDto;
 import com.xiaokaceng.openci.dto.ProjectQueryDto;
+import com.xiaokaceng.openci.executor.ProjectEmailSendExecutor;
 
 @Named
 @Transactional("transactionManager_opencis")
@@ -29,6 +30,9 @@ public class ProjectApplicationImpl implements ProjectApplication {
 
 	@Inject
 	private QueryChannelService queryChannel;
+	
+	@Inject
+	private ProjectEmailSendExecutor projectEmailSendExecutor;
 
 	public void createProject(ProjectDto projectDto) {
 		Project projectForCis = projectDto.getProjectForCis();
@@ -126,7 +130,13 @@ public class ProjectApplicationImpl implements ProjectApplication {
 	private void updateProjectStatus(Tool tool) {
 		Project project = tool.getProject(new Date());
 		project.updateProjectStatus();
-		
+		sendEmailToDeveloper(project);
+	}
+
+	private void sendEmailToDeveloper(Project project) {
+		if (project.getProjectStatus().equals(ProjectStatus.SUCCESS)) {
+			projectEmailSendExecutor.execute(project);
+		}
 	}
 
 }

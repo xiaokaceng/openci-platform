@@ -9,6 +9,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dayatang.domain.AbstractEntity;
 import com.dayatang.domain.QuerySettings;
+import com.xiaokaceng.openci.DefaultEmailNotSettingsException;
 
 @Entity
 @Table(name = "email_configurations")
@@ -46,7 +47,11 @@ public class EmailConfiguration extends AbstractEntity {
 	}
 
 	public static EmailConfiguration getDefault() {
-		return getRepository().getSingleResult(QuerySettings.create(EmailConfiguration.class).eq("isDefault", true));
+		EmailConfiguration emailConfiguration = getRepository().getSingleResult(QuerySettings.create(EmailConfiguration.class).eq("isDefault", true));
+		if (emailConfiguration != null) {
+			return emailConfiguration;
+		}
+		throw new DefaultEmailNotSettingsException();
 	}
 	
 	public void setDefault() {
