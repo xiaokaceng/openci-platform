@@ -277,7 +277,7 @@ var toolManager = {
 			}else{
 				toolGrid.message({
 					type: 'error',
-					content: data.actionError
+					content: '该工具连接不可用'
 				}).find('#usable'+index)
 					.removeClass('glyphicon-ok')
 					.addClass('glyphicon-remove')
