@@ -1,6 +1,5 @@
 package com.xiaokaceng.openci.domain;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,8 +7,6 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -35,10 +32,6 @@ public abstract class ToolConfiguration extends TimeIntervalEntity {
 	private String password;
 
 	private boolean usable = false;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "create_date")
-	private Date createDate = new Date();
 
 	public ToolConfiguration() {
 	}
@@ -87,10 +80,6 @@ public abstract class ToolConfiguration extends TimeIntervalEntity {
 
 	public String getPassword() {
 		return password;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
 	}
 
 	public boolean isUsable() {
