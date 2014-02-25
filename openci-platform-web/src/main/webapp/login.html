@@ -35,6 +35,11 @@
 		<script src="lib/validate.js"></script>
 		<script>
 			$(function() {
+				 $('body').keydown(function(e) {
+		            if (e.keyCode == 13) {
+		            	$('#loginBtn').click();
+		            }
+		        });
 				$('#loginBtn').on('click', function() {
 					var $this = $(this);
 					var username = $('#username');
