@@ -126,9 +126,6 @@ var emailManager = {
 		if (!Validation.notNull(dialog, username, username.val(), '请输入用户名')) {
 			return false;
 		}
-		if (!Validation.checkByRegExp(dialog, username, '^[0-9a-zA-Z]*$', username.val(), '用户帐号只能输入字母及数字')) {
-			return false;
-		}
 		if (!Validation.notNull(dialog, password, password.val(), '请输入密码')) {
 			return false;
 		}

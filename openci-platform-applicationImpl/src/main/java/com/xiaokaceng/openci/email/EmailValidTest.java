@@ -25,7 +25,7 @@ public class EmailValidTest {
 			email.setAuthenticator(new DefaultAuthenticator(emailConfiguration.getUsername(), emailConfiguration.getPassword()));
 			email.setSSLOnConnect(false);
 			email.setFrom(emailConfiguration.getUsername(), emailConfiguration.getName());
-			email.addTo("luomin@foreveross.com");
+			email.addTo("18172345@qq.com");
 			email.setCharset(CHAREST);
 			email.setSubject("OPENCI-PLATFORM邮箱测试");
 			email.setMsg("来自OPENCI-PLATFORM,This is a test mail....");
@@ -36,5 +36,5 @@ public class EmailValidTest {
 			return false;
 		}
 	}
-
+	
 }
