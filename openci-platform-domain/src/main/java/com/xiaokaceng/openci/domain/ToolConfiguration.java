@@ -14,13 +14,12 @@ import javax.persistence.TemporalType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.dayatang.domain.AbstractEntity;
 import com.dayatang.domain.QuerySettings;
 
 @Entity
 @Table(name = "tool_configurations")
 @DiscriminatorColumn(name = "tool_type", discriminatorType = DiscriminatorType.STRING)
-public abstract class ToolConfiguration extends AbstractEntity {
+public abstract class ToolConfiguration extends TimeIntervalEntity {
 
 	private static final long serialVersionUID = -7992490907551882249L;
 	protected static final String HTTP_PROTOCOL_REQUEST_STR = "http://";

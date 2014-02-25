@@ -1,12 +1,15 @@
 package com.xiaokaceng.openci.web.controller.toolconfiguration;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaokaceng.openci.domain.ScmType;
@@ -67,4 +70,17 @@ public class ToolConfigurationController extends ToolConfigurationBaseController
 		return scmTypes;
 	}
 	
+	@ResponseBody
+    @RequestMapping("/abolish")
+	public ResultDto abolishToolConfiguration(ToolConfiguration toolConfiguration) {
+		toolConfigurationApplication.abolishToolConfiguration(toolConfiguration);
+		return ResultDto.createSuccess();
+	}
+
+	@ResponseBody
+    @RequestMapping(value = "/abolish_toolconfigurations", method = RequestMethod.POST, consumes = "application/json")
+	public ResultDto abolishToolConfigurations(@RequestBody ToolConfiguration[] toolConfigurations) {
+		toolConfigurationApplication.abolishToolConfigurations(Arrays.asList(toolConfigurations));
+		return ResultDto.createSuccess();
+	}
 }

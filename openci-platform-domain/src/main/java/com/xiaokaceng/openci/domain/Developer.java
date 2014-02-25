@@ -1,6 +1,7 @@
 package com.xiaokaceng.openci.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.dayatang.domain.QuerySettings;
 
 @Entity
 @Table(name = "developers")
@@ -36,6 +39,12 @@ public class Developer extends TimeIntervalEntity {
 	Developer() {
 	}
 
+	public static boolean checkDeveloperIdIsExist(String developerId) {
+		Date now = new Date();
+		List<Developer> developers = getRepository().find(QuerySettings.create(Developer.class).le("createDate", now).gt("abolishDate", now).eq("developerId", developerId));
+		return developers.isEmpty() ? false : true;
+	}
+	
 	public String getDeveloperId() {
 		return developerId;
 	}

@@ -1,5 +1,7 @@
 package com.xiaokaceng.openci.application.impl;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -123,6 +125,17 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 
 	public CasUserConfiguration getUniqueInstance() {
 		return CasUserConfiguration.getUniqueInstance();
+	}
+
+	public void abolishToolConfiguration(ToolConfiguration toolConfiguration) {
+		toolConfiguration.abolish(new Date());
+	}
+
+	public void abolishToolConfigurations(Collection<ToolConfiguration> toolConfigurations) {
+		Date abolishDate = new Date();
+		for (ToolConfiguration each : toolConfigurations) {
+			each.abolish(abolishDate);
+		}
 	}
 
 }

@@ -67,4 +67,8 @@ public class DeveloperApplicationImpl implements DeveloperApplication {
 		}
 	}
 
+	public boolean checkDeveloperIdIsExist(String developerId) {
+		return Developer.checkDeveloperIdIsExist(developerId);
+	}
+
 }

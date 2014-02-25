@@ -1,5 +1,6 @@
 package com.xiaokaceng.openci.application;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.dayatang.querychannel.support.Page;
@@ -117,4 +118,17 @@ public interface ToolConfigurationApplication {
 	 * @return
 	 */
 	CasUserConfiguration getUniqueInstance();
+	
+	/**
+	 * 撤销一个工具配置
+	 * @param toolConfiguration
+	 */
+	void abolishToolConfiguration(ToolConfiguration toolConfiguration);
+	
+	/**
+	 * 撤销一批工具配置
+	 * @param toolConfigurations
+	 */
+	void abolishToolConfigurations(Collection<ToolConfiguration> toolConfigurations);
+
 }
