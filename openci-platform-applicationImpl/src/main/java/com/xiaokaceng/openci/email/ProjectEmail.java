@@ -3,6 +3,7 @@ package com.xiaokaceng.openci.email;
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.HtmlEmail;
 
+import com.xiaokaceng.openci.DefaultEmailNotSettingsException;
 import com.xiaokaceng.openci.domain.EmailConfiguration;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
@@ -51,7 +52,7 @@ public class ProjectEmail {
 	}
 
 	private HtmlEmail initHtmlEmail() {
-		EmailConfiguration emailConfiguration = EmailConfiguration.getDefault();
+		EmailConfiguration emailConfiguration = getSystemDefaultConfiguration();
 		HtmlEmail email = new HtmlEmail();
 		email.setHostName(emailConfiguration.getSmtpAddress());
 		email.setSmtpPort(emailConfiguration.getSmtpPort());
@@ -67,6 +68,14 @@ public class ProjectEmail {
 			e.printStackTrace();
 		}
 		return email;
+	}
+
+	private EmailConfiguration getSystemDefaultConfiguration() {
+		EmailConfiguration emailConfiguration = EmailConfiguration.getDefault();
+		if (emailConfiguration != null) {
+			return emailConfiguration;
+		}
+		throw new DefaultEmailNotSettingsException();
 	}
 
 }
