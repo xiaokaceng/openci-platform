@@ -39,12 +39,11 @@ public class ProjectDeveloper extends AbstractEntity {
 
 	@Column(name = "is_notice_success")
 	private boolean isNoticeSuccess = false;
-	
+
 	@Lob
 	private String record;
-	
-	ProjectDeveloper() {
 
+	ProjectDeveloper() {
 	}
 
 	public ProjectDeveloper(Set<Role> roles, Developer developer, Project project) {
@@ -65,7 +64,7 @@ public class ProjectDeveloper extends AbstractEntity {
 	public Set<Role> getRoles() {
 		return roles;
 	}
-	
+
 	public boolean isNoticeSuccess() {
 		return isNoticeSuccess;
 	}

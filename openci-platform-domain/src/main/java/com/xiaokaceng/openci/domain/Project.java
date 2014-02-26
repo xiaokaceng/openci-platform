@@ -50,7 +50,7 @@ public class Project extends TimeIntervalEntity {
 	@Column(name = "project_create_date")
 	private Date projectCreateDate = new Date();
 
-	public Project() {
+	Project() {
 	}
 
 	public Project(String name) {

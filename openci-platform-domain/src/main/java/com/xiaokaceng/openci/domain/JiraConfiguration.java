@@ -9,8 +9,7 @@ public class JiraConfiguration extends ToolConfiguration {
 
 	private static final long serialVersionUID = 570103945579421999L;
 
-	public JiraConfiguration() {
-		super();
+	JiraConfiguration() {
 	}
 
 	public JiraConfiguration(String name, String serviceUrl, String username, String password) {

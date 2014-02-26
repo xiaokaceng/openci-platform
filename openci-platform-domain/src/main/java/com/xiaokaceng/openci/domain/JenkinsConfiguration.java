@@ -9,8 +9,7 @@ public class JenkinsConfiguration extends ToolConfiguration {
 
 	private static final long serialVersionUID = -6711849762118486849L;
 
-	public JenkinsConfiguration() {
-		super();
+	JenkinsConfiguration() {
 	}
 
 	public JenkinsConfiguration(String name, String serviceUrl, String username, String password) {
