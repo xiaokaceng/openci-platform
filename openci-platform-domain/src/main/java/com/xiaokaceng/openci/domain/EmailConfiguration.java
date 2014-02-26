@@ -42,7 +42,7 @@ public class EmailConfiguration extends AbstractEntity {
 		this.name = name;
 	}
 
-	public EmailConfiguration() {
+	EmailConfiguration() {
 	}
 
 	public static EmailConfiguration getDefault() {

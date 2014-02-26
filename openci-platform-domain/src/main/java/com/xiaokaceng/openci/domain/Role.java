@@ -1,7 +1,5 @@
 package com.xiaokaceng.openci.domain;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -19,18 +17,15 @@ public class Role extends TimeIntervalEntity {
 	private String description;
 
 	public Role(String name, String description) {
-		super(new Date());
 		this.name = name;
 		this.description = description;
 	}
 
 	public Role(String name) {
-		super(new Date());
 		this.name = name;
 	}
-	
-	public Role() {
-		super(new Date());
+
+	Role() {
 	}
 
 	public String getName() {
@@ -40,7 +35,7 @@ public class Role extends TimeIntervalEntity {
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
