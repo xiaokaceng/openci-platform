@@ -22,8 +22,7 @@ public class SvnConfiguration extends ToolConfiguration {
 		this.requestRootAddress = requestRootAddress;
 	}
 
-	public SvnConfiguration() {
-		super();
+	SvnConfiguration() {
 	}
 
 	public String getSavePath() {

@@ -9,8 +9,7 @@ public class SonarConfiguration extends ToolConfiguration {
 
 	private static final long serialVersionUID = 6699967170771265556L;
 
-	public SonarConfiguration() {
-		super();
+	SonarConfiguration() {
 	}
 
 	public SonarConfiguration(String name, String serviceUrl, String username, String password) {
