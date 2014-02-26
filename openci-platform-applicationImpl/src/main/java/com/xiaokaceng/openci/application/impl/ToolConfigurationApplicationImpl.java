@@ -1,5 +1,6 @@
 package com.xiaokaceng.openci.application.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -94,40 +95,65 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 	}
 
 	public Page<JenkinsConfiguration> pagingQeuryJenkinsConfigurations(int currentPage, int pagesize) {
-		StringBuilder jpql = new StringBuilder("select _toolconfiguration from JenkinsConfiguration _toolconfiguration");
-		return queryChannel.queryPagedResultByPageNo(jpql.toString(), null, currentPage, pagesize);
+		StringBuilder jpql = new StringBuilder("select _toolconfiguration from JenkinsConfiguration _toolconfiguration where _toolconfiguration.createDate <= ? and _toolconfiguration.abolishDate > ?");
+		List<Object> conditionVals = new ArrayList<Object>();
+		Date now = new Date();
+		conditionVals.add(now);
+		conditionVals.add(now);
+		return queryChannel.queryPagedResultByPageNo(jpql.toString(), conditionVals.toArray(), currentPage, pagesize);
 	}
 
 	public Page<SvnConfiguration> pagingQeurySvnConfigurations(int currentPage, int pagesize) {
-		StringBuilder jpql = new StringBuilder("select _toolconfiguration from SvnConfiguration _toolconfiguration");
-		return queryChannel.queryPagedResultByPageNo(jpql.toString(), null, currentPage, pagesize);
+		StringBuilder jpql = new StringBuilder("select _toolconfiguration from SvnConfiguration _toolconfiguration where _toolconfiguration.createDate <= ? and _toolconfiguration.abolishDate > ?");
+		List<Object> conditionVals = new ArrayList<Object>();
+		Date now = new Date();
+		conditionVals.add(now);
+		conditionVals.add(now);
+		return queryChannel.queryPagedResultByPageNo(jpql.toString(), conditionVals.toArray(), currentPage, pagesize);
 	}
 
 	public Page<GitConfiguration> pagingQeuryGitConfigurations(int currentPage, int pagesize) {
-		StringBuilder jpql = new StringBuilder("select _toolconfiguration from GitConfiguration _toolconfiguration");
-		return queryChannel.queryPagedResultByPageNo(jpql.toString(), null, currentPage, pagesize);
+		StringBuilder jpql = new StringBuilder("select _toolconfiguration from GitConfiguration _toolconfiguration where _toolconfiguration.createDate <= ? and _toolconfiguration.abolishDate > ?");
+		List<Object> conditionVals = new ArrayList<Object>();
+		Date now = new Date();
+		conditionVals.add(now);
+		conditionVals.add(now);
+		return queryChannel.queryPagedResultByPageNo(jpql.toString(), conditionVals.toArray(), currentPage, pagesize);
 	}
 
 	public Page<SonarConfiguration> pagingQeurySonarConfigurations(int currentPage, int pagesize) {
-		StringBuilder jpql = new StringBuilder("select _toolconfiguration from SonarConfiguration _toolconfiguration");
-		return queryChannel.queryPagedResultByPageNo(jpql.toString(), null, currentPage, pagesize);
+		StringBuilder jpql = new StringBuilder("select _toolconfiguration from SonarConfiguration _toolconfiguration where _toolconfiguration.createDate <= ? and _toolconfiguration.abolishDate > ?");
+		List<Object> conditionVals = new ArrayList<Object>();
+		Date now = new Date();
+		conditionVals.add(now);
+		conditionVals.add(now);
+		return queryChannel.queryPagedResultByPageNo(jpql.toString(), conditionVals.toArray(), currentPage, pagesize);
 	}
 
 	public Page<JiraConfiguration> pagingQeuryJiraConfigurations(int currentPage, int pagesize) {
-		StringBuilder jpql = new StringBuilder("select _toolconfiguration from JiraConfiguration _toolconfiguration");
-		return queryChannel.queryPagedResultByPageNo(jpql.toString(), null, currentPage, pagesize);
+		StringBuilder jpql = new StringBuilder("select _toolconfiguration from JiraConfiguration _toolconfiguration where _toolconfiguration.createDate <= ? and _toolconfiguration.abolishDate > ?");
+		List<Object> conditionVals = new ArrayList<Object>();
+		Date now = new Date();
+		conditionVals.add(now);
+		conditionVals.add(now);
+		return queryChannel.queryPagedResultByPageNo(jpql.toString(), conditionVals.toArray(), currentPage, pagesize);
 	}
 
 	public Page<TracConfiguration> pagingQeuryTracConfigurations(int currentPage, int pagesize) {
-		StringBuilder jpql = new StringBuilder("select _toolconfiguration from TracConfiguration _toolconfiguration");
-		return queryChannel.queryPagedResultByPageNo(jpql.toString(), null, currentPage, pagesize);
+		StringBuilder jpql = new StringBuilder("select _toolconfiguration from TracConfiguration _toolconfiguration where _toolconfiguration.createDate <= ? and _toolconfiguration.abolishDate > ?");
+		List<Object> conditionVals = new ArrayList<Object>();
+		Date now = new Date();
+		conditionVals.add(now);
+		conditionVals.add(now);
+		return queryChannel.queryPagedResultByPageNo(jpql.toString(), conditionVals.toArray(), currentPage, pagesize);
 	}
 
 	public CasUserConfiguration getUniqueInstance() {
 		return CasUserConfiguration.getUniqueInstance();
 	}
 
-	public void abolishToolConfiguration(ToolConfiguration toolConfiguration) {
+	public void abolishToolConfiguration(long toolConfigurationId) {
+		ToolConfiguration toolConfiguration = ToolConfiguration.get(ToolConfiguration.class, toolConfigurationId);
 		toolConfiguration.abolish(new Date());
 	}
 

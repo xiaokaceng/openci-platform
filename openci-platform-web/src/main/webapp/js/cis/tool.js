@@ -35,20 +35,9 @@ var toolManager = {
 		});
 	},
 
-	del : function(toolType, grid, items) {
+	del : function(toolType, grid, toolConfigurationId) {
 		var self = this;
-		self.toolType = toolType;
-		self.baseUrl = self.getBaseUrl(toolType);
-		$.ajax({
-			headers : {
-				'Accept' : 'application/json',
-				'Content-Type' : 'application/json'
-			},
-			'type' : "post",
-			'url' : self.baseUrl + 'abolish',
-			'data' : JSON.stringify(items[0]),
-			'dataType' : 'json'
-		}).done(function(data) {
+		$.post('toolconfiguration/abolish/'+toolConfigurationId).done(function(data) {
 			if (data.result) {
 				self.dataGrid.message({
 					type : 'success',

@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +17,7 @@ import com.xiaokaceng.openci.application.DeveloperApplication;
 import com.xiaokaceng.openci.domain.Developer;
 import com.xiaokaceng.openci.web.controller.BaseController;
 import com.xiaokaceng.openci.web.dto.ResultDto;
+import com.xiaokaceng.openci.web.dto.ResultMsgDto;
 
 @Controller
 @RequestMapping("/developer")
@@ -42,6 +42,9 @@ public class DeveloperController extends BaseController {
 	@ResponseBody
     @RequestMapping("/create")
 	public ResultDto createDeveloper(Developer developer) {
+		if (developerApplication.checkDeveloperIdIsExist(developer.getDeveloperId())) {
+			return ResultMsgDto.createFailure("开发者ID已存在!");
+		}
 		developerApplication.createDeveloper(developer);
 		return ResultDto.createSuccess();
 	}
@@ -65,12 +68,6 @@ public class DeveloperController extends BaseController {
 	public ResultDto abolishDevelopers(@RequestBody Developer[] developers) {
 		developerApplication.abolishDevelopers(Arrays.asList(developers));
 		return ResultDto.createSuccess();
-	}
-	
-	@ResponseBody
-    @RequestMapping("/check/{developerId}")
-	public ResultDto checkDeveloperId(@PathVariable String developerId) {
-		return new ResultDto(developerApplication.checkDeveloperIdIsExist(developerId));
 	}
 	
 }

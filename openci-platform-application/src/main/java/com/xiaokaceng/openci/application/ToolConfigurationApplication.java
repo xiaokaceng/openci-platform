@@ -121,9 +121,9 @@ public interface ToolConfigurationApplication {
 	
 	/**
 	 * 撤销一个工具配置
-	 * @param toolConfiguration
+	 * @param toolConfigurationId
 	 */
-	void abolishToolConfiguration(ToolConfiguration toolConfiguration);
+	void abolishToolConfiguration(long toolConfigurationId);
 	
 	/**
 	 * 撤销一批工具配置

@@ -71,9 +71,9 @@ public class ToolConfigurationController extends ToolConfigurationBaseController
 	}
 	
 	@ResponseBody
-    @RequestMapping("/abolish")
-	public ResultDto abolishToolConfiguration(ToolConfiguration toolConfiguration) {
-		toolConfigurationApplication.abolishToolConfiguration(toolConfiguration);
+    @RequestMapping("/abolish/{toolConfigurationId}")
+	public ResultDto abolishToolConfiguration(@PathVariable long toolConfigurationId) {
+		toolConfigurationApplication.abolishToolConfiguration(toolConfigurationId);
 		return ResultDto.createSuccess();
 	}
 
