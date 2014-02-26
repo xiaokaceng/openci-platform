@@ -56,7 +56,7 @@ public class Tool extends AbstractEntity {
 
 	public void updateIntegrationStatus() {
 		status = ToolIntegrationStatus.SUCCESS;
-		for (ToolInterfaceImplement each : getToolInterfaceImplements()) {
+		for (ToolInterfaceImplement each : toolInterfaceImplements) {
 			if (!each.isSuccess()) {
 				status = ToolIntegrationStatus.FAILURE;
 			}
