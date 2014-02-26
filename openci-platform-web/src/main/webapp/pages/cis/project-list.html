@@ -38,7 +38,7 @@
 			},
 			{
 				title : '创建时间',
-				name : 'createDate',
+				name : 'projectCreateDate',
 				width : 150
 			},
 			{
@@ -67,7 +67,7 @@
 				dialog.find('#artifactId').html(project.projectDetail.artifactId);
 				dialog.find('#projectStatus').html(project.projectStatus);
 				dialog.find('#projectSavePath').html(project.projectDetail.projectSavePath);
-				dialog.find('#createDate').html(project.createDate);
+				dialog.find('#createDate').html(project.projectCreateDate);
 				var devlopers = [];
 				$.each(project.developers, function(){
 					devlopers.push(this.developer.name);

@@ -42,7 +42,7 @@ public class Developer extends TimeIntervalEntity {
 	public static boolean checkDeveloperIdIsExist(String developerId) {
 		Date now = new Date();
 		List<Developer> developers = getRepository().find(QuerySettings.create(Developer.class).le("createDate", now).gt("abolishDate", now).eq("developerId", developerId));
-		return developers.isEmpty() ? false : true;
+		return !developers.isEmpty();
 	}
 	
 	public String getDeveloperId() {

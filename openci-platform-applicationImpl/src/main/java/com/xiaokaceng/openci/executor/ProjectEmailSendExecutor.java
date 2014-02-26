@@ -1,6 +1,7 @@
 package com.xiaokaceng.openci.executor;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.springframework.core.task.TaskExecutor;
 
@@ -8,6 +9,7 @@ import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
 import com.xiaokaceng.openci.email.ProjectEmail;
 
+@Named
 public class ProjectEmailSendExecutor {
 
 	@Inject

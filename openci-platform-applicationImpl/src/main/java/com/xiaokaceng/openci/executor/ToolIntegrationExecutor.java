@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.openkoala.opencis.api.CISClient;
 import org.openkoala.opencis.api.Developer;
@@ -26,6 +27,7 @@ import com.xiaokaceng.openci.pojo.SvnConfigurationPojo;
 import com.xiaokaceng.openci.pojo.ToolConfigurationPojo;
 import com.xiaokaceng.openci.pojo.TracConfigurationPojo;
 
+@Named
 public class ToolIntegrationExecutor {
 
 	@Inject

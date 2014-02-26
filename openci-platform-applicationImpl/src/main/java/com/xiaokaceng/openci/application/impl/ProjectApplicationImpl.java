@@ -93,20 +93,22 @@ public class ProjectApplicationImpl implements ProjectApplication {
 
 	public Page<Project> pagingQueryProject(ProjectQueryDto projectQueryDto, int currentPage, int pagesize) {
 		List<Object> conditionVals = new ArrayList<Object>();
-		StringBuilder jpql = new StringBuilder("select _project from Project _project");
+		StringBuilder jpql = new StringBuilder("select _project from Project _project where _project.createDate <= ? and _project.abolishDate > ?");
+		Date now = new Date();
+		conditionVals.add(now);
+		conditionVals.add(now);
 		
 		if (projectQueryDto != null) {
-			jpql.append(" where 1=1");
 			if (!StringUtils.isBlank(projectQueryDto.getName())) {
 				jpql.append(" and _project.name like ?");
 				conditionVals.add(MessageFormat.format("%{0}%", projectQueryDto.getName()));
 			}
 			if (projectQueryDto.getStartDate() != null) {
-				jpql.append(" and _project.createDate >= ?");
+				jpql.append(" and _project.projectCreateDate >= ?");
 				conditionVals.add(projectQueryDto.getStartDate());
 			}
 			if (projectQueryDto.getEndDate() != null) {
-				jpql.append(" and _project.createDate <= ?");
+				jpql.append(" and _project.projectCreateDate <= ?");
 				conditionVals.add(projectQueryDto.getEndDate());
 			}
 		}

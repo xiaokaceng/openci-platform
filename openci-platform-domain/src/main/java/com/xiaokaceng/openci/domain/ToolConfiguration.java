@@ -33,7 +33,7 @@ public abstract class ToolConfiguration extends TimeIntervalEntity {
 
 	private boolean usable = false;
 
-	public ToolConfiguration() {
+	ToolConfiguration() {
 	}
 
 	public ToolConfiguration(String name, String serviceUrl, String username, String password) {

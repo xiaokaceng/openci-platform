@@ -21,13 +21,12 @@ import javax.persistence.TemporalType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.dayatang.domain.AbstractEntity;
 import com.dayatang.domain.QuerySettings;
 import com.xiaokaceng.openci.EntityNullException;
 
 @Entity
 @Table(name = "projects")
-public class Project extends AbstractEntity {
+public class Project extends TimeIntervalEntity {
 
 	private static final long serialVersionUID = -1381157577442931544L;
 
@@ -48,8 +47,8 @@ public class Project extends AbstractEntity {
 	private Set<Tool> tools = new HashSet<Tool>();
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "create_date")
-	private Date createDate = new Date();
+	@Column(name = "project_create_date")
+	private Date projectCreateDate = new Date();
 
 	public Project() {
 	}
@@ -81,8 +80,9 @@ public class Project extends AbstractEntity {
 	}
 
 	public static boolean isExixtByName(String name) {
-		List<Project> projects = getRepository().find(QuerySettings.create(Project.class).eq("name", name));
-		return projects.size() > 0;
+		Date now = new Date();
+		List<Project> projects = getRepository().find(QuerySettings.create(Project.class).le("createDate", now).gt("abolishDate", now).eq("name", name));
+		return !projects.isEmpty();
 	}
 	
 	public String getName() {
@@ -110,8 +110,8 @@ public class Project extends AbstractEntity {
 	}
 
 	@SuppressWarnings("deprecation")
-	public String getCreateDate() {
-		return createDate.toLocaleString();
+	public String getProjectCreateDate() {
+		return projectCreateDate.toLocaleString();
 	}
 
 	public ProjectDetail getProjectDetail() {
