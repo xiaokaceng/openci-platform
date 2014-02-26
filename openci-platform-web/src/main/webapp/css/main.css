@@ -15,11 +15,13 @@ a, button {
 }
 .g-header {
 	background-color: #3F9FD9;
+	min-height: 65px;
 }
 
 .g-header .navbar {
 	margin: 0;
 	padding: 0;
+	min-height: 65px!important;
 	border-left-width: 0;
 	background-color: #3F9FD9;
 }

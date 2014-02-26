@@ -7,7 +7,7 @@ Validator = {
     Number:{expression:/^-?(\d+|[1-9]\d*\.\d+|0\.\d*[1-9]\d*|0?\.0+|0)$/,errorMsg:"仅支持数字"},
     English:{expression:/^[A-Za-z]+$/,errorMsg:"仅支持英文字符"},
     Chinese:{expression:/^[\u0391-\uFFE5]+$/,errorMsg:"仅支持中文字符"},
-    UNChinese:{expression:/^[0-9a-zA-Z_-]+$/,errorMsg:"不合法，仅支持非中文字符"},
+    UNChinese:{expression:/^[0-9a-zA-Z_-]+$/,errorMsg:"请输入非中文字符"},
     URL:{expression:/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/,errorMsg:"URL地址格式不正确"},
     Regex:{errorMsg:"格式不正确"},
     UnSafe : /^(([A-Z]*|[a-z]*|\d*|[-_\~!@#\$%\^&\*\.\(\)\[\]\{\}<>\?\\\/\'\"]*)|.{0,5})$|\s/,
