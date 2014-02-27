@@ -82,4 +82,15 @@ public class DeveloperApplicationImplTest extends AbstractIntegrationTest {
 		assertNull(Developer.get(Developer.class, developer2.getId()));
 	}
 	
+	@Test
+	public void testCheckDeveloperIdIsExist() {
+		Developer developer1 = new Developer("zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao", "zhuyuanbiao1@foreveross.com");
+		Developer developer2 = new Developer("zhuyuanbiao2", "zhuyuanbiao2", "zhuyuanbiao", "zhuyuanbiao2@foreveross.com");
+		developer1.save();
+		developer2.save();
+		
+		assertTrue(developerApplication.checkDeveloperIdIsExist("zhuyuanbiao"));
+		assertTrue(developerApplication.checkDeveloperIdIsExist("zhuyuanbiao2"));
+	}
+	
 }

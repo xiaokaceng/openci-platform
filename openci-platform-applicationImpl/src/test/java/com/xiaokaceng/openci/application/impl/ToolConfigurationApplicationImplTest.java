@@ -87,6 +87,14 @@ public class ToolConfigurationApplicationImplTest extends AbstractIntegrationTes
 		toolConfiguration2.remove();
 	}
 
+	@Test
+	public void testAbolishToolConfiguration() {
+		toolConfiguration.save();
+		toolConfigurationApplication.abolishToolConfiguration(toolConfiguration.getId());
+		List<GitConfiguration> gitConfigurations = toolConfigurationApplication.pagingQeuryGitConfigurations(1, 1).getResult();
+		assertEquals(0, gitConfigurations.size());
+	}
+	
 	@Before
 	public void init() {
 		toolConfiguration = new GitConfiguration("test", null, null, null, "token", null);

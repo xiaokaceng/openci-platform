@@ -130,6 +130,24 @@ public class ProjectApplicationImplTest extends AbstractIntegrationTest {
 		projectApplication.addIntegrationTool(project, null);
 	}
 
+	@Test
+	public void testUpdateIntegrationToolStatus() {
+		ProjectDto projectDto = getProjectDtoInstance();
+		projectApplication.createProject(projectDto);
+		Tool tool = new Tool(null, projectDto.getProjectForCis());
+		tool.save();
+		
+		projectApplication.updateIntegrationToolStatus(tool.getId());
+		
+	}
+	
+	@Test
+	public void testRemove() {
+		ProjectDto projectDto = getProjectDtoInstance();
+		projectApplication.createProject(projectDto);
+		assertTrue(projectApplication.isExistByName(NAME));
+		assertFalse(projectApplication.isExistByName(null));
+	}
 	
 	private ProjectDto getProjectDtoInstance() {
 		ProjectDto projectDto = new ProjectDto(NAME);
