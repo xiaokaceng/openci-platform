@@ -76,9 +76,15 @@
 				var tools = [];
 				$.each(project.tools, function(){
 					var html = [];
-					html.push('<div class="panel panel-default"><div class="panel-heading">'+this.toolConfiguration.name+'('+this.status+')</div><table class="table"><thead><tr><th>创建过程</th><th>时间</th><th>结果</th><th>原因</th></tr></thead><tbody>');
+					html.push('<div class="panel panel-default"><div class="panel-heading">'+this.toolConfiguration.name+'('+this.status+')</div><table class="table"><thead><tr><th>创建过程</th><th>时间</th><th>结果</th></tr></thead><tbody>');
 					$.each(this.toolInterfaceImplements, function(){
-						html.push('<tr><td>'+this.toolInterface+'</td><td>'+this.executeDate+'</td><td>'+this.success+'</td><td>'+this.record+'</td></tr>');
+						var result = '';
+						if(this.success){
+							result = '成功';
+						}else{
+							result = '失败('+(this.record=='null' ? '':this.record)+')';
+						}
+						html.push('<tr><td>'+this.toolInterface+'</td><td>'+this.executeDate+'</td><td>'+result+'</td></tr>');
 					});
 					html.push('</tbody></table></div>');
 					tools.push(html.join(''));
