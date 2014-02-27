@@ -35,20 +35,29 @@ var toolManager = {
 		});
 	},
 
-	del : function(toolType, grid, toolConfigurationId) {
+	del : function(toolType, grid, indexs) {
 		var self = this;
-		$.post('toolconfiguration/abolish/'+toolConfigurationId).done(function(data) {
-			if (data.result) {
-				self.dataGrid.message({
-					type : 'success',
-					content : '删除成功'
-				});
-				$(this).modal('hide');
-				grid.grid('refresh');
-			} else {
+		$.ajax({
+		    headers: { 
+		        'Accept': 'application/json',
+		        'Content-Type': 'application/json' 
+		    },
+		    'type': "Post",
+		    'url': 'toolconfiguration/abolish_toolconfigurations',
+		    'data': JSON.stringify(indexs),
+		    'dataType': 'json'
+		 }).done(function(data){
+			if(data.result){
+					grid.message({
+						type: 'success',
+						content: '删除成功'
+					});
+					$(this).modal('hide');
+					grid.grid('refresh');
+			}else{
 				self.dialog.find('.modal-content').message({
-					type : 'error',
-					content : data.actionError
+					type: 'error',
+					content: '删除失败'
 				});
 			}
 		});

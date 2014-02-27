@@ -1,7 +1,6 @@
 package com.xiaokaceng.openci.application.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -157,10 +156,12 @@ public class ToolConfigurationApplicationImpl implements ToolConfigurationApplic
 		toolConfiguration.abolish(new Date());
 	}
 
-	public void abolishToolConfigurations(Collection<ToolConfiguration> toolConfigurations) {
-		Date abolishDate = new Date();
-		for (ToolConfiguration each : toolConfigurations) {
-			each.abolish(abolishDate);
+	public void abolishToolConfigurations(long[] toolConfigurationIds) {
+		for (Long toolConfigurationId : toolConfigurationIds) {
+			ToolConfiguration toolConfiguration = ToolConfiguration.get(ToolConfiguration.class, toolConfigurationId);
+			if (toolConfiguration != null) {
+				toolConfiguration.remove();
+			}
 		}
 	}
 

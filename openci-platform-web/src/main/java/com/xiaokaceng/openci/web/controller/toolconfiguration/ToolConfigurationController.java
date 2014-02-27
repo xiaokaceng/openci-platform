@@ -1,6 +1,5 @@
 package com.xiaokaceng.openci.web.controller.toolconfiguration;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,8 +78,8 @@ public class ToolConfigurationController extends ToolConfigurationBaseController
 
 	@ResponseBody
     @RequestMapping(value = "/abolish_toolconfigurations", method = RequestMethod.POST, consumes = "application/json")
-	public ResultDto abolishToolConfigurations(@RequestBody ToolConfiguration[] toolConfigurations) {
-		toolConfigurationApplication.abolishToolConfigurations(Arrays.asList(toolConfigurations));
+	public ResultDto abolishToolConfigurations(@RequestBody long[] toolConfigurationIds) {
+		toolConfigurationApplication.abolishToolConfigurations(toolConfigurationIds);
 		return ResultDto.createSuccess();
 	}
 }
