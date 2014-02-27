@@ -5,7 +5,7 @@ $(function() {
 	projectAdd.find('.items').width(5 * $('#content').width());
 
 	projectAdd.wizard({
-		totalSteps: 5
+		totalSteps : 5
 	}).on({
 		'step0' : function() {
 			var $this = $(this);
@@ -227,7 +227,7 @@ $(function() {
 	var initDeveloperGrid = function(data) {
 		projectAdd.find('#developerGrid').off().empty().data('koala.grid', null).grid({
 			identity : 'id',
-			isShowIndexCol: false,
+			isShowIndexCol : false,
 			columns : [{
 				title : '开发者ID',
 				name : 'developerId',
@@ -244,7 +244,7 @@ $(function() {
 				title : '角色',
 				name : 'roles',
 				width : 250,
-				render: function(item, name, index){
+				render : function(item, name, index) {
 					var roles = [];
 					$.each(item[name], function() {
 						roles.push(this.name)
@@ -255,11 +255,11 @@ $(function() {
 				title : '是否为Leader',
 				name : 'developerId',
 				width : 100,
-				align: 'center',
-				render: function(item, name, index){
-					return '<div class="radio"><span data-role="isLeader" data-value="'+item[name]+'"></span></div>';
+				align : 'center',
+				render : function(item, name, index) {
+					return '<div class="radio"><span data-role="isLeader" data-value="' + item[name] + '"></span></div>';
 				}
-			},{
+			}, {
 				title : '操作',
 				name : 'id',
 				width : 'auto',
@@ -275,13 +275,13 @@ $(function() {
 			isUserLocalData : true,
 			localData : data
 		}).on({
-			'selectDeveloper': function() {
+			'selectDeveloper' : function() {
 				selectDeveloper($(this).getGrid().getAllItems());
 			},
-			'complate': function(){
+			'complate' : function() {
 				var $this = $(this);
 				var isLeaders = $this.find('[data-role="isLeader"]');
-				isLeaders.on('click', function(e){
+				isLeaders.on('click', function(e) {
 					e.stopPropagation();
 					isLeaders.removeClass('checked');
 					$(this).addClass('checked');
@@ -322,7 +322,7 @@ $(function() {
 		$.get('role/findall').done(function(roles) {
 			var rolesHtml = [];
 			$.each(roles, function() {
-				rolesHtml.push('<div class="checker role"><span data-value="'+this.id+'" data-name="'+this.name+'"></span><label>'+this.name+'</label></div>');
+				rolesHtml.push('<div class="checker role"><span data-value="' + this.id + '" data-name="' + this.name + '"></span><label>' + this.name + '</label></div>');
 			});
 			rolesHtmls = rolesHtml.join('');
 			dialog.find('#developerGrid').grid({
@@ -364,11 +364,14 @@ $(function() {
 					if (result.checked) {
 						selectedDevelopers[data.id] = data;
 						selectedDevelopers[data.id].roles = {};
-						var $tr = $(this).find('[data-role="indexCheckbox"][data-value="'+data.id+'"]').closest('tr');
-						$tr.find('.role .checked').each(function(){
+						var $tr = $(this).find('[data-role="indexCheckbox"][data-value="' + data.id + '"]').closest('tr');
+						$tr.find('.role .checked').each(function() {
 							var value = $(this).data('value');
 							var name = $(this).data('name');
-							selectedDevelopers[data.id].roles[value] = {id:value, name:name};
+							selectedDevelopers[data.id].roles[value] = {
+								id : value,
+								name : name
+							};
 						});
 					} else {
 						delete selectedDevelopers[data.id];
@@ -378,31 +381,34 @@ $(function() {
 					var $this = $(this);
 					var length = 0;
 					for (id in selectedDevelopers) {
-						if(id == 'roles'){
+						if (id == 'roles') {
 							var $tr = $this.find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + id + '"]');
-							for(roleId in selectedDevelopers[id]){
-								$tr.find('.role span[data-value="'+roleId+'"]').addClass('checked');
+							for (roleId in selectedDevelopers[id]) {
+								$tr.find('.role span[data-value="' + roleId + '"]').addClass('checked');
 							}
-						}else{
+						} else {
 							$this.find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + id + '"]').click();
 						}
-						length ++;
+						length++;
 					}
-					if(length == $this.find('[data-role="indexCheckbox"]').length){
+					if (length == $this.find('[data-role="indexCheckbox"]').length) {
 						$this.find('[data-role="selectAll"]').addClass('checked');
 					}
-					$this.find('.role').on('click', function(e){
+					$this.find('.role').on('click', function(e) {
 						e.stopPropagation();
 						e.preventDefault();
 						var $span = $(this).find('span:first').toggleClass('checked');
 						var $tr = $(this).closest('tr');
-						if($tr.hasClass('success')){
+						if ($tr.hasClass('success')) {
 							var value = $(this).find('span').data('value');
 							var name = $(this).find('span').data('name');
 							var id = $tr.find('[data-role="indexCheckbox"]').data('value');
-							if($span.hasClass('checked')){
-								selectedDevelopers[id].roles[value] = {id:value, name:name};
-							}else{
+							if ($span.hasClass('checked')) {
+								selectedDevelopers[id].roles[value] = {
+									id : value,
+									name : name
+								};
+							} else {
 								delete selectedDevelopers[id].roles[value]
 							}
 						}
@@ -460,7 +466,7 @@ $(function() {
 			},
 			'complate' : function() {
 				if ($(this).find('#isUseCas').length == 0) {
-					$('<div class="row" style="margin-top:5px;"><div class="checker isUseCas" style="margin-left:15px;margin-right:2px"><span id="isUseCas"></span></div><div style="display: inline; top: 2px; position: relative;"><label class="control-label">是否整合CAS</label><div></div></div></div>').insertAfter($(this).find('.buttons')).find('#isUseCas').on('click', function() {
+					$('<div class="row" style="margin-top:5px;"><div class="checker isUseCas" style="margin-left:15px;margin-right:2px; display:none;"><span id="isUseCas"></span></div><div style="display: inline; top: 2px; position: relative;"><label class="control-label">是否整合CAS</label><div></div></div></div>').insertAfter($(this).find('.buttons')).find('#isUseCas').on('click', function() {
 						$(this).toggleClass('checked');
 					});
 				}
@@ -601,6 +607,13 @@ $(function() {
 	}
 
 	projectAdd.find('#complateBtn').on('click', function() {
+		if (projectAdd.find('#toolsGrid').getGrid().getAllItems().length == 0) {
+			projectAdd.find('#toolsGrid').message({
+				type : 'warning',
+				content : '请添加工具'
+			});
+			return;
+		}
 		projectDto.userCas = projectAdd.find('#isUseCas').hasClass('checked');
 		projectDto.scmConfig = jenkinsConfig;
 		var developers = projectAdd.find('#developerGrid').getGrid().getAllItems();
@@ -613,21 +626,21 @@ $(function() {
 		var projectDeveloperDtos = [];
 		$.each(developers, function() {
 			var roleIds = [];
-			$.each(this.roles, function(){
+			$.each(this.roles, function() {
 				roleIds.push(this.id);
 			});
 			projectDeveloperDtos.push({
 				developerId : this.id,
-				roleIds: roleIds
+				roleIds : roleIds
 			});
 		});
 		projectDto.projectDeveloperDtos = projectDeveloperDtos;
-		
+
 		var isLeader = projectAdd.find('#developerGrid').find('[data-role="isLeader"].checked');
-		if(isLeader.length > 0){
+		if (isLeader.length > 0) {
 			projectDto.projectLead = isLeader.data('value');
 		}
-		
+
 		var projectTools = [];
 		$.each(tools, function() {
 			projectTools.push({
@@ -661,6 +674,7 @@ $(function() {
 		if (logSystem.hasClass('checked')) {
 			system.businessLog = {};
 		}
+		console.info(projectDto)
 		$.each(projectDto.projectForCreate.module, function(index) {
 			delete this.security;
 			delete this.basePackagePath;
@@ -678,6 +692,10 @@ $(function() {
 		delete projectDto.projectForCreate.scanPackages;
 		delete projectDto.projectForCreate.packageName;
 		delete projectDto.projectForCreate.groupPackage;
+		var loadDialog = projectAdd.find('#loadDialog');
+		loadDialog.modal({
+			keyboard: false
+		}).off('click');
 		$.ajax({
 			headers : {
 				'Accept' : 'application/json',
@@ -694,11 +712,13 @@ $(function() {
 					content : '创建成功'
 				});
 				$('#projectList').click();
+				$('.modal-backdrop').remove();
 			} else {
 				$('.content').message({
 					type : 'error',
 					content : '创建失败'
 				});
+				loadDialog.modal('hide');
 			}
 		});
 	});

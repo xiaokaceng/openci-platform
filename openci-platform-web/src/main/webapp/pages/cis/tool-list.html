@@ -37,6 +37,9 @@
 		var casConfig = toolManagement.find('.cas-config');
 		$.get('toolconfiguration/get-tool-type').done(function(data) {
 			for (type in data) {
+				if(type == 'CAS_USER_MANAGE'){
+					continue;
+				}
 				var $li = $('<li data-tool-type="' + type + '"></li>');
 				$li.html('<a href="#">' + type + '</>');
 				toolTab.append($li);

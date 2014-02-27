@@ -61,7 +61,7 @@ var roleManager = {
 		var self = this;
 		var dialog = $(data);
 		self.dialog = dialog;
-		dialog.find('.modal-header').find('.modal-title').html(item ? '修改开发者信息':'添加开发者');
+		dialog.find('.modal-header').find('.modal-title').html(item ? '修改角色信息':'添加角色');
 		self.name = dialog.find('#name');
         self.description = dialog.find('#description');
 		dialog.find('#save').on('click',function(){

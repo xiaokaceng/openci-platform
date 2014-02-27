@@ -44,9 +44,9 @@
 			{
 				title : '操作',
 				name : 'projectSavePath',
-				width : 120,
+				width : 180,
 				render : function(item, name, index) {
-					return '<a onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"></span>&nbsp;详细</a>';
+					return '<button class="btn btn-primary" type="button" onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"><span>查看</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" type="button" onclick="deleteProject(' + item.id + ')"><span class="glyphicon glyphicon-remove"><span>删除</button>';
 				}
 			}
 		];
@@ -93,5 +93,27 @@
 				});
 			});
 		});
+	}
+	
+	var deleteProject = function(id){
+		$('#projectGrid').confirm({
+              content: '确定要删除该项目吗?',
+              callBack: function(){
+              	$.post('project/remove/'+id).done(function(result){
+              		if(result){
+              			$('#projectGrid').message({
+              				type: 'success',
+              				content: '删除成功'
+              			});
+              			$('#projectGrid').grid('refresh');
+              		}else{
+              			$('#projectGrid').message({
+              				type: 'error',
+              				content: '删除失败'
+              			});
+              		}
+              	});
+              }
+        });
 	}
 </script>
