@@ -62,4 +62,8 @@ public class RoleApplicationImpl implements RoleApplication {
 		return Role.findAll(Role.class);
 	}
 
+	public boolean checkNameIsExist(String name) {
+		return Role.checkNameIsExist(name);
+	}
+
 }

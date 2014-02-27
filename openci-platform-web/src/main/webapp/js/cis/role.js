@@ -106,7 +106,7 @@ var roleManager = {
 			}else{
 				self.dialog.find('.modal-content').message({
 					type: 'error',
-					content: data.actionError
+					content: data.msg
 				});
 			}
 		});

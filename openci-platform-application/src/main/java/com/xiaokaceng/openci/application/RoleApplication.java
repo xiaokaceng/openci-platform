@@ -50,4 +50,12 @@ public interface RoleApplication {
 	 * @return
 	 */
 	List<Role> findAll();
+
+	/**
+	 * 检测角色名是否存在
+	 * 
+	 * @param name
+	 * @return
+	 */
+	boolean checkNameIsExist(String name);
 }

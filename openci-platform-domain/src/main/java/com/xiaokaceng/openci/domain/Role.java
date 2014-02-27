@@ -1,10 +1,15 @@
 package com.xiaokaceng.openci.domain;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.dayatang.domain.QuerySettings;
 
 @Entity
 @Table(name = "roles")
@@ -28,6 +33,12 @@ public class Role extends TimeIntervalEntity {
 	Role() {
 	}
 
+	public static boolean checkNameIsExist(String name) {
+		Date now = new Date();
+		List<Role> roles = getRepository().find(QuerySettings.create(Role.class).le("createDate", now).gt("abolishDate", now).eq("name", name));
+		return !roles.isEmpty();
+	}
+	
 	public String getName() {
 		return name;
 	}

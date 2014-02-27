@@ -17,6 +17,7 @@ import com.xiaokaceng.openci.application.RoleApplication;
 import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.web.controller.BaseController;
 import com.xiaokaceng.openci.web.dto.ResultDto;
+import com.xiaokaceng.openci.web.dto.ResultMsgDto;
 
 @Controller
 @RequestMapping("/role")
@@ -28,6 +29,9 @@ public class RoleController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/create")
 	public ResultDto createRole(Role role) {
+		if (roleApplication.checkNameIsExist(role.getName())) {
+			return ResultMsgDto.createFailure("角色名已存在!");
+		}
 		roleApplication.createRole(role);
 		return ResultDto.createSuccess();
 	}
