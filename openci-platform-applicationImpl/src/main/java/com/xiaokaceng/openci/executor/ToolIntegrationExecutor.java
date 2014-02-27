@@ -90,7 +90,6 @@ public class ToolIntegrationExecutor {
 			cisClient.authenticate();
 			createUserIfNecessary();
 			createProject();
-			createRoleIfNecessary();
 			assignUserToRole();
 			cisClient.close();
 			projectApplication.updateIntegrationToolStatus(tool.getId());
@@ -121,19 +120,6 @@ public class ToolIntegrationExecutor {
 				} finally {
 					openciApplication.saveEntity(toolInterfaceImplement);
 				}
-			}
-		}
-
-		private void createRoleIfNecessary() {
-			ToolInterfaceImplement toolInterfaceImplement = new ToolInterfaceImplement(tool, ToolInterface.CREATE_ROLE_IF_NECESSARY, true, null);
-			try {
-				cisClient.createRoleIfNecessary(project, project.getArtifactId());
-			} catch (Exception e) {
-				e.printStackTrace();
-				toolInterfaceImplement.setSuccess(false);
-				toolInterfaceImplement.setRecord(e.toString());
-			} finally {
-				openciApplication.saveEntity(toolInterfaceImplement);
 			}
 		}
 

@@ -96,6 +96,6 @@
 	</dependencies>
 
 	<properties>
-		<koala.opencis.version>2.1.0-SNAPSHOT</koala.opencis.version>
+		<koala.opencis.version>3.0.0-SNAPSHOT</koala.opencis.version>
 	</properties>
 </project>
