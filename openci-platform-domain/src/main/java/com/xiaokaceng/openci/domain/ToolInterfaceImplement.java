@@ -50,7 +50,7 @@ public class ToolInterfaceImplement extends AbstractEntity {
 		this.executeDate = new Date();
 	}
 
-	public ToolInterfaceImplement() {
+	ToolInterfaceImplement() {
 	}
 
 	public ToolInterface getToolInterface() {

@@ -22,8 +22,7 @@ public class TracConfiguration extends ToolConfiguration {
 		this.requestRootAddress = requestRootAddress;
 	}
 
-	public TracConfiguration() {
-		super();
+	TracConfiguration() {
 	}
 
 	public String getSavePath() {
