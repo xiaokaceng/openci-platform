@@ -123,13 +123,13 @@ var emailManager = {
 		var password = self.password;
 		var smtpAddress = self.smtpAddress;
 		var smtpPort = self.smtpPort;
-		if (!Validation.notNull(dialog, username, username.val(), '请输入用户名')) {
+		if (!Validation.notNull(dialog, username, username.val().replace(/\s/g,""), '请输入用户名')) {
 			return false;
 		}
-		if (!Validation.notNull(dialog, password, password.val(), '请输入密码')) {
+		if (!Validation.notNull(dialog, password, password.val().replace(/\s/g,""), '请输入密码')) {
 			return false;
 		}
-		if (!Validation.notNull(dialog, smtpAddress, smtpAddress.val(), '请输入SMTP地址')) {
+		if (!Validation.notNull(dialog, smtpAddress, smtpAddress.val().replace(/\s/g,""), '请输入SMTP地址')) {
 			return false;
 		}
 		if (!Validation.notNull(dialog, smtpPort, smtpPort.val(), '请输入SMTP端口')) {
@@ -149,9 +149,9 @@ var emailManager = {
 		if (item) {
 			data = item;
 		}
-		data['username'] = self.username.val();
-		data['password'] = self.password.val();
-		data['smtpAddress'] = self.smtpAddress.val();
+		data['username'] = self.username.val().replace(/\s/g,"");
+		data['password'] = self.password.val().replace(/\s/g,"");
+		data['smtpAddress'] = self.smtpAddress.val().replace(/\s/g,"");
 		data['smtpPort'] = self.smtpPort.val();
 		if (item) {
 			data['id'] = item.id;

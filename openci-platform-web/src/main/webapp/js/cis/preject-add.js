@@ -227,6 +227,7 @@ $(function() {
 	var initDeveloperGrid = function(data) {
 		projectAdd.find('#developerGrid').off().empty().data('koala.grid', null).grid({
 			identity : 'id',
+			isShowIndexCol: false,
 			columns : [{
 				title : '开发者ID',
 				name : 'developerId',
@@ -278,7 +279,8 @@ $(function() {
 				selectDeveloper($(this).getGrid().getAllItems());
 			},
 			'complate': function(){
-				var isLeaders = $(this).find('[data-role="isLeader"]');
+				var $this = $(this);
+				var isLeaders = $this.find('[data-role="isLeader"]');
 				isLeaders.on('click', function(e){
 					e.stopPropagation();
 					isLeaders.removeClass('checked');
@@ -374,6 +376,7 @@ $(function() {
 				},
 				'complate' : function() {
 					var $this = $(this);
+					var length = 0;
 					for (id in selectedDevelopers) {
 						if(id == 'roles'){
 							var $tr = $this.find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + id + '"]');
@@ -383,6 +386,10 @@ $(function() {
 						}else{
 							$this.find('.grid-table-body').find('[data-role="indexCheckbox"][data-value="' + id + '"]').click();
 						}
+						length ++;
+					}
+					if(length == $this.find('[data-role="indexCheckbox"]').length){
+						$this.find('[data-role="selectAll"]').addClass('checked');
 					}
 					$this.find('.role').on('click', function(e){
 						e.stopPropagation();
