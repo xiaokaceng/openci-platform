@@ -1,5 +1,7 @@
 package com.xiaokaceng.openci.domain;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -108,9 +110,9 @@ public class Project extends TimeIntervalEntity {
 		return tools;
 	}
 
-	@SuppressWarnings("deprecation")
 	public String getProjectCreateDate() {
-		return projectCreateDate.toLocaleString();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return dateFormat.format(projectCreateDate);
 	}
 
 	public ProjectDetail getProjectDetail() {

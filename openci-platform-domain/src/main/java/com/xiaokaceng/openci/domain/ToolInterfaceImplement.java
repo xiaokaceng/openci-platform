@@ -1,5 +1,7 @@
 package com.xiaokaceng.openci.domain;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -61,9 +63,9 @@ public class ToolInterfaceImplement extends AbstractEntity {
 		return isSuccess;
 	}
 
-	@SuppressWarnings("deprecation")
 	public String getExecuteDate() {
-		return executeDate.toLocaleString();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return dateFormat.format(executeDate);
 	}
 
 	public String getRecord() {
