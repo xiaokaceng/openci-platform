@@ -141,4 +141,13 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		}
 	}
 
+	public boolean remove(long projectId) {
+		Project project = Project.get(Project.class, projectId);
+		if (project == null) {
+			return false;
+		}
+		project.abolish(new Date());
+		return true;
+	}
+
 }

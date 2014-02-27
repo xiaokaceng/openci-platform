@@ -80,8 +80,7 @@ public class Project extends TimeIntervalEntity {
 	}
 
 	public static boolean isExixtByName(String name) {
-		Date now = new Date();
-		List<Project> projects = getRepository().find(QuerySettings.create(Project.class).le("createDate", now).gt("abolishDate", now).eq("name", name));
+		List<Project> projects = getRepository().find(QuerySettings.create(Project.class).eq("name", name));
 		return !projects.isEmpty();
 	}
 	

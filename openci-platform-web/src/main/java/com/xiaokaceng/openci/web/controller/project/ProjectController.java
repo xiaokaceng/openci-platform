@@ -132,9 +132,14 @@ public class ProjectController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/is-exist/{name}") 
+	@RequestMapping("/is-exist/{name}")
 	public boolean isExistByName(@PathVariable String name) {
 		return projectApplication.isExistByName(name);
 	}
 	
+	@ResponseBody
+	@RequestMapping("/remove/{projectId}")
+	public boolean removeProject(@PathVariable long projectId) {
+		return projectApplication.remove(projectId);
+	}
 }

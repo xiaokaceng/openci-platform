@@ -54,4 +54,11 @@ public interface ProjectApplication {
 	 * @param toolId
 	 */
 	void updateIntegrationToolStatus(long toolId);
+	
+	/**
+	 * 删除项目
+	 * 
+	 * @param projectId
+	 */
+	boolean remove(long projectId);
 }
