@@ -434,7 +434,7 @@
 			for(var i= 0,j=items.length; i<j; i++){
 				var item = items[i];
 				
-                self.itemsMap[item.id] = item;
+                self.itemsMap[item[self.options.identity]] = item;
 				var trHtml = new Array();
 				if(self.options.tree && self.options.tree.column){
 					trHtml.push('<tr data-level='+item.level+' data-children='+self.getChildrenCount(0, item.children)+'>');
@@ -587,10 +587,12 @@
          removeRows: function(indexs){
              var self = this
              $.each(indexs, function(){
-                  var index = self.getIndexByIdentityValue(this);
-                  self.items.splice(index, 1);
                   delete self.itemsMap[this];
              });
+             self.items = [];
+             for(var prop in self.itemsMap){
+             	self.items.push(self.itemsMap[prop]);
+             }
              self.gridTableBodyTable.empty();
              self.renderDatas();
          },
