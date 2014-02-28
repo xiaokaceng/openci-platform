@@ -4,30 +4,133 @@
 		<title>登陆</title>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/login.css" />
+		<style type="text/css">
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.head {
+				height: 30px;
+				width: 100%;
+				background: #f2f2f2;
+				padding: 0;
+				margin: 0;
+			}
+			
+			.logo {
+				height: 90px;
+				width: 960px;
+				margin: 0 auto;
+				overflow: hidden;
+				clear: both;
+			}
+			
+			.logo img {
+				height: 90px;
+				width: 200px;
+				overflow: hidden;
+				float: left;
+			}
+			
+			.logo div {
+				font-size: 24px;
+				color: #666;
+				height: 40px;
+				float: left;
+				line-height: 60px;
+				margin: 20px 10px;
+				padding: 10px;
+				border-left: 1px solid #d2d2d2;
+			}
+			
+			.login_con {
+				width: 960px;
+				height: 332px;
+				margin: 10px auto;
+				clear: both;
+			}
+			
+			.login_con_L {
+				float: left;
+				width: 568px;
+				height: 332px;
+				overflow: hidden;
+			}
+			
+			.login_con_R {
+				float: left;
+				width: 376px;
+				height: 332px;
+				border: 1px solid #dce7f4;
+			}
+			
+			.login_con_R h4 {
+				background: #F2F2F2;
+				line-height: 36px;
+				width: 376px;
+				padding: 0px 6px;
+				border: 1px solid #fff;
+				border-bottom: 1px solid #d4d4d4;
+				margin-top: 0px;
+			}
+			
+			.login_con_R  form {
+				position: relative;
+				padding-top: 10%;
+				padding-left: 7%;
+				padding-right: 7%;
+			}
+			.login_con_R .input-group {
+			    width: 80%;
+			    margin-left: auto;
+			    margin-right: auto;
+			    margin-bottom: 35px!important;
+			}
+			.login_footer {
+				clear: both;
+				margin: 8% auto 0;
+				width: 300px;
+				color: inherit;
+			    font-size: 21px;
+			    font-weight: 200;
+			    line-height: 2.14286;
+			}
+			</style>
 	</head>
 	<body>
-		<div class="login">
-			<div class="logo"></div>
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div class="input-group">
+		<div class="head"></div>
+		<div class="logo">
+			<img src="images/background/logo.gif" />
+			<div>
+				Koala OpenCIS系统
+			</div>
+		</div>
+		<div class="login_con">
+			<div class="login_con_L">
+				<img src="images/background/login_img.gif" />
+			</div>
+			<div class="login_con_R">
+				<h4>登录</h4>
+				<form class="form-horizontal">
+					<div class="form-group input-group">
 						<span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-						<input type="text" id="username" name="username" class="form-control" placeholder="用户名">
+						<input type="text" class="form-control" placeholder="用户名"  name="j_username" id="j_username">
 					</div>
-					<div class="input-group">
+					<div class="form-group input-group">
 						<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-						<input type="password" id="password" name="password" class="form-control" placeholder="密码">
+						<input type="password" name="j_password" id="j_password" class="form-control" placeholder="密码"/>
 					</div>
-				</div>
-				<div class="panel-footer">
-					<div class="login-button">
-						<button type="button" class="btn btn-primary" id="loginBtn">
-							登陆
+					<div class="form-group input-group" style="margin-top: 45px;">
+						<button type="button"  class="btn btn-primary btn-block" id="loginBtn">
+							登录
 						</button>
 					</div>
-				</div>
+				</form>
 			</div>
+		</div>
+		<div class="login_footer">
+			Koala 版权信息 2013
 		</div>
 		<script src="lib/jquery-1.8.3.min.js"></script>
 		<script src="lib/bootstrap/js/bootstrap.min.js"></script>
@@ -35,33 +138,36 @@
 		<script src="lib/validate.js"></script>
 		<script>
 			$(function() {
-				 $('body').keydown(function(e) {
-		            if (e.keyCode == 13) {
-		            	$('#loginBtn').click();
-		            }
-		        });
+				$('body').keydown(function(e) {
+					if (e.keyCode == 13) {
+						$('#loginBtn').click();
+					}
+				});
 				$('#loginBtn').on('click', function() {
 					var $this = $(this);
-					var username = $('#username');
-					var password = $('#password');
+					var username = $('#j_username');
+					var password = $('#j_password');
 					if (!Validation.notNull($('body'), username, username.val(), '用户名不能为空')) {
-			            return false;
-			        }
-			        if (!Validation.notNull($('body'), password, password.val(), '密码不能为空')) {
-			            return false;
-			        }
+						return false;
+					}
+					if (!Validation.notNull($('body'), password, password.val(), '密码不能为空')) {
+						return false;
+					}
 					$this.attr('disabled', 'disabled').html('登录中...');
-  					$.post('loginAction', {username:username.val(), password:password.val()}).done(function(data){
-						if(data.result){
+					$.post('loginAction', {
+						username : username.val(),
+						password : password.val()
+					}).done(function(data) {
+						if (data.result) {
 							window.location.href = 'index.html';
-						}else{
-							$('.panel-body').message({
-								type: 'error',
-								content: data.msg
+						} else {
+							$('.login_con_R').message({
+								type : 'error',
+								content : data.msg
 							});
 							$this.removeAttr('disabled').html('登录');
 						}
-  					});
+					});
 				});
 			})
 		</script>
