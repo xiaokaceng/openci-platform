@@ -70,7 +70,7 @@
 				dialog.find('#createDate').html(project.projectCreateDate);
 				var devlopers = [];
 				$.each(project.developers, function(){
-					devlopers.push(this.developer.name);
+					devlopers.push('&nbsp;&nbsp;' + this.developer.name);
 				});
 				dialog.find('#devlopers').html(devlopers.join(','));
 				var tools = [];
