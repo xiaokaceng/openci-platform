@@ -2,8 +2,13 @@ var projectDto = {};
 $(function() {
 	var flag = false;
 	var projectAdd = $('.project-add');
+	projectAdd.on('keydown', function(e){
+		if(e.keyCode == 9){
+			e.stopPropagation();
+			e.preventDefault();
+		}
+	});
 	projectAdd.find('.items').width(5 * $('#content').width());
-
 	projectAdd.wizard({
 		totalSteps : 5
 	}).on({
