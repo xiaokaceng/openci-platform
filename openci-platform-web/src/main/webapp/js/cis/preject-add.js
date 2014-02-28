@@ -433,6 +433,7 @@ $(function() {
 	var initToolGrid = function(data) {
 		projectAdd.find('#toolsGrid').off().empty().data('koala.grid', null).grid({
 			identity : 'id',
+			isShowIndexCol : false,
 			columns : [{
 				title : '工具名',
 				name : 'name',
@@ -466,7 +467,7 @@ $(function() {
 			},
 			'complate' : function() {
 				if ($(this).find('#isUseCas').length == 0) {
-					$('<div class="row" style="margin-top:5px;"><div class="checker isUseCas" style="margin-left:15px;margin-right:2px; display:none;"><span id="isUseCas"></span></div><div style="display: inline; top: 2px; position: relative;"><label class="control-label">是否整合CAS</label><div></div></div></div>').insertAfter($(this).find('.buttons')).find('#isUseCas').on('click', function() {
+					$('<div class="row" style="margin-top:5px; display:none"><div class="checker isUseCas" style="margin-left:15px;margin-right:2px;"><span id="isUseCas"></span></div><div style="display: inline; top: 2px; position: relative;"><label class="control-label">是否整合CAS</label><div></div></div></div>').insertAfter($(this).find('.buttons')).find('#isUseCas').on('click', function() {
 						$(this).toggleClass('checked');
 					});
 				}
@@ -694,7 +695,7 @@ $(function() {
 		delete projectDto.projectForCreate.groupPackage;
 		var loadDialog = projectAdd.find('#loadDialog');
 		loadDialog.modal({
-			keyboard: false
+			keyboard : false
 		}).off('click');
 		$.ajax({
 			headers : {
@@ -720,6 +721,12 @@ $(function() {
 				});
 				loadDialog.modal('hide');
 			}
+		}).fail(function(result) {
+			$('.content').message({
+				type : 'error',
+				content : '创建失败'
+			});
+			loadDialog.modal('hide');
 		});
 	});
 
