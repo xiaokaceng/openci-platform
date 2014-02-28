@@ -675,7 +675,6 @@ $(function() {
 		if (logSystem.hasClass('checked')) {
 			system.businessLog = {};
 		}
-		console.info(projectDto)
 		$.each(projectDto.projectForCreate.module, function(index) {
 			delete this.security;
 			delete this.basePackagePath;

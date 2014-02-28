@@ -73,6 +73,11 @@
 						type : 'warning',
 						content : '请添加开发者'
 					});
+				}else if(self.$element.find('#developerGrid').find('[data-role="isLeader"].checked').length == 0){
+					self.$element.find('#developerGrid').message({
+						type : 'warning',
+						content : '请选择Leader'
+					});
 				}else{
 					self.next();
 					self.$element.trigger('step' + self.options.step);
