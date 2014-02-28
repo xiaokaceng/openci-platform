@@ -613,6 +613,8 @@ $(function() {
 	}
 
 	projectAdd.find('#complateBtn').on('click', function() {
+		var self = $(this);
+		self.attr('disabled', 'disabled');
 		if (projectAdd.find('#toolsGrid').getGrid().getAllItems().length == 0) {
 			projectAdd.find('#toolsGrid').message({
 				type : 'warning',
@@ -724,6 +726,7 @@ $(function() {
 					content : '创建失败'
 				});
 				loadDialog.modal('hide');
+				self.removeAttr('disabled');
 			}
 		}).fail(function(result) {
 			$('.content').message({
@@ -731,6 +734,7 @@ $(function() {
 				content : '创建失败'
 			});
 			loadDialog.modal('hide');
+			self.removeAttr('disabled');
 		});
 	});
 
