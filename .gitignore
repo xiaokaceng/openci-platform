@@ -28,3 +28,10 @@
 /openci-platform-web/target
 /openci-platform-web/.classpath
 /openci-platform-applicationImpl/logs
+
+/openci-platform-applicationImpl/velocity.log
+/openci-platform-web/.tomcatplugin
+/openci-platform-web/src/main/webapp/.#webclasspath
+/openci-platform-web/velocity.log
+/openci-platform-web/work/org/apache/jsp/login_jsp.class
+/openci-platform-web/work/org/apache/jsp/login_jsp.java
