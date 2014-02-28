@@ -307,7 +307,10 @@
 					}
 					self.$element.trigger('complateRenderData', result);
 				}).fail(function(result){
-
+						self.$element.message({
+							type: 'error',
+							content: '查询失败'
+						});
 				});
 		},
 		/*
