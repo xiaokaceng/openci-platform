@@ -4,22 +4,11 @@
 		var columns = [{
 			title : '项目名称',
 			name : 'name',
-			width : 150
-		}, {
-			title : '开发者',
-			name : 'developers',
-			width : 250,
-			render : function(item, name, index) {
-				var developers = [];
-				$.each(item[name], function() {
-					developers.push(this.developer.name);
-				});
-				return developers.join(',');
-			}
+			width : 210
 		}, {
 			title : '集成工具',
 			name : 'tools',
-			width : 250,
+			width : 380,
 			render : function(item, name, index) {
 				var tools = [];
 				$.each(item[name], function() {
@@ -30,7 +19,8 @@
 		}, {
 			title : '项目状态',
 			name : 'projectStatus',
-			width : 150,
+			width : 71,
+			align: 'center',
 			render : function(item, name, index) {
 				switch(item[name]) {
 					case 'SUCCESS':
@@ -38,7 +28,7 @@
 					case 'INTEGRATION_TOOL_FAILURE':
 						return '<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>';
 					case 'INTEGRATION_TOOL':
-						return '<div class="progress progress-striped active" title="正在整合工具" data-value="' + item.id + '"><div class="progress-bar" style="width: 100%"></div></div>';
+						return '<div class="progress progress-striped active" style="margin-bottom:0;" title="正在整合工具" data-value="' + item.id + '"><div class="progress-bar" style="width: 100%"></div></div>';
 					default:
 						return item[name]
 				}
@@ -46,13 +36,13 @@
 		}, {
 			title : '创建时间',
 			name : 'projectCreateDate',
-			width : 150
+			width : 130
 		}, {
 			title : '操作',
 			name : 'projectSavePath',
-			width : 180,
+			width : 150,
 			render : function(item, name, index) {
-				return '<button class="btn btn-primary" type="button" onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"><span>查看</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" type="button" onclick="deleteProject(' + item.id + ')"><span class="glyphicon glyphicon-remove"><span>删除</button>';
+				return '<button class="btn btn-primary" type="button" onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"><span>详细</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" type="button" onclick="deleteProject(' + item.id + ')"><span class="glyphicon glyphicon-remove"><span>删除</button>';
 			}
 		}];
 		$('#projectGrid').grid({
@@ -67,18 +57,18 @@
 			$(this).find('.progress').each(function() {
 				var $td = $(this).closest('td');
 				var id = $(this).data('value');
-				var intervalId = setInterval(function() {
-					$.get('project/detail/' + id).done(function(data) {
-						var projectStatus = data.projectStatus
-						if (projectStatus == 'SUCCESS') {
-							$td.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>');
-							clearInterval(intervalId);
-						} else if (projectStatus == 'INTEGRATION_TOOL_FAILURE') {
-							$td.html('<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>');
-							clearInterval(intervalId);
-						}
-					});
-				}, 2000);
+  				var intervalId = setInterval(function() {
+  					$.get('project/detail/' + id).done(function(data) {
+  						var projectStatus = data.projectStatus
+  						if (projectStatus == 'SUCCESS') {
+  							$td.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>');
+  							clearInterval(intervalId);
+  						} else if (projectStatus == 'INTEGRATION_TOOL_FAILURE') {
+  							$td.html('<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>');
+  							clearInterval(intervalId);
+  						}
+  					});
+  				}, 2000);
 			});
 		});
 	});
