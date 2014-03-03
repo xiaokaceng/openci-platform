@@ -69,6 +69,14 @@ public class ProjectDeveloper extends AbstractEntity {
 		return isNoticeSuccess;
 	}
 
+	public void setNoticeSuccess(boolean isNoticeSuccess) {
+		this.isNoticeSuccess = isNoticeSuccess;
+	}
+
+	public void setRecord(String record) {
+		this.record = record;
+	}
+
 	public String getRecord() {
 		return record;
 	}
