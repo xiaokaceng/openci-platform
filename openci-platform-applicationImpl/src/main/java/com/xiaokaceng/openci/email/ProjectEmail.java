@@ -8,6 +8,7 @@ import com.xiaokaceng.openci.domain.EmailConfiguration;
 import com.xiaokaceng.openci.domain.Project;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
 import com.xiaokaceng.openci.domain.Tool;
+import com.xiaokaceng.openci.pojo.MailSendResult;
 
 public class ProjectEmail {
 
@@ -22,7 +23,7 @@ public class ProjectEmail {
 		this.receiver = receiver;
 	}
 
-	public void send() {
+	public MailSendResult send() {
 		String htmlContent = createHtmlEmailContent();
 		try {
 			HtmlEmail htmlEmail = initHtmlEmail();
@@ -31,8 +32,10 @@ public class ProjectEmail {
 			htmlEmail.setSubject("OPENCI-PLATFORM项目通知");
 			htmlEmail.setHtmlMsg(htmlContent);
 			htmlEmail.send();
+			return MailSendResult.createSuccess();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return MailSendResult.createFailure(e.toString());
 		}
 	}
 

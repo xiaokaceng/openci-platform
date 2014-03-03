@@ -88,13 +88,14 @@ public class ToolInterfaceImplement extends AbstractEntity {
 		if (!(other instanceof ToolInterfaceImplement)) {
 			return false;
 		}
-		ToolInterfaceImplement that = (ToolInterfaceImplement) other;
-		return new EqualsBuilder().append(getToolInterface(), that.getToolInterface()).append(getExecuteDate(), that.getExecuteDate()).isEquals();
+		//ToolInterfaceImplement that = (ToolInterfaceImplement) other;
+		//return new EqualsBuilder().append(isSuccess(), that.isSuccess()).append(getToolInterface(), that.getToolInterface()).append(getExecuteDate(), that.getExecuteDate()).isEquals();
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder().append(getToolInterface()).append(getExecuteDate()).hashCode();
+		return new HashCodeBuilder().append(isSuccess()).append(getToolInterface()).append(getExecuteDate()).hashCode();
 	}
 
 	@Override
