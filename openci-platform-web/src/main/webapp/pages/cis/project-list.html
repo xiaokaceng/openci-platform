@@ -1,151 +1,164 @@
 <div id="projectGrid"></div>
 <script>
-	$(function(){
-			var columns = [
-			{
-				title : '项目名称',
-				name : 'name',
-				width : 150
-			},
-			{
-				title : '开发者',
-				name : 'developers',
-				width : 250,
-				render: function(item, name, index){
-					var developers = [];
-					$.each(item[name], function(){
-						developers.push(this.developer.name);
-					});
-					return developers.join(',');
-				}
-			},
-			{
-				title : '集成工具',
-				name : 'tools',
-				width : 250,
-				render: function(item, name, index){
-					var tools = [];
-					$.each(item[name], function(){
-						tools.push('<a href="'+this.toolRequestAddress+'" target="_">'+this.toolConfiguration.name+'</a>');
-					});
-					return tools.join(',');
-				}
-			},
-			{
-				title : '项目状态',
-				name : 'projectStatus',
-				width : 150,
-				align: 'center',
-				render: function(item, name, index){
-					switch(item[name]){
-						case 'SUCCESS': return '<span class="glyphicon glyphicon-ok" style="color:#5CB85C;margin-left:15px;"></span>';
-						case 'INTEGRATION_TOOL_FAILURE': return '<span class="glyphicon glyphicon-remove" style="color:#D9534F;margin-left:15px;"></span>';
-						case 'INTEGRATION_TOOL': return '<span>正在创建</span><div class="progress progress-striped active" data-value="'+item.id+'"><div class="progress-bar" style="width: 100%"></div></div>';
-						default: return item[name]
-					}
-				}
-			},
-			{
-				title : '创建时间',
-				name : 'projectCreateDate',
-				width : 150
-			},
-			{
-				title : '操作',
-				name : 'projectSavePath',
-				width : 180,
-				render : function(item, name, index) {
-					return '<button class="btn btn-primary" type="button" onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"><span>查看</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" type="button" onclick="deleteProject(' + item.id + ')"><span class="glyphicon glyphicon-remove"><span>删除</button>';
+	$(function() {
+		var columns = [{
+			title : '项目名称',
+			name : 'name',
+			width : 150
+		}, {
+			title : '开发者',
+			name : 'developers',
+			width : 250,
+			render : function(item, name, index) {
+				var developers = [];
+				$.each(item[name], function() {
+					developers.push(this.developer.name);
+				});
+				return developers.join(',');
+			}
+		}, {
+			title : '集成工具',
+			name : 'tools',
+			width : 250,
+			render : function(item, name, index) {
+				var tools = [];
+				$.each(item[name], function() {
+					tools.push('<a href="' + this.toolRequestAddress + '" target="_">' + this.toolConfiguration.name + '</a>');
+				});
+				return tools.join(',');
+			}
+		}, {
+			title : '项目状态',
+			name : 'projectStatus',
+			width : 150,
+			render : function(item, name, index) {
+				switch(item[name]) {
+					case 'SUCCESS':
+						return '<span style="font-weight:bold; color:#5CB85C;">创建成功</span>';
+					case 'INTEGRATION_TOOL_FAILURE':
+						return '<span style="font-weight:bold; color:#D9534F;">创建失败</span>';
+					case 'INTEGRATION_TOOL':
+						return '<span>正在创建</span><div class="progress progress-striped active" data-value="' + item.id + '"><div class="progress-bar" style="width: 100%"></div></div>';
+					default:
+						return item[name]
 				}
 			}
-		];
+		}, {
+			title : '创建时间',
+			name : 'projectCreateDate',
+			width : 150
+		}, {
+			title : '操作',
+			name : 'projectSavePath',
+			width : 180,
+			render : function(item, name, index) {
+				return '<button class="btn btn-primary" type="button" onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"><span>查看</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" type="button" onclick="deleteProject(' + item.id + ')"><span class="glyphicon glyphicon-remove"><span>删除</button>';
+			}
+		}];
 		$('#projectGrid').grid({
 			identity : 'id',
 			columns : columns,
-			querys: [{title: '项目名称', value: 'name'}],
+			querys : [{
+				title : '项目名称',
+				value : 'name'
+			}],
 			url : 'project/pagingquery'
-		}).on('complate', function(){
-			$(this).find('.progress').each(function(){
+		}).on('complate', function() {
+			$(this).find('.progress').each(function() {
 				var $td = $(this).closest('td');
 				var id = $(this).data('value');
-				var interval = setInterval(function(){
-					$.get('project/detail/'+id).done(function(data){
+				var intervalId = setInterval(function() {
+					$.get('project/detail/' + id).done(function(data) {
 						var projectStatus = data.projectStatus
-						if(projectStatus == 'SUCCESS'){
-							$td.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;margin-left:15px;"></span>');
-							interval.clearInterval();
-						}else if(projectStatus == 'INTEGRATION_TOOL_FAILURE'){
-							$td.html('<span class="glyphicon glyphicon-remove" style="color:#D9534F;margin-left:15px;"></span>');
-							interval.clearInterval();
+						if (projectStatus == 'SUCCESS') {
+							$td.html('<span style="font-weight:bold; color:#5CB85C;">创建成功</span>');
+							clearInterval(intervalId);
+						} else if (projectStatus == 'INTEGRATION_TOOL_FAILURE') {
+							$td.html('<span style="font-weight:bold; color:#D9534F;">创建失败</span>');
+							clearInterval(intervalId);
 						}
 					});
 				}, 2000);
 			});
 		});
 	});
-	
-	var showProjectDetail = function(id){
-		$.get('project/detail/'+id).done(function(project){
-			$.get('pages/cis/project-detail.html').done(function(data){
+
+	var showProjectDetail = function(id) {
+		$.get('project/detail/' + id).done(function(project) {
+			$.get('pages/cis/project-detail.html').done(function(data) {
 				var dialog = $(data);
 				dialog.find('#name').html(project.name);
 				dialog.find('#groupId').html(project.projectDetail.groupId);
 				dialog.find('#artifactId').html(project.projectDetail.artifactId);
-				dialog.find('#projectStatus').html(project.projectStatus);
+				var projectStatus = dialog.find('#projectStatus');
+				switch(project.projectStatus) {
+					case 'SUCCESS':
+						projectStatus.html('<span style="font-weight:bold; color:#5CB85C;">创建成功</span>');
+						break;
+					case 'INTEGRATION_TOOL_FAILURE':
+						projectStatus.html('<span style="font-weight:bold; color:#D9534F;">创建失败</span>');
+						break;
+					case 'INTEGRATION_TOOL':
+						projectStatus.html('<span>正在创建</span><div class="progress progress-striped active"><div class="progress-bar" style="width: 100%"></div></div>');
+						break;
+					default:
+						projectStatus.html(project.projectStatus);
+						break;
+				}
+				//dialog.find('#projectStatus').html(project.projectStatus);
 				dialog.find('#projectSavePath').html(project.projectDetail.projectSavePath);
 				dialog.find('#createDate').html(project.projectCreateDate);
 				var devlopers = [];
-				$.each(project.developers, function(){
+				$.each(project.developers, function() {
 					devlopers.push('&nbsp;&nbsp;' + this.developer.name);
 				});
 				dialog.find('#devlopers').html(devlopers.join(','));
 				var tools = [];
-				$.each(project.tools, function(){
+				$.each(project.tools, function() {
 					var html = [];
-					html.push('<div class="panel panel-default"><div class="panel-heading">'+this.toolConfiguration.name+'('+(this.status=='SUCCESS' ? '<span style="font-weight:bold;color:#5CB85C">成功</span>':'<span style="font-weight:bold;color:#D9534F">失败</span>')+')</div><table class="table"><thead><tr><th class="first">创建过程</th><th class="second">时间</th><th class="third">结果</th></tr></thead><tbody>');
-					$.each(this.toolInterfaceImplements, function(){
+					html.push('<div class="panel panel-default"><div class="panel-heading">' + this.toolConfiguration.name + '(' + (this.status == 'SUCCESS' ? '<span style="font-weight:bold;color:#5CB85C">成功</span>' : '<span style="font-weight:bold;color:#D9534F">失败</span>') + ')</div><table class="table"><thead><tr><th class="first">创建过程</th><th class="second">时间</th><th class="third">结果</th></tr></thead><tbody>');
+					$.each(this.toolInterfaceImplements, function() {
 						var result = '';
-						if(this.success){
+						if (this.success) {
 							result = '<span style="font-weight:bold;color:#5CB85C">成功</span>';
-						}else{
-							result = '<span style="font-weight:bold;color:#D9534F">失败('+(this.record=='null' ? '':this.record)+')</span>';
+						} else {
+							result = '<span style="font-weight:bold;color:#D9534F">失败(' + (this.record == 'null' ? '' : this.record) + ')</span>';
 						}
-						html.push('<tr><td class="first">'+this.toolInterface+'</td><td class="second">'+this.executeDate+'</td><td class="third">'+result+'</td></tr>');
+						html.push('<tr><td class="first">' + this.toolInterface + '</td><td class="second">' + this.executeDate + '</td><td class="third">' + result + '</td></tr>');
 					});
 					html.push('</tbody></table></div>');
 					tools.push(html.join(''));
 				});
 				dialog.find('#tools').html(tools.join(''));
 				dialog.modal({
-					keyboard: false
+					keyboard : false
 				}).on({
-					'hidden.bs.modal': function(){
+					'hidden.bs.modal' : function() {
 						$(this).remove();
 					}
 				});
 			});
 		});
 	}
-	
-	var deleteProject = function(id){
+	var deleteProject = function(id) {
 		$('#projectGrid').confirm({
-              content: '确定要删除该项目吗?',
-              callBack: function(){
-              	$.post('project/remove/'+id).done(function(result){
-              		if(result){
-              			$('#projectGrid').message({
-              				type: 'success',
-              				content: '删除成功'
-              			});
-              			$('#projectGrid').grid('refresh');
-              		}else{
-              			$('#projectGrid').message({
-              				type: 'error',
-              				content: '删除失败'
-              			});
-              		}
-              	});
-              }
-        });
+			content : '确定要删除该项目吗?',
+			callBack : function() {
+				$.post('project/remove/' + id).done(function(result) {
+					if (result) {
+						$('#projectGrid').message({
+							type : 'success',
+							content : '删除成功'
+						});
+						$('#projectGrid').grid('refresh');
+					} else {
+						$('#projectGrid').message({
+							type : 'error',
+							content : '删除失败'
+						});
+					}
+				});
+			}
+		});
 	}
 </script>
