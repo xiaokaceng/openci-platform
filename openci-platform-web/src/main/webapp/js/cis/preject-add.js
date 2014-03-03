@@ -620,6 +620,7 @@ $(function() {
 				type : 'warning',
 				content : '请添加工具'
 			});
+			self.removeAttr('disabled');
 			return;
 		}
 		projectDto.userCas = projectAdd.find('#isUseCas').hasClass('checked');

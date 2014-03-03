@@ -34,7 +34,15 @@
 			{
 				title : '项目状态',
 				name : 'projectStatus',
-				width : 150
+				width : 150,
+				render: function(item, name, index){
+					switch(item[name]){
+						case 'SUCCESS': return '<span class="glyphicon glyphicon-ok" style="color:#5CB85C;margin-left:15px;"></span>';
+						case 'INTEGRATION_TOOL_FAILURE': return '<span class="glyphicon glyphicon-remove" style="color:#D9534F;margin-left:15px;"></span>';
+						case 'INTEGRATION_TOOL': return '<p>正在创建</p><div class="progress progress-striped active"><div class="progress-bar" style="width: 100%"></div></div>';
+						default: return item[name]
+					}
+				}
 			},
 			{
 				title : '创建时间',
@@ -76,13 +84,13 @@
 				var tools = [];
 				$.each(project.tools, function(){
 					var html = [];
-					html.push('<div class="panel panel-default"><div class="panel-heading">'+this.toolConfiguration.name+'('+this.status+')</div><table class="table"><thead><tr><th class="first">创建过程</th><th class="second">时间</th><th class="third">结果</th></tr></thead><tbody>');
+					html.push('<div class="panel panel-default"><div class="panel-heading">'+this.toolConfiguration.name+'('+(this.status=='SUCCESS' ? '<span style="font-weight:bold;color:#5CB85C">成功</span>':'<span style="font-weight:bold;color:#D9534F">失败</span>')+')</div><table class="table"><thead><tr><th class="first">创建过程</th><th class="second">时间</th><th class="third">结果</th></tr></thead><tbody>');
 					$.each(this.toolInterfaceImplements, function(){
 						var result = '';
 						if(this.success){
-							result = '成功';
+							result = '<span style="font-weight:bold;color:#5CB85C">成功</span>';
 						}else{
-							result = '失败('+(this.record=='null' ? '':this.record)+')';
+							result = '<span style="font-weight:bold;color:#D9534F">失败('+(this.record=='null' ? '':this.record)+')</span>';
 						}
 						html.push('<tr><td class="first">'+this.toolInterface+'</td><td class="second">'+this.executeDate+'</td><td class="third">'+result+'</td></tr>');
 					});
