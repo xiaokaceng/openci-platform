@@ -34,9 +34,9 @@
 			render : function(item, name, index) {
 				switch(item[name]) {
 					case 'SUCCESS':
-						return '<span style="font-weight:bold; color:#5CB85C;">创建成功</span>';
+						return '<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>';
 					case 'INTEGRATION_TOOL_FAILURE':
-						return '<span style="font-weight:bold; color:#D9534F;">创建失败</span>';
+						return '<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>';
 					case 'INTEGRATION_TOOL':
 						return '<div class="progress progress-striped active" title="正在整合工具" data-value="' + item.id + '"><div class="progress-bar" style="width: 100%"></div></div>';
 					default:
@@ -71,10 +71,10 @@
 					$.get('project/detail/' + id).done(function(data) {
 						var projectStatus = data.projectStatus
 						if (projectStatus == 'SUCCESS') {
-							$td.html('<span style="font-weight:bold; color:#5CB85C;">创建成功</span>');
+							$td.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>');
 							clearInterval(intervalId);
 						} else if (projectStatus == 'INTEGRATION_TOOL_FAILURE') {
-							$td.html('<span style="font-weight:bold; color:#D9534F;">创建失败</span>');
+							$td.html('<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>');
 							clearInterval(intervalId);
 						}
 					});
