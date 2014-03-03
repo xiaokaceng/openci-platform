@@ -35,11 +35,12 @@
 				title : '项目状态',
 				name : 'projectStatus',
 				width : 150,
+				align: 'center',
 				render: function(item, name, index){
 					switch(item[name]){
 						case 'SUCCESS': return '<span class="glyphicon glyphicon-ok" style="color:#5CB85C;margin-left:15px;"></span>';
 						case 'INTEGRATION_TOOL_FAILURE': return '<span class="glyphicon glyphicon-remove" style="color:#D9534F;margin-left:15px;"></span>';
-						case 'INTEGRATION_TOOL': return '<p>正在创建</p><div class="progress progress-striped active"><div class="progress-bar" style="width: 100%"></div></div>';
+						case 'INTEGRATION_TOOL': return '<span>正在创建</span><div class="progress progress-striped active" data-value="'+item.id+'"><div class="progress-bar" style="width: 100%"></div></div>';
 						default: return item[name]
 					}
 				}
@@ -63,6 +64,23 @@
 			columns : columns,
 			querys: [{title: '项目名称', value: 'name'}],
 			url : 'project/pagingquery'
+		}).on('complate', function(){
+			$(this).find('.progress').each(function(){
+				var $td = $(this).closest('td');
+				var id = $(this).data('value');
+				var interval = setInterval(function(){
+					$.get('project/detail/'+id).done(function(data){
+						var projectStatus = data.projectStatus
+						if(projectStatus == 'SUCCESS'){
+							$td.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;margin-left:15px;"></span>');
+							interval.clearInterval();
+						}else if(projectStatus == 'INTEGRATION_TOOL_FAILURE'){
+							$td.html('<span class="glyphicon glyphicon-remove" style="color:#D9534F;margin-left:15px;"></span>');
+							interval.clearInterval();
+						}
+					});
+				}, 2000);
+			});
 		});
 	});
 	
