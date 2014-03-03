@@ -44,6 +44,11 @@
 					var action = $this.data('action');
 					action && self.$element.trigger(action);
 				} else {
+					var reg = /[\u0391-\uFFE5]+/;
+			    	if (reg.test(projectName.val())) {
+			    		showErrorMessage($('body'), projectName, '项目名称不支持中文');
+			    		return;
+			    	}
 					$.get('project/is-exist/' + projectName.val()).done(function(result) {
 						if (result) {
 							projectName.closest('.wizard').message({

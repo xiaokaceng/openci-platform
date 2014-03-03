@@ -38,7 +38,7 @@
 					case 'INTEGRATION_TOOL_FAILURE':
 						return '<span style="font-weight:bold; color:#D9534F;">创建失败</span>';
 					case 'INTEGRATION_TOOL':
-						return '<span>正在创建</span><div class="progress progress-striped active" data-value="' + item.id + '"><div class="progress-bar" style="width: 100%"></div></div>';
+						return '<div class="progress progress-striped active" title="正在整合工具" data-value="' + item.id + '"><div class="progress-bar" style="width: 100%"></div></div>';
 					default:
 						return item[name]
 				}
@@ -99,7 +99,7 @@
 						projectStatus.html('<span style="font-weight:bold; color:#D9534F;">创建失败</span>');
 						break;
 					case 'INTEGRATION_TOOL':
-						projectStatus.html('<span>正在创建</span><div class="progress progress-striped active"><div class="progress-bar" style="width: 100%"></div></div>');
+						projectStatus.html('<div class="progress progress-striped active" title="正在整合工具"><div class="progress-bar" style="width: 100%"></div></div>');
 						break;
 					default:
 						projectStatus.html(project.projectStatus);
@@ -116,7 +116,19 @@
 				var tools = [];
 				$.each(project.tools, function() {
 					var html = [];
-					html.push('<div class="panel panel-default"><div class="panel-heading">' + this.toolConfiguration.name + '(' + (this.status == 'SUCCESS' ? '<span style="font-weight:bold;color:#5CB85C">成功</span>' : '<span style="font-weight:bold;color:#D9534F">失败</span>') + ')</div><table class="table"><thead><tr><th class="first">创建过程</th><th class="second">时间</th><th class="third">结果</th></tr></thead><tbody>');
+					var toolStatus = '';
+					switch(this.status) {
+						case 'SUCCESS':
+							toolStatus = '<span style="font-weight:bold; color:#5CB85C;">整合成功</span>';
+							break;
+						case 'FAILURE':
+							toolStatus = '<span style="font-weight:bold; color:#D9534F;">整合失败</span>';
+							break;
+						default :
+							toolStatus = '<span style="font-weight:bold; color:#D9534F;">正在整合工具</span>';
+							break;
+					}
+					html.push('<div class="panel panel-default"><div class="panel-heading">' + this.toolConfiguration.name + '(' + toolStatus + ')</div><table class="table"><thead><tr><th class="first">创建过程</th><th class="second">时间</th><th class="third">结果</th></tr></thead><tbody>');
 					$.each(this.toolInterfaceImplements, function() {
 						var result = '';
 						if (this.success) {
