@@ -4,22 +4,11 @@
 		var columns = [{
 			title : '项目名称',
 			name : 'name',
-			width : 150
-		}, {
-			title : '开发者',
-			name : 'developers',
-			width : 250,
-			render : function(item, name, index) {
-				var developers = [];
-				$.each(item[name], function() {
-					developers.push(this.developer.name);
-				});
-				return developers.join(',');
-			}
+			width : 210
 		}, {
 			title : '集成工具',
 			name : 'tools',
-			width : 250,
+			width : 380,
 			render : function(item, name, index) {
 				var tools = [];
 				$.each(item[name], function() {
@@ -30,7 +19,8 @@
 		}, {
 			title : '项目状态',
 			name : 'projectStatus',
-			width : 150,
+			width : 71,
+			align : 'center',
 			render : function(item, name, index) {
 				switch(item[name]) {
 					case 'SUCCESS':
@@ -38,7 +28,7 @@
 					case 'INTEGRATION_TOOL_FAILURE':
 						return '<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>';
 					case 'INTEGRATION_TOOL':
-						return '<div class="progress progress-striped active" title="正在整合工具" data-value="' + item.id + '"><div class="progress-bar" style="width: 100%"></div></div>';
+						return '<div class="progress progress-striped active" style="margin-bottom:0;" title="正在整合工具" data-value="' + item.id + '"><div class="progress-bar" style="width: 100%"></div></div>';
 					default:
 						return item[name]
 				}
@@ -46,13 +36,13 @@
 		}, {
 			title : '创建时间',
 			name : 'projectCreateDate',
-			width : 150
+			width : 140
 		}, {
 			title : '操作',
 			name : 'projectSavePath',
-			width : 180,
+			width : 150,
 			render : function(item, name, index) {
-				return '<button class="btn btn-primary" type="button" onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"><span>查看</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" type="button" onclick="deleteProject(' + item.id + ')"><span class="glyphicon glyphicon-remove"><span>删除</button>';
+				return '<button class="btn btn-primary" type="button" onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"><span>详细</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" type="button" onclick="deleteProject(' + item.id + ')"><span class="glyphicon glyphicon-remove"><span>删除</button>';
 			}
 		}];
 		$('#projectGrid').grid({
@@ -134,13 +124,24 @@
 						if (this.success) {
 							result = '<span style="font-weight:bold;color:#5CB85C">成功</span>';
 						} else {
-							result = '<span style="font-weight:bold;color:#D9534F">失败(' + (this.record == 'null' ? '' : this.record) + ')</span>';
+							result = '<span style="font-weight:bold;color:#D9534F">失败' + (this.record == null ? '' : '(' + this.record + ')') + '</span>';
 						}
 						html.push('<tr><td class="first">' + this.toolInterface + '</td><td class="second">' + this.executeDate + '</td><td class="third">' + result + '</td></tr>');
 					});
 					html.push('</tbody></table></div>');
 					tools.push(html.join(''));
 				});
+				tools.push('<div class="panel panel-default"><div class="panel-heading">邮件发送</div><table class="table"><thead><tr><th class="first">用户名</th><th class="second">邮箱</th><th class="third">发送结果</th></tr></thead><tbody>');
+				$.each(project.developers, function() {
+					var result = '';
+					if (this.noticeSuccess) {
+						result = '<span style="font-weight:bold;color:#5CB85C">成功</span>';
+					} else {
+						result = '<span style="font-weight:bold;color:#D9534F">失败' + (this.record == null ? '' : '(' + this.record + ')') + '</span>';
+					}
+					tools.push('<tr><td class="first">' + this.developer.name + '</td><td class="second">' + this.developer.email + '</td><td class="third">' + result + '</td></tr>');
+				});
+				tools.push('</div>')
 				dialog.find('#tools').html(tools.join(''));
 				dialog.modal({
 					keyboard : false
