@@ -54,11 +54,19 @@ public interface ProjectApplication {
 	 * @param toolId
 	 */
 	void updateIntegrationToolStatus(long toolId);
-	
+
 	/**
 	 * 删除项目
 	 * 
 	 * @param projectId
 	 */
 	boolean remove(long projectId);
+
+	/**
+	 * 获取整合项目进展
+	 * 
+	 * @param projectId
+	 * @return
+	 */
+	String integrationProcess(long projectId);
 }

@@ -128,6 +128,7 @@ public class ProjectController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/detail/{projectId}")
 	public com.xiaokaceng.openci.domain.Project getProjectDetail(@PathVariable long projectId) {
+		System.out.println(projectApplication.getDetail(projectId).integrationProcess());
 		return projectApplication.getDetail(projectId);
 	}
 	
@@ -141,5 +142,11 @@ public class ProjectController extends BaseController {
 	@RequestMapping("/remove/{projectId}")
 	public boolean removeProject(@PathVariable long projectId) {
 		return projectApplication.remove(projectId);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/process/{projectId}")
+	public String integrationProcess(@PathVariable long projectId) {
+		return projectApplication.integrationProcess(projectId);
 	}
 }

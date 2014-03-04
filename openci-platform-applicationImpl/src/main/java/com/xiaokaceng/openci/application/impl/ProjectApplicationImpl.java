@@ -150,4 +150,12 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		return true;
 	}
 
+	public String integrationProcess(long projectId) {
+		Project project = Project.get(Project.class, projectId);
+		if (project == null) {
+			throw new EntityNullException();
+		}
+		return project.integrationProcess();
+	}
+
 }

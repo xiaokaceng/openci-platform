@@ -86,6 +86,19 @@ public class Project extends TimeIntervalEntity {
 		return !projects.isEmpty();
 	}
 	
+	public String integrationProcess() {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (Tool each : tools) {
+			for (ToolInterfaceImplement interfaceImplement : each.getToolInterfaceImplements()) {
+				stringBuilder.append(interfaceImplement.getExecuteDate()).append(" ");
+				stringBuilder.append(each.getToolConfiguration().toString()).append("正在执行");
+				stringBuilder.append(interfaceImplement.getToolInterface().toString()).append("方法  ");
+				stringBuilder.append("状态：").append(interfaceImplement.isSuccess()).append("<br>");
+			}
+		}
+		return stringBuilder.toString();
+	}
+	
 	public String getName() {
 		return name;
 	}

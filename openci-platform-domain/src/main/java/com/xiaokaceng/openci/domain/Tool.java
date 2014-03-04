@@ -1,8 +1,10 @@
 package com.xiaokaceng.openci.domain;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +41,7 @@ public class Tool extends AbstractEntity {
 	private ToolIntegrationStatus status;
 
 	@OneToMany(mappedBy = "tool", fetch = FetchType.EAGER)
-	private Set<ToolInterfaceImplement> toolInterfaceImplements = new HashSet<ToolInterfaceImplement>();
+	private Set<ToolInterfaceImplement> toolInterfaceImplements = new TreeSet<ToolInterfaceImplement>();
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "integration_date")
@@ -84,9 +86,9 @@ public class Tool extends AbstractEntity {
 		return toolInterfaceImplements;
 	}
 
-	@SuppressWarnings("deprecation")
 	public String getIntegrationDate() {
-		return integrationDate.toLocaleString();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return dateFormat.format(integrationDate);
 	}
 
 	// 此参数仅仅是为了不给其序列化，以后要去除

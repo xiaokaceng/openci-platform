@@ -15,14 +15,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.dayatang.domain.AbstractEntity;
 
 @Entity
 @Table(name = "tool_interface_implements")
-public class ToolInterfaceImplement extends AbstractEntity {
+public class ToolInterfaceImplement extends AbstractEntity implements Comparable<ToolInterfaceImplement> {
 
 	private static final long serialVersionUID = -8821892076942681689L;
 
@@ -88,8 +88,6 @@ public class ToolInterfaceImplement extends AbstractEntity {
 		if (!(other instanceof ToolInterfaceImplement)) {
 			return false;
 		}
-		//ToolInterfaceImplement that = (ToolInterfaceImplement) other;
-		//return new EqualsBuilder().append(isSuccess(), that.isSuccess()).append(getToolInterface(), that.getToolInterface()).append(getExecuteDate(), that.getExecuteDate()).isEquals();
 		return false;
 	}
 
@@ -101,6 +99,10 @@ public class ToolInterfaceImplement extends AbstractEntity {
 	@Override
 	public String toString() {
 		return getToolInterface().toString();
+	}
+
+	public int compareTo(ToolInterfaceImplement o) {
+		return new CompareToBuilder().append(getExecuteDate(), o.getExecuteDate()).append(getToolInterface(), o.getToolInterface()).toComparison();
 	}
 
 }
