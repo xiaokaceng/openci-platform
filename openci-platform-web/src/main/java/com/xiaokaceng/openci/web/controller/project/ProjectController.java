@@ -128,7 +128,6 @@ public class ProjectController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/detail/{projectId}")
 	public com.xiaokaceng.openci.domain.Project getProjectDetail(@PathVariable long projectId) {
-		System.out.println(projectApplication.getDetail(projectId).integrationProcess());
 		return projectApplication.getDetail(projectId);
 	}
 	
