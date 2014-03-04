@@ -144,8 +144,9 @@ public class ProjectController extends BaseController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/process/{projectId}")
+	@RequestMapping(value = "/process/{projectId}", produces = "application/json;charset=UTF-8")
 	public String integrationProcess(@PathVariable long projectId) {
+		System.out.println(projectApplication.integrationProcess(projectId));
 		return projectApplication.integrationProcess(projectId);
 	}
 }

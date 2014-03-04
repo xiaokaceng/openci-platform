@@ -96,7 +96,9 @@ public class Project extends TimeIntervalEntity {
 				stringBuilder.append("状态：").append(interfaceImplement.isSuccess()).append("<br>");
 			}
 		}
-		stringBuilder.append("整合完成!");
+		if (!getProjectStatus().equals(ProjectStatus.INTEGRATION_TOOL)) {
+			stringBuilder.append("整合完成!");
+		}
 		return stringBuilder.toString();
 	}
 	
