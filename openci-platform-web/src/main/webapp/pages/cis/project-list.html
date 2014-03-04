@@ -20,7 +20,7 @@
 			title : '项目状态',
 			name : 'projectStatus',
 			width : 71,
-			align: 'center',
+			align : 'center',
 			render : function(item, name, index) {
 				switch(item[name]) {
 					case 'SUCCESS':
@@ -36,7 +36,7 @@
 		}, {
 			title : '创建时间',
 			name : 'projectCreateDate',
-			width : 130
+			width : 140
 		}, {
 			title : '操作',
 			name : 'projectSavePath',
@@ -57,18 +57,18 @@
 			$(this).find('.progress').each(function() {
 				var $td = $(this).closest('td');
 				var id = $(this).data('value');
-  				var intervalId = setInterval(function() {
-  					$.get('project/detail/' + id).done(function(data) {
-  						var projectStatus = data.projectStatus
-  						if (projectStatus == 'SUCCESS') {
-  							$td.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>');
-  							clearInterval(intervalId);
-  						} else if (projectStatus == 'INTEGRATION_TOOL_FAILURE') {
-  							$td.html('<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>');
-  							clearInterval(intervalId);
-  						}
-  					});
-  				}, 2000);
+				var intervalId = setInterval(function() {
+					$.get('project/detail/' + id).done(function(data) {
+						var projectStatus = data.projectStatus
+						if (projectStatus == 'SUCCESS') {
+							$td.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>');
+							clearInterval(intervalId);
+						} else if (projectStatus == 'INTEGRATION_TOOL_FAILURE') {
+							$td.html('<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>');
+							clearInterval(intervalId);
+						}
+					});
+				}, 2000);
 			});
 		});
 	});
@@ -124,13 +124,24 @@
 						if (this.success) {
 							result = '<span style="font-weight:bold;color:#5CB85C">成功</span>';
 						} else {
-							result = '<span style="font-weight:bold;color:#D9534F">失败(' + (this.record == 'null' ? '' : this.record) + ')</span>';
+							result = '<span style="font-weight:bold;color:#D9534F">失败' + (this.record == null ? '' : '(' + this.record + ')') + '</span>';
 						}
 						html.push('<tr><td class="first">' + this.toolInterface + '</td><td class="second">' + this.executeDate + '</td><td class="third">' + result + '</td></tr>');
 					});
 					html.push('</tbody></table></div>');
 					tools.push(html.join(''));
 				});
+				tools.push('<div class="panel panel-default"><div class="panel-heading">邮件发送</div><table class="table"><thead><tr><th class="first">用户名</th><th class="second">邮箱</th><th class="third">发送结果</th></tr></thead><tbody>');
+				$.each(project.developers, function() {
+					var result = '';
+					if (this.noticeSuccess) {
+						result = '<span style="font-weight:bold;color:#5CB85C">成功</span>';
+					} else {
+						result = '<span style="font-weight:bold;color:#D9534F">失败' + (this.record == null ? '' : '(' + this.record + ')') + '</span>';
+					}
+					tools.push('<tr><td class="first">' + this.developer.name + '</td><td class="second">' + this.developer.email + '</td><td class="third">' + result + '</td></tr>');
+				});
+				tools.push('</div>')
 				dialog.find('#tools').html(tools.join(''));
 				dialog.modal({
 					keyboard : false
