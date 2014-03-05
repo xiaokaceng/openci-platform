@@ -30,6 +30,7 @@ import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.dto.ProjectDto;
 import com.xiaokaceng.openci.dto.ProjectQueryDto;
 import com.xiaokaceng.openci.dto.ScmConfig;
+import com.xiaokaceng.openci.executor.ProjectEmailSendExecutor;
 import com.xiaokaceng.openci.executor.ToolIntegrationExecutor;
 import com.xiaokaceng.openci.pojo.ProjectIntegration;
 import com.xiaokaceng.openci.web.controller.BaseController;
@@ -44,6 +45,9 @@ public class ProjectController extends BaseController {
 
 	@Inject
 	private ToolIntegrationExecutor toolIntegrationExecutor;
+	
+	@Inject
+	private ProjectEmailSendExecutor projectEmailSendExecutor;
 	
 	@ResponseBody
 	@RequestMapping("/create")
@@ -168,6 +172,13 @@ public class ProjectController extends BaseController {
 	public boolean againIntegeration(@PathVariable long projectId) {
 		projectApplication.againIntegration(projectId);
 		integrateProjectToTools(projectApplication.getDetail(projectId));
+		return true;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/again-sendemail/{projectId}")
+	public boolean againSendEmailToDeveloper(@PathVariable long projectId) {
+		projectEmailSendExecutor.execute(projectApplication.getDetail(projectId));
 		return true;
 	}
 }

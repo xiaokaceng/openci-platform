@@ -22,7 +22,9 @@ public class ProjectEmailSendExecutor {
 
 	public void execute(Project project) {
 		for (ProjectDeveloper each : project.getDevelopers()) {
-			taskExecutor.execute(new EmailSendTask(project, each));
+			if (!each.isNoticeSuccess()) {
+				taskExecutor.execute(new EmailSendTask(project, each));
+			}
 		}
 	}
 
