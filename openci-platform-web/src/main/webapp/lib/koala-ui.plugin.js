@@ -816,7 +816,7 @@
 		this.content = this.$element.find('[data-toggle="content"]').html(this.options.content);
 		switch(this.options.type){
 			case 'success':
-				this.content.before($('<span class="glyphicon glyphicon-info-sign" style="margin-right: 10px; font-size:16px;"/>'));
+				this.content.before($('<span class="glyphicon glyphicon-ok-sign" style="margin-right: 10px; font-size:16px;"/>'));
 				this.$element.addClass('alert-success');
 				break;
 			case 'info':
@@ -828,7 +828,7 @@
 				this.$element.addClass('alert-warning');
 				break;
 			case 'error':
-				this.content.before($('<span class="glyphicon glyphicon-exclamation-sign" style="margin-right: 10px;font-size:16px; "/>'));
+				this.content.before($('<span class="glyphicon glyphicon-remove-sign" style="margin-right: 10px;font-size:16px; "/>'));
 				this.$element.addClass('alert-danger');
 				break;
 		}

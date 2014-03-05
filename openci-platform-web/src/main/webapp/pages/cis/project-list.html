@@ -8,7 +8,7 @@
 		}, {
 			title : '开发者',
 			name : 'developers',
-			width : 250,
+			width : 215,
 			render : function(item, name, index) {
 				var developers = [];
 				$.each(item[name], function() {
@@ -16,10 +16,10 @@
 				});
 				return developers.join(',');
 			}
-		},{
+		}, {
 			title : '集成工具',
 			name : 'tools',
-			width : 230,
+			width : 215,
 			render : function(item, name, index) {
 				var tools = [];
 				$.each(item[name], function() {
@@ -30,16 +30,15 @@
 		}, {
 			title : '项目状态',
 			name : 'projectStatus',
-			width : 71,
-			align : 'center',
+			width : 85,
 			render : function(item, name, index) {
 				switch(item[name]) {
 					case 'SUCCESS':
-						return '<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>';
+						return '&nbsp;&nbsp;<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>';
 					case 'INTEGRATION_TOOL_FAILURE':
-						return '<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>';
+						return '&nbsp;&nbsp;<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>&nbsp;&nbsp;<a href="#" onclick="againIntegeration(' + item.id + ', this)">重新整合</a>';
 					case 'INTEGRATION_TOOL':
-						return '<div id="projectStatus'+item.id+'" onclick="showProjectMsg('+item.id+')"><img alt="正在整合工具" src="images/loading.gif" style="width: 35px; height:35px;"></img></div>';
+						return '&nbsp;&nbsp;<div style="position: relative;top: -10px;" onclick="showProjectMsg(' + item.id + ', this)"><img alt="正在整合工具" src="images/loading.gif" style="width: 35px; height:35px;"></img></div>';
 					default:
 						return item[name]
 				}
@@ -67,71 +66,46 @@
 		});
 	});
 
-	var showProjectMsg = function(id){
+	var showProjectMsg = function(id, obj) {
 		$.get('pages/cis/project-real-time.html').done(function(data) {
 			var dialog = $(data);
 			dialog.modal({
-				keyboard: false
-			}).on('hidden.bs.modal', function(){
+				keyboard : false
+			}).on('hidden.bs.modal', function() {
 				$(this).remove();
 			});
 			var modalBody = dialog.find('.modal-body');
-			$.ajax({
-					type: 'GET',
-					url:'project/process/'+id,
-					async: false
-				}).done(function(data){
-					if(!data.result){
-						$.get('project/detail/' + id).done(function(project) {
-							var projectStatus = $('#projectGrid').find('#projectStatus'+id).closest('td');
-							switch(project.projectStatus) {
-								case 'SUCCESS':
-									projectStatus.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>');
-									break;
-								case 'INTEGRATION_TOOL_FAILURE':
-									projectStatus.html('<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>');
-									break;
-								default: break;
-							}
-						});
-						modalBody.html(data.msg);
-						modalBody.scrollTop(modalBody[0].scrollHeight);
-					}else{
-						modalBody.html(data.msg);
-						modalBody.scrollTop(modalBody[0].scrollHeight);
-					}
-			});
-			var intervalId = setInterval(function(){
+			var intervalId = setInterval(function() {
 				$.ajax({
-					type: 'GET',
-					url:'project/process/'+id,
-					async: false
-				}).done(function(data){
-					if(!data.result){
+					type : 'GET',
+					url : 'project/process/' + id,
+					async : false
+				}).done(function(data) {
+					if (!data.result) {
 						clearInterval(intervalId);
 						$.get('project/detail/' + id).done(function(project) {
-							var projectStatus = $('#projectGrid').find('#projectStatus'+id).closest('td');
+							var projectStatus = $(obj).closest('td');
 							switch(project.projectStatus) {
 								case 'SUCCESS':
 									projectStatus.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>');
 									break;
 								case 'INTEGRATION_TOOL_FAILURE':
-									projectStatus.html('<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>');
+									projectStatus.html('&nbsp;&nbsp;<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>&nbsp;&nbsp;<a href="#" onclick="againIntegeration(' + id + ', this)">重新整合</a>');
 									break;
-								default: break;
+								default:
+									break;
 							}
 						});
 						modalBody.html(data.msg);
 						modalBody.scrollTop(modalBody[0].scrollHeight);
-					}else{
+					} else {
 						modalBody.html(data.msg);
 						modalBody.scrollTop(modalBody[0].scrollHeight);
 					}
 				});
-			}, 2000);
+			}, 1000);
 		});
 	}
-	
 	var showProjectDetail = function(id) {
 		$.get('project/detail/' + id).done(function(project) {
 			$.get('pages/cis/project-detail.html').done(function(data) {
@@ -198,7 +172,7 @@
 					} else {
 						result = '<span style="font-weight:bold;color:#D9534F">失败' + (this.record == null ? '' : '(' + this.record + ')') + '</span>';
 					}
-					tools.push('<tr><td class="first">' + this.developer.name + '</td><td class="second">' + this.developer.email + '</td><td class="third">' + result + '</td></tr>');
+					tools.push('<tr><td class="first">' + this.developer.name + '</td><td class="second">' + this.developer.email + (this.noticeSuccess ? '' : '&nbsp;&nbsp;<a href="#" onclick="againSendemail(' + id + ')">重新发送</a>') + '</td><td class="third">' + result + '</td></tr>');
 				});
 				tools.push('</div>')
 				dialog.find('#tools').html(tools.join(''));
@@ -231,6 +205,20 @@
 					}
 				});
 			}
+		});
+	}
+	var againIntegeration = function(id, obj) {
+		var $td = $(obj).closest('td');
+		$.get('project/again-integeration/' + id).done(function() {
+			$td.html('&nbsp;&nbsp;<div style="position: relative;top: -10px;" onclick="showProjectMsg(' + id + ', this)"><img alt="正在整合工具" src="images/loading.gif" style="width: 35px; height:35px;"></img></div>');
+		});
+	}
+	var againSendemail = function(id) {
+		$.get('project/again-sendemail/' + id).done(function() {
+			$('.modal-dialog .modal-body').message({
+				type : 'success',
+				content : '重新发送成功'
+			});
 		});
 	}
 </script>
