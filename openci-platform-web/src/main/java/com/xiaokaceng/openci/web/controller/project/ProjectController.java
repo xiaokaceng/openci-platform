@@ -24,6 +24,7 @@ import com.dayatang.querychannel.support.Page;
 import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.domain.CasUserConfiguration;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
+import com.xiaokaceng.openci.domain.ProjectStatus;
 import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.dto.ProjectDto;
 import com.xiaokaceng.openci.dto.ProjectQueryDto;
@@ -145,8 +146,11 @@ public class ProjectController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/process/{projectId}", produces = "application/json;charset=UTF-8")
-	public String integrationProcess(@PathVariable long projectId) {
-		System.out.println(projectApplication.integrationProcess(projectId));
-		return projectApplication.integrationProcess(projectId);
+	public Map<String, Object> integrationProcess(@PathVariable long projectId) {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		com.xiaokaceng.openci.domain.Project project = projectApplication.getDetail(projectId);
+		dataMap.put("result", project.getProjectStatus().equals(ProjectStatus.INTEGRATION_TOOL));
+		dataMap.put("msg", projectApplication.integrationProcess(projectId));
+		return dataMap;
 	}
 }
