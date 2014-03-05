@@ -65,6 +65,16 @@ public class Tool extends AbstractEntity {
 		}
 		save();
 	}
+	
+	public void againIntegrationTool() {
+		if (status.equals(ToolIntegrationStatus.FAILURE)) {
+			status = ToolIntegrationStatus.ONGOING;
+			for (ToolInterfaceImplement each : getToolInterfaceImplements()) {
+				each.remove();
+			}
+			save();
+		}
+	}
 
 	public ToolConfiguration getToolConfiguration() {
 		return toolConfiguration;

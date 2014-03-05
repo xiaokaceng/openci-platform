@@ -15,6 +15,7 @@ import com.xiaokaceng.openci.ToolIntegrationExecutorParamIllegalException;
 import com.xiaokaceng.openci.application.OpenciApplication;
 import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.domain.Tool;
+import com.xiaokaceng.openci.domain.ToolIntegrationStatus;
 import com.xiaokaceng.openci.domain.ToolInterface;
 import com.xiaokaceng.openci.domain.ToolInterfaceImplement;
 import com.xiaokaceng.openci.factory.CISClientFactory;
@@ -42,9 +43,11 @@ public class ToolIntegrationExecutor {
 	public void execute(ProjectIntegration projectIntegration) {
 		verify(projectIntegration);
 		Set<Tool> tools = projectIntegration.getTools();
-		if (tools != null && tools.size() > 0) {
+		if (tools != null && !tools.isEmpty()) {
 			for (Tool each : tools) {
-				taskExecutor.execute(new CISClientTask(each, projectIntegration));
+				if (!each.getStatus().equals(ToolIntegrationStatus.SUCCESS)) {
+					taskExecutor.execute(new CISClientTask(each, projectIntegration));
+				}
 			}
 		}
 		// TODO 是否整合CAS用户管理

@@ -36,6 +36,8 @@ public class ProjectDetail extends AbstractEntity {
 	@Column(name = "scm_repository_url")
 	private String scmRepositoryUrl;
 
+	private String lead;
+	
 	public ProjectDetail() {
 	}
 
@@ -85,6 +87,14 @@ public class ProjectDetail extends AbstractEntity {
 
 	public void setScmRepositoryUrl(String scmRepositoryUrl) {
 		this.scmRepositoryUrl = scmRepositoryUrl;
+	}
+	
+	public String getLead() {
+		return lead;
+	}
+
+	public void setLead(String lead) {
+		this.lead = lead;
 	}
 
 	@Override

@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dayatang.querychannel.support.Page;
 import com.xiaokaceng.openci.application.ProjectApplication;
 import com.xiaokaceng.openci.domain.CasUserConfiguration;
+import com.xiaokaceng.openci.domain.ProjectDetail;
 import com.xiaokaceng.openci.domain.ProjectDeveloper;
 import com.xiaokaceng.openci.domain.ProjectStatus;
 import com.xiaokaceng.openci.domain.Role;
 import com.xiaokaceng.openci.dto.ProjectDto;
 import com.xiaokaceng.openci.dto.ProjectQueryDto;
+import com.xiaokaceng.openci.dto.ScmConfig;
 import com.xiaokaceng.openci.executor.ToolIntegrationExecutor;
 import com.xiaokaceng.openci.pojo.ProjectIntegration;
 import com.xiaokaceng.openci.web.controller.BaseController;
@@ -47,26 +49,33 @@ public class ProjectController extends BaseController {
 	@RequestMapping("/create")
 	public ResultDto createProject(@RequestBody ProjectDto projectDto) {
 		projectApplication.createProject(projectDto);
-		integrateProjectToTools(projectDto);
+		integrateProjectToTools(projectDto.getProjectForCis());
 		return ResultDto.createSuccess();
 	}
 	
-	private void integrateProjectToTools(ProjectDto projectDto) {
-		org.openkoala.koala.widget.Project project = projectDto.getProjectForCreate();
+	private void integrateProjectToTools(com.xiaokaceng.openci.domain.Project project) {
+		ProjectDetail projectDetail = project.getProjectDetail();
 		ProjectIntegration projectIntegration = new ProjectIntegration();
-		projectIntegration.setGroupId(project.getGroupId());
-		projectIntegration.setArtifactId(project.getArtifactId());
-		projectIntegration.setProjectName(project.getAppName());
-		projectIntegration.setTools(projectDto.getProjectForCis().getTools());
-		projectIntegration.setProjectSavePath(project.getPath());
-		projectIntegration.setDevelopers(transformDevelopers(projectDto.getProjectForCis().getDevelopers()));
-		projectIntegration.setScmConfig(projectDto.getScmConfig());
-		projectIntegration.setProjectLead(projectDto.getProjectLead());
-		if (projectDto.isUserCas()) {
+		projectIntegration.setGroupId(projectDetail.getGroupId());
+		projectIntegration.setArtifactId(projectDetail.getArtifactId());
+		projectIntegration.setProjectName(project.getName());
+		projectIntegration.setTools(project.getTools());
+		projectIntegration.setProjectSavePath(projectDetail.getProjectSavePath());
+		projectIntegration.setDevelopers(transformDevelopers(project.getDevelopers()));
+		projectIntegration.setScmConfig(getScmConfig(projectDetail));
+		projectIntegration.setProjectLead(projectDetail.getLead());
+		if (projectDetail.isIntegrationCas()) {
 			projectIntegration.setCasUserConfiguration(CasUserConfiguration.getUniqueInstance());
 		}
 
 		toolIntegrationExecutor.execute(projectIntegration);
+	}
+
+	private ScmConfig getScmConfig(ProjectDetail projectDetail) {
+		ScmConfig scmConfig = new ScmConfig();
+		scmConfig.setScmType(projectDetail.getScmType());
+		scmConfig.setRepositoryUrl(projectDetail.getScmRepositoryUrl());
+		return scmConfig;
 	}
 
 	private Set<Developer> transformDevelopers(Set<ProjectDeveloper> projectDevelopers) {
@@ -152,5 +161,13 @@ public class ProjectController extends BaseController {
 		dataMap.put("result", project.getProjectStatus().equals(ProjectStatus.INTEGRATION_TOOL));
 		dataMap.put("msg", projectApplication.integrationProcess(projectId));
 		return dataMap;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/again-integeration/{projectId}")
+	public boolean againIntegeration(@PathVariable long projectId) {
+		projectApplication.againIntegration(projectId);
+		integrateProjectToTools(projectApplication.getDetail(projectId));
+		return true;
 	}
 }

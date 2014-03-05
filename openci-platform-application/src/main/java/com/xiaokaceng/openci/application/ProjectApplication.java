@@ -69,4 +69,11 @@ public interface ProjectApplication {
 	 * @return
 	 */
 	String integrationProcess(long projectId);
+
+	/**
+	 * 对项目集成工具中失败的再一次发起整合
+	 * 
+	 * @param projectId
+	 */
+	void againIntegration(long projectId);
 }

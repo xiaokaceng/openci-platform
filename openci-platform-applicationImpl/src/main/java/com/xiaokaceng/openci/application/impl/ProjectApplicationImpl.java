@@ -70,6 +70,7 @@ public class ProjectApplicationImpl implements ProjectApplication {
 		projectDetail.setProjectSavePath(getProjectSavePath());
 		projectDetail.setScmRepositoryUrl(projectDto.getScmConfig().getRepositoryUrl());
 		projectDetail.setScmType(projectDto.getScmConfig().getScmType());
+		projectDetail.setLead(projectDto.getProjectLead());
 		return projectDetail;
 	}
 
@@ -156,6 +157,16 @@ public class ProjectApplicationImpl implements ProjectApplication {
 			throw new EntityNullException();
 		}
 		return project.integrationProcess();
+	}
+
+	public void againIntegration(long projectId) {
+		Project project = Project.get(Project.class, projectId);
+		if (project != null) {
+			for (Tool tool : project.getTools()) {
+				tool.againIntegrationTool();
+			}
+			project.updateProjectStatus();
+		}
 	}
 
 }
