@@ -76,9 +76,16 @@
 				$(this).remove();
 			});
 			var modalBody = dialog.find('.modal-body');
+			var resultLength = 0;
 			var intervalId = setInterval(function(){
-				$.get('project/process/'+id).done(function(result){
-					if(result == '整合完成!'){
+				$.ajax({
+					type: 'GET',
+					url:'project/process/'+id,
+					async: false,
+					dataType: 'text'
+				}).done(function(result){
+					console.info(resultLength == result.length)
+					if(resultLength == result.length){
 						clearInterval(intervalId);
 						$.get('project/detail/' + id).done(function(project) {
 							var projectStatus = $('#projectGrid').find('#projectStatus'+id).closest('td');
@@ -93,11 +100,12 @@
 							}
 						});
 					}else{
-						modalBody.html($('<p>'+result+'</p>'));
+						modalBody.html(result);
 						modalBody.scrollTop(modalBody[0].scrollHeight);
+						resultLength = result.length;
 					}
 				});
-			}, 1000);
+			}, 2000);
 		});
 	}
 	
