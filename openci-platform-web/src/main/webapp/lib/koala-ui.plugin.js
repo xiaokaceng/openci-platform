@@ -117,8 +117,8 @@
 				titleHtml.push('<th index="'+i+'" width="');
 				if(width.match(widthRgExp)){
 					width = width.replace('px', '');
-					totalColumnWidth +=  parseInt(width);
-					titleHtml.push(self.scale*width +'px"');
+					totalColumnWidth += parseInt(width);
+					titleHtml.push(self.scale*parseInt(width) + 'px"');
 				}else{
 					titleHtml.push(self.scale*column.width+'"');
 				}
@@ -455,7 +455,7 @@
 				self.items = self.initTreeItems(new Array(), self.items);
 			}
 			var items = self.items;
-			items = JSON.parse(JSON.stringify(items).replace('<script', '<script*'));
+			items = JSON.parse(JSON.stringify(items).replace(/</g, '&lt;').replace(/>/g, '&gt;'));
 			var trHtmls = new Array();
 			for(var i= 0,j=items.length; i<j; i++){
 				var item = items[i];
@@ -474,7 +474,12 @@
 				}
 				for(var k=0,h=this.options.columns.length; k<h; k++){
 					var column = this.options.columns[k];
-					trHtml.push('<td index="'+k+'" width="'+self.scale*column.width+'"');
+					var width = column.width.toString();
+					if (width.match(self.widthRgExp)) {
+						width = width.replace('px', '');
+						width = self.scale*parseInt(width) + 'px';
+					}
+					trHtml.push('<td index="' + k + '" width="' + width + '"');
 					if(column.align){
 						trHtml.push(' align="'+column.align+'"');
 					}
