@@ -38,7 +38,7 @@
 					case 'INTEGRATION_TOOL_FAILURE':
 						return '&nbsp;&nbsp;<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>&nbsp;&nbsp;<a href="#" onclick="againIntegeration(' + item.id + ', this)">重新整合</a>';
 					case 'INTEGRATION_TOOL':
-						return '&nbsp;&nbsp;<div style="position: relative;top: -10px;" onclick="showProjectMsg(' + item.id + ', this)"><img alt="正在整合工具" src="images/loading.gif" style="width: 35px; height:35px;"></img></div>';
+						return '&nbsp;&nbsp;<div data-id="' + item.id + '" data-role="projectLoading"　title="正在整合工具" style="position: relative;top: -10px;" onclick="showProjectMsg(' + item.id + ', this)"><img alt="正在整合工具" src="images/loading.gif" style="width: 35px; height:35px;"></img></div>';
 					default:
 						return item[name]
 				}
@@ -63,6 +63,27 @@
 				value : 'name'
 			}],
 			url : 'project/pagingquery'
+		}).on('complate', function() {
+			$(this).find('[data-role="projectLoading"]').each(function() {
+				var id = this.getAttribute('data-id')
+				var $td = $(this).closest('td');
+				var intervalId = setInterval(function() {
+					$.get('project/detail/' + id).done(function(project) {
+						switch(project.projectStatus) {
+							case 'SUCCESS':
+								$td.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>');
+								clearInterval(intervalId);
+								break;
+							case 'INTEGRATION_TOOL_FAILURE':
+								$td.html('&nbsp;&nbsp;<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>&nbsp;&nbsp;<a href="#" onclick="againIntegeration(' + id + ', this)">重新整合</a>');
+								clearInterval(intervalId);
+								break;
+							default:
+								break;
+						}
+					});
+				}, 2000);
+			});
 		});
 	});
 
@@ -210,7 +231,23 @@
 	var againIntegeration = function(id, obj) {
 		var $td = $(obj).closest('td');
 		$.get('project/again-integeration/' + id).done(function() {
-			$td.html('&nbsp;&nbsp;<div style="position: relative;top: -10px;" onclick="showProjectMsg(' + id + ', this)"><img alt="正在整合工具" src="images/loading.gif" style="width: 35px; height:35px;"></img></div>');
+			$td.html('&nbsp;&nbsp;<div title="正在整合工具" style="position: relative;top: -10px;" onclick="showProjectMsg(' + id + ', this)"><img alt="正在整合工具" src="images/loading.gif" style="width: 35px; height:35px;"></img></div>');
+			var intervalId = setInterval(function() {
+				$.get('project/detail/' + id).done(function(project) {
+					switch(project.projectStatus) {
+						case 'SUCCESS':
+							$td.html('<span class="glyphicon glyphicon-ok" style="color:#5CB85C;"></span>');
+							clearInterval(intervalId);
+							break;
+						case 'INTEGRATION_TOOL_FAILURE':
+							$td.html('&nbsp;&nbsp;<span class="glyphicon glyphicon-remove" style="color:#D9534F;"></span>&nbsp;&nbsp;<a href="#" onclick="againIntegeration(' + id + ', this)">重新整合</a>');
+							clearInterval(intervalId);
+							break;
+						default:
+							break;
+					}
+				});
+			}, 2000);
 		});
 	}
 	var againSendemail = function(id) {
