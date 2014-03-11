@@ -117,7 +117,7 @@
 				titleHtml.push('<th index="'+i+'" width="');
 				if(width.match(widthRgExp)){
 					width = width.replace('px', '');
-					totalColumnWidth += parseInt(width);
+					totalColumnWidth += parseInt(self.scale*parseInt(width));
 					titleHtml.push(self.scale*parseInt(width) + 'px"');
 				}else{
 					titleHtml.push(self.scale*column.width+'"');
