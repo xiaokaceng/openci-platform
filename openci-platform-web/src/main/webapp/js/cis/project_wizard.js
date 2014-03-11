@@ -31,10 +31,16 @@
 		this.prevBtn = this.$element.find('#prevBtn');
 		this.complateBtn = this.$element.find('#complateBtn');
 		this.nextBtn.off().on('click.bs.wizard', function(e) {
+			var $this = $(this);
+			if($this.hasClass('disabled')){
+				return;
+			}
+			$(this).addClass('disabled');
 			e.preventDefault();
 			var $this = $(this);
 			var form = $(self.pages[self.options.step]).find('form');
 			if (form.length > 0 && !Validator.Validate(form[0], 3)) {
+				$this.removeClass('disabled');
 				return;
 			}
 			if (self.options.step == 0) {
@@ -46,7 +52,8 @@
 				} else {
 					var reg = /[\u0391-\uFFE5]+/;
 			    	if (reg.test(projectName.val())) {
-			    		showErrorMessage($('body'), projectName, '项目名称不支持中文');
+			    		showErrorMessage($('body'), projectName, '项目名称不合法');
+			    		$this.removeClass('disabled');
 			    		return;
 			    	}
 					$.get('project/is-exist/' + projectName.val()).done(function(result) {
@@ -56,6 +63,7 @@
 								content : '项目名称已经存在'
 							});
 							projectName.focus();
+							$this.removeClass('disabled');
 						}else{
 							self.next();
 							self.$element.trigger('step' + self.options.step);
@@ -68,6 +76,7 @@
 						type : 'warning',
 						content : '请添加模块'
 					});
+					$this.removeClass('disabled');
 				}else{
 					self.next();
 					self.$element.trigger('step' + self.options.step);	
@@ -78,11 +87,13 @@
 						type : 'warning',
 						content : '请添加开发者'
 					});
+					$this.removeClass('disabled');
 				}else if(self.$element.find('#developerGrid').find('[data-role="isLeader"].checked').length == 0){
 					self.$element.find('#developerGrid').message({
 						type : 'warning',
 						content : '请选择Leader'
 					});
+					$this.removeClass('disabled');
 				}else{
 					self.next();
 					self.$element.trigger('step' + self.options.step);
@@ -92,10 +103,15 @@
 				self.$element.trigger('step' + self.options.step);
 			}
 		});
-		this.prevBtn.off().hide().on('click.bs.wizard', $.proxy(function(e) {
+		this.prevBtn.off().hide().on('click.bs.wizard', function(e) {
+			var $this = $(this);
+			if($this.hasClass('disabled')){
+				return;
+			}
+			$(this).addClass('disabled');
 			e.preventDefault();
-			this.prev();
-		}, this));
+			self.prev();
+		});
 		this.complateBtn.off().hide().on('click.bs.wizard', $.proxy(function(e) {
 			e && e.preventDefault();
 			this.$element.trigger('complate');
@@ -117,26 +133,27 @@
 		that.items.animate(n, that.options.speed, that.options.swing, function() {
 			that.ul.find('li').eq(page.index() + 1).find('a').tab('show');
 			that.options.step++;
+			$(self.nextBtn).removeClass('disabled');
 		});
 	};
 
 	Wizard.prototype.prev = function(e) {
-		var that = this;
-		if (that.options.step != that.options.totalSteps - 2) {
-			that.nextBtn.show();
-			that.complateBtn.hide();
+		var self = this;
+		if (self.options.step != self.options.totalSteps - 2) {
+			self.nextBtn.show();
+			self.complateBtn.hide();
 		}
-		if (that.options.step == 1) {
-			that.prevBtn.hide();
+		if (self.options.step == 1) {
+			self.prevBtn.hide();
 		}
-		var page = $(this.pages[this.options.step]);
+		var page = $(self.pages[self.options.step]);
 		var n = {
 			left : page.outerWidth() - page.position().left
 		};
-		that.items.animate(n, that.options.speed, that.options.swing, function() {
-			that.ul.find('li').eq(page.index() - 1).find('a').tab('show');
-			that.options.step--;
-			console.info(that.options.step)
+		self.items.animate(n, self.options.speed, self.options.swing, function() {
+			self.ul.find('li').eq(page.index() - 1).find('a').tab('show');
+			self.options.step--;
+			$(self.prevBtn).removeClass('disabled');
 		});
 	};
 
