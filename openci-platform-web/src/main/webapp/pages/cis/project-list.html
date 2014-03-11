@@ -52,7 +52,7 @@
 			name : 'projectSavePath',
 			width : 200,
 			render : function(item, name, index) {
-				return '<button class="btn btn-primary" type="button" onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"><span>详细</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" type="button" onclick="deleteProject(' + item.id + ')"><span class="glyphicon glyphicon-remove"><span>删除</button>';
+				return '<button class="btn btn-primary btn-sm" style="padding: 4px 10px;" type="button" onclick="showProjectDetail(' + item.id + ')"><span class="glyphicon glyphicon-search"><span>详细</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-danger btn-sm" style="padding: 4px 10px;"  type="button" onclick="deleteProject(' + item.id + ')"><span class="glyphicon glyphicon-remove"><span>删除</button>';
 			}
 		}];
 		$('#projectGrid').grid({
