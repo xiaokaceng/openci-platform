@@ -142,7 +142,7 @@ var developerManager = {
 		if(!Validation.notNull(dialog, email, email.val(), '请输入邮箱')){
 			return false;
 		}
-		if(!Validation.email(dialog, email, email.val(), '邮箱格式不正确')){
+		if(!Validation.email(dialog, email, email.val().replace(/(^\s*)|(\s*$)/g,""), '邮箱格式不正确')){
 			return false;
 		}
 		return true;
@@ -159,7 +159,7 @@ var developerManager = {
 		data['developerId'] = self.developerId.val();
 		data['name'] = self.name.val();
 		data['password'] = self.password.val();
-		data['email'] = self.email.val();
+		data['email'] = self.email.val().replace(/(^\s*)|(\s*$)/g,"");
 		if(item){
 			data['id'] = item.id;	
 		}
